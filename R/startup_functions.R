@@ -61,7 +61,7 @@ load_packages <- function() {
       "tidyverse", "testthat", "cli", "rlang", "crayon",
       "assertthat", "lubridate", "rmarkdown", "bookdown",
       "sf", "validate", "status", "plotly",
-      "patchwork", "future", "purrr", "promises"
+      "patchwork", "future", "purrr", "promises", "ggdist"
     )
 
     for (p in pkgs) {

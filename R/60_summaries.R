@@ -14,81 +14,22 @@ module_summaries <- function() {
   ## saved to data_path/summaries/report_card_scores.rds
   report_card_scores <- compile_scores()
 
-  scores <- tribble(
-    ~s_scale, ~m_scale, ~extra, ~file
-  )
-
-  ## Zone/Measure/Source level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Zone", m_scale = "Measure", extra = "Source",
-      file = tbl_zone_measure_source(report_card_scores, data)
-    )
-  )
-
-  ## Zone/Measure/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Zone", m_scale = "Measure", extra = "",
-      file = tbl_zone_measure(report_card_scores, data)
-    )
-  )
-
-  ## Zone/Subindicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Zone", m_scale = "Subindicator", extra = "",
-      file = tbl_zone_subindicator(report_card_scores, data)
-    )
-  )
+  ## Collate score files
+  scores_files <- collate_score_files(report_card_scores, data)
   
-  ## Zone/Indicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Zone", m_scale = "Indicator", extra = "",
-      file = tbl_zone_indicator(report_card_scores, data)
-    )
-  )
+  ## Generate trend plots
+  report_card_trend_plots <- generate_trend_plots(report_card_scores, data)
 
-  ## Region/Subindicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Region", m_scale = "Subindicator", extra = "",
-      file = tbl_region_subindicator(report_card_scores, data)
-    )
-  )
+  ## Calculate effects 
+  report_card_effects <- calculate_effects(scores_files)
 
-  ## Region/Indicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Region", m_scale = "Indicator", extra = "",
-      file = tbl_region_indicator(report_card_scores, data)
-    )
-  )
+  ## Generate effects plots
+  report_card_effects_plots <- generate_effects_plots(report_card_effects, data)
 
-  ## WH/Subindicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Wh", m_scale = "Subindicator", extra = "",
-      file = tbl_wh_subindicator(report_card_scores, data)
-    )
-  )
-
-  ## WH/Indicator/ level
-  scores <- bind_rows(
-    scores,
-    data.frame(
-      s_scale = "Wh", m_scale = "Indicator", extra = "",
-      file = tbl_wh_indicator(report_card_scores, data)
-    )
-  )
+  ## Stack plots together
+  report_card_trend_plots$trend_plot[[2]] /
+  (report_card_effects_plots$annual_effects_plots[[2]] +
+  report_card_effects_plots$period_effects_plots[[2]])
   
 }
 
@@ -165,6 +106,102 @@ compile_scores <- function() {
   item_ = "summaries_compile_scores",
   )
   return(report_card_scores)
+}
+
+
+##' Collate score files
+##'
+##' Collate score files
+##' @title Collate score files
+##' @param report_card_scores a tibble of the compiled scores
+##' @param data a list of data frames
+##' @return a tibble of the collated score files
+##' @author Murray Logan
+collate_score_files <- function(report_card_scores, data) {
+  scores <- tribble(
+    ~s_scale, ~m_scale, ~extra, ~file, ~boot_file,
+  )
+
+  ## Zone/Measure/Source level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Zone", m_scale = "Measure", extra = "Source",
+      file = tbl_zone_measure_source(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_zone_measure_source_boot.rds")
+    )
+  )
+
+  ## Zone/Measure/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Zone", m_scale = "Measure", extra = "",
+      file = tbl_zone_measure(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_zone_measure_boot.rds")
+    )
+  )
+
+  ## Zone/Subindicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Zone", m_scale = "Subindicator", extra = "",
+      file = tbl_zone_subindicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_zone_subindicator_boot.rds")
+    )
+  )
+  
+  ## Zone/Indicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Zone", m_scale = "Indicator", extra = "",
+      file = tbl_zone_indicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_zone_indicator_boot.rds")
+    )
+  )
+
+  ## Region/Subindicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Region", m_scale = "Subindicator", extra = "",
+      file = tbl_region_subindicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_region_subindicator_boot.rds")
+    )
+  )
+
+  ## Region/Indicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Region", m_scale = "Indicator", extra = "",
+      file = tbl_region_indicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_region_indicator_boot.rds")
+    )
+  )
+
+  ## WH/Subindicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Wh", m_scale = "Subindicator", extra = "",
+      file = tbl_wh_subindicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_wh_subindicator_boot.rds")
+    )
+  )
+
+  ## WH/Indicator/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Wh", m_scale = "Indicator", extra = "",
+      file = tbl_wh_indicator(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_wh_indicator_boot.rds")
+    )
+  )
+  return(scores)
 }
 
 tbl_zone_measure_source <- function(report_card_scores, data) {
@@ -479,4 +516,514 @@ tbl_wh_indicator <- function(report_card_scores, data) {
   item_ = "summaries_wh_indicator",
   )
   return(file_path)
+}
+
+trend_plot <- function(dat, label, ylabel, title_label) {
+    g <-
+      dat |>
+      mutate(grade = generate_grades(Boot.Mean)) |>
+      mutate(grade = factor(grade, levels = LETTERS[1:5])) |>
+      ggplot(aes(x = Year, y = Boot.Mean)) +
+      geom_hline(yintercept = 0.85, linetype = "dashed") +
+      geom_hline(yintercept = 0.65, linetype = "dashed") +
+      geom_hline(yintercept = 0.5, linetype = "dashed") +
+      geom_hline(yintercept = 0.25, linetype = "dashed") +
+      geom_line() +
+      geom_pointrange(aes(ymin = Lower, ymax = Upper, fill = grade),
+        shape = 21,
+        show.legend = c(fill = TRUE)
+      ) +
+      scale_y_continuous(ylabel, limits = c(0, 1), expand = c(0, 0.02)) +
+      scale_fill_manual("Grade",
+        breaks = LETTERS[1:5],
+        values = reportcards::RC_reportCardColors[1:5],
+        limits = LETTERS[1:5],
+        drop = FALSE) +
+      ggtitle(title_label) +
+      theme_bw()
+    ## file_str <- paste0(output_path, "/figures/summaries/", label, ".png") 
+    ## ggsave(
+    ##   filename = file_str,
+    ##   plot = g,
+    ##   width = 8,
+    ##   height = 8/1.6,
+    ##   dpi = 300
+    ## )
+  return(g)
+}
+
+make_labels <- function(effects, data) {
+  effects |> 
+    left_join(
+      data$guidelines |>
+        dplyr::select(Measure, UnitsLabel, Label) |>
+        distinct(),
+      by = "Measure",
+      relationship = "many-to-many"
+    ) |>
+    mutate(title_m_label = case_when(
+      !is.na(Measure) ~ paste(UnitsLabel),
+      !is.na(Subindicator) ~ Subindicator,
+      !is.na(Indicator) ~ Indicator,
+      !is.na(Component) ~ Component
+    )) |>
+    mutate(title_m_label = ifelse(!is.na(Source),
+      paste0(title_m_label, " (", Source, ")"),
+      title_m_label
+    )) |>
+    ## need to join the spatial scales separately
+    left_join(
+      data$spatial |>
+        dplyr::select(Zone, ZoneName) |>
+        distinct(),
+      by = c("Zone"),
+      relationship = "many-to-many"
+    ) |>
+    left_join(
+      data$spatial |>
+        dplyr::select(Region, RegionName) |>
+        distinct(),
+      by = c("Region"),
+      relationship = "many-to-many"
+    ) |>
+    mutate(title_s_label = case_when(
+      !is.na(Zone) ~ paste0("(", Zone, ") ", ZoneName),
+      !is.na(Region) ~ paste0("(", Region, ") ", RegionName),
+      is.na(Region) & is.na(Zone) ~ "Whole Harbour"
+    )) |>
+    mutate(title_label = paste0(title_s_label, " ", title_m_label)) |>
+    mutate(file_str = paste(
+      Component,
+      Indicator, Subindicator, Measure,
+      RegionName, ZoneName, Source,
+      sep = "__"
+    )) |>
+    mutate(file_str = str_replace_all(file_str, "NA", " ")) 
+}
+
+generate_trend_plots <- function(report_card_scores, data) {
+  status::status_try_catch(
+  {
+  report_card_plots <-
+    report_card_scores |>
+    make_labels(data) |> 
+    mutate(file_str = paste0("trend___", file_str)) |>
+    dplyr::select(-m_level, -s_level) |>
+    group_by(across(c(-Year, -Lower, -Upper, -Boot.Mean))) |>
+    nest() |>
+    mutate(trend_plot = pmap(
+      .l = list(data, file_str, title_label),
+      .f = ~ {
+        dat <- ..1
+        file_str <- ..2
+        title_label <- ..3
+        trend_plot(dat, file_str, ylabel = "Index", title_label)
+      }
+    )) |>
+    mutate(trend_plot_files = pmap(
+      .l = list(trend_plot, file_str),
+      .f = ~ {
+        g <- ..1
+        label <- ..2
+        file_str <- paste0(output_path, "/figures/summaries/", label, ".png")
+        ggsave(
+          filename = file_str,
+          plot = g,
+          width = 8,
+          height = 8 / 1.6,
+          dpi = 300
+        )
+        return(file_str)
+      }
+    ))
+  },
+  stage_ = 8,
+  name_ = "Trend plots",
+  item_ = "summaries_trend_plots",
+  )
+  return(report_card_plots)
+}
+
+calculate_effects <- function(scores_files) {
+  status::status_try_catch(
+  {
+    effects <-
+      scores_files |>
+      dplyr::select(s_scale, m_scale, boot_file) |>
+      ## create a new column (data) with the full posteriors of all
+      ## within this s_scale and m_scale
+      mutate(data = map(boot_file, ~ readRDS(.x)$dist)) |>
+      ## add a new nested column (data) with the posterior samples
+      mutate(data = map(
+        data,
+        ~ {
+          .x |>
+            group_by(across(c(-Score, -Year))) |>
+            nest() |>
+            mutate(data = map(
+              data,
+              ~ .x |>
+                group_by(Year) |>
+                mutate(.draw = 1:n())
+            ))
+        }
+      )) |>
+      ## add annual_effects nested within data/
+      mutate(data = map(
+        data,
+        ~ {
+          .x |>
+            mutate(annual_effects = map(
+              .x = data,
+              .f = ~ {
+                yrs <- .x |>
+                  pull(Year) |>
+                  unique()
+                xmat <- make_contrast_matrix_annual(yrs)
+                effects <- .x |>
+                  ungroup() |>
+                  group_by(.draw) |>
+                  mutate(
+                    effect = c(NA, t(Score %*% xmat)),
+                    contrast = c(yrs[1], colnames(xmat)),
+                    ## val2 = lead(Score),
+                    Year = Year,
+                    val2 = Score,
+                    val1 = c(NA, Score[-length(Score)]),
+                    grade1 = as.numeric(factor(generate_grades(val1))),
+                    grade2 = as.numeric(factor(generate_grades(val2))),
+                    ## grade2 = as.numeric(generate_grades(val2))#,
+                    ## grade1 = as.numeric(generate_grades(val1))#,
+                    grade_diff = grade2 - grade1  ## keep in mind that high score = low numeric factor grade
+                  ) |>
+                  ungroup()
+                effects
+              }
+            ))
+        }
+      )) |>
+      ## add annual_effects_sum nested within data/
+      mutate(data = map(
+        data,
+        ~ {
+          .x |>
+            mutate(annual_effects_sum = map(annual_effects,
+              .f = ~ {
+                .x |>
+                  group_by(Year, contrast) |>
+                  summarise(
+                    lower = quantile(effect, 0.025, na.rm = TRUE),
+                    upper = quantile(effect, 0.975, na.rm = TRUE),
+                    Pl = mean(effect < 0),
+                    Pg = mean(effect > 0),
+                    effect = mean(effect),
+                    val2_lower = quantile(val2, 0.025),
+                    val2_upper = quantile(val2, 0.975),
+                    val2 = mean(val2),
+                    val1 = mean(val1),
+                    Pgl = mean(grade_diff > 0),
+                    Pgg = mean(grade_diff < 0),
+                    grade_diff = mean(grade_diff),
+                    .groups = "keep"
+                  ) |>
+                  dplyr::select(effect, everything()) |>
+                  ungroup()
+              }
+            ))
+        }
+      )) |>
+      ## add period_effects nested within data/
+      mutate(data = map(
+        data,
+        ~ {
+          .x |>
+            mutate(period_effects = map(
+              .x = data,
+              .f = ~ {
+                yrs <- .x |>
+                  pull(Year) |>
+                  unique()
+                xmat <- make_contrast_matrix_year_span(yrs, span = 5)
+                xmat_1 <- xmat_2 <- xmat
+                xmat_2[xmat_2 > 0] <- 0
+                xmat_2[xmat_2 < 0] <- abs(xmat_2[xmat_2 < 0])
+                xmat_1[xmat_1 < 0] <- 0
+                effects <- .x |>
+                  ungroup() |>
+                  group_by(.draw) |>
+                  reframe(
+                    effect = t(Score %*% xmat),
+                    contrast = colnames(xmat),
+                    val2 = t(Score %*% xmat_2),
+                    val1 = t(Score %*% xmat_1),
+                    grade2 = as.numeric(factor(generate_grades(val2))),
+                    grade1 = as.numeric(factor(generate_grades(val1))),
+                    grade_diff = grade2 - grade1
+                  ) |>
+                  ungroup()
+                effects
+              }
+            ))
+        }
+      )) |>
+      ## add period_effects_sum nested within data/
+      mutate(data = map(
+        data,
+        ~ {
+          .x |>
+            mutate(period_effects_sum = map(period_effects,
+              .f = ~ {
+                .x |>
+                  group_by(contrast) |>
+                  summarise(
+                    lower = quantile(effect, 0.025, na.rm = TRUE),
+                    upper = quantile(effect, 0.975, na.rm = TRUE),
+                    Pl = mean(effect < 0),
+                    Pg = mean(effect > 0),
+                    effect = mean(effect),
+                    Pgl = mean(grade_diff > 0),
+                    Pgg = mean(grade_diff < 0),
+                    grade_diff = mean(grade_diff),
+                    .groups = "keep"
+                  ) |>
+                  dplyr::select(effect, everything()) |>
+                  ungroup()
+              }
+            ))
+        }
+      ))
+    
+    ## create a label to use as filenames
+    ## I tried to do this within a mutate map, but it alsowas
+    ## seems to lose scope
+    cols <- c(
+      "Component" = NA,
+      "Indicator" = NA, "Subindicator" = NA, "Measure" = NA,
+      "Region" = NA, "Zone" = NA, "Source" = NA
+    )
+    effects$data <-
+      effects$data |>
+      purrr::map(~tibble::add_column(., !!!cols[!names(cols) %in% names(.)]))
+    effects |>
+      mutate(data = map(
+        data,
+        ~ .x |>
+          mutate(label = paste(Component,
+            Indicator, Subindicator, Measure, Region, Zone, Source,
+            sep = "__"
+          ))
+      ))
+  },
+  stage_ = 8,
+  name_ = "Calculate effects",
+  item_ = "summaries_calculate_effects",
+  )
+  return(effects)
+}
+
+make_contrast_matrix_annual <- function(yrs) {
+  contrast_matrix <- matrix(0, nrow = length(yrs), ncol = length(yrs) - 1)
+
+  # Fill the contrast matrix to compare each year to the previous one
+  for (i in 2:length(yrs)) {
+    contrast_matrix[i, i - 1] <- 1  # Current year
+    contrast_matrix[i - 1, i - 1] <- -1  # Previous year
+  }
+
+  # Assign row and column names for clarity
+  rownames(contrast_matrix) <- yrs
+  colnames(contrast_matrix) <- paste(yrs[-1], "vs", yrs[-length(yrs)])
+  return(contrast_matrix)  
+}
+make_contrast_matrix_year_span <- function(yrs, span = 5) {
+  if (span > length(yrs)) {
+    span <- length(yrs)
+  }
+  periods <- ceiling((yrs - min(yrs) + 1) / span)
+  unique_periods <- unique(periods)
+  
+  # Initialize a contrast matrix
+  contrast_matrix <- matrix(0, nrow = length(yrs), ncol = length(unique_periods) - 1)
+  
+  # Fill the contrast matrix to compare each five-year period to the previous one
+  for (i in 2:length(unique_periods)) {
+    tot_1 <- length(periods[periods == unique_periods[i - 1]])
+    tot_2 <- length(periods[periods == unique_periods[i]])
+    current_period <- unique_periods[i]
+    previous_period <- unique_periods[i - 1]
+    
+    # Assign 1 to rows in the current period and -1 to rows in the previous period
+    contrast_matrix[periods == current_period, i - 1] <- 1/tot_2
+    contrast_matrix[periods == previous_period, i - 1] <- -1/tot_1
+  }
+  
+  # Assign row and column names for clarity
+  rownames(contrast_matrix) <- yrs
+
+  period_ranges <- sapply(unique_periods, function(p) {
+    period_years <- yrs[periods == p]
+    if (length(period_years) == 1) {
+      as.character(period_years)  # Single year
+    } else {
+      paste0(min(period_years), "-", max(period_years))  # Year range
+    }
+  })
+  colnames(contrast_matrix) <- paste(
+    paste0(period_ranges[-1], " vs\n", period_ranges[-length(period_ranges)])
+    ## paste0(yrs[unique(range(which(unique_periods[-1] %in% periods)))], collapse = "-"),
+    ## "vs",
+    ## paste0(yrs[unique(range(which(unique_periods[-length(unique_periods)] == periods)))], collapse = "-")
+    ## paste0("Period_", unique_periods[-1]),
+    ## "vs",
+    ## paste0("Period_", unique_periods[-length(unique_periods)])
+  )
+  return(contrast_matrix)
+}
+
+generate_effects_plots <- function(effects, data) {
+  status::status_try_catch(
+  {
+    effects_plots <- 
+      effects |>
+      ungroup() |>
+      dplyr::select(data) |>
+      unnest(data) |>
+      ## make the labels
+      make_labels(data) |> 
+      ## annual effects plots
+      mutate(file_strg = paste0("annual_effects___", file_str)) |>
+      mutate(annual_effects_plots = pmap(
+        .l = list(annual_effects_sum, annual_effects, file_strg, title_label),
+        ~ {
+          effects_sum <- ..1
+          effects_posteriors <- ..2
+          file_str <- ..3
+          title_label <- ..4
+          effects_plot(effects_sum, effects_posteriors, file_str, title_label)
+        }
+      )) |> 
+      mutate(annual_effects_plots_files = pmap(
+        .l = list(annual_effects_plots, file_strg),
+        ~ {
+          g <- ..1
+          file_str <- ..2
+          file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
+          ggsave(
+            filename = file_str,
+            plot = g,
+            width = 8,
+            height = 6,
+            dpi = 300
+          )
+          return(file_str)
+        }
+      )) |> 
+      ## period effects plots
+      mutate(file_strg = paste0("period_effects___", file_str)) |>
+      mutate(period_effects_plots = pmap(
+        .l = list(period_effects_sum, period_effects, file_strg, title_label),
+        ~ {
+          effects_sum <- ..1
+          effects_posteriors <- ..2
+          file_str <- ..3
+          title_label <- ..4
+          effects_plot(effects_sum, effects_posteriors, file_str, title_label)
+        }
+      )) |> 
+      mutate(period_effects_plots_files = pmap(
+        .l = list(period_effects_plots, file_strg),
+        ~ {
+          g <- ..1
+          file_str <- ..2
+          file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
+          ggsave(
+            filename = file_str,
+            plot = g,
+            width = 8,
+            height = 6,
+            dpi = 300
+          )
+          return(file_str)
+        }
+      ))  
+  },
+  stage_ = 8,
+  name_ = "Effects plots",
+  item_ = "summaries_effects_plots",
+  )
+  return(effects_plots)
+  
+}
+
+effects_plot <- function(effects_sum, effects_posteriors, file_str, title_label) {
+  bc_sum <- effects_sum |>
+    filter(!is.na(effect)) |> 
+    mutate(flag = ifelse(Pl > 0.90 & effect < 0, "decline",
+      ifelse(Pg > 0.90 & effect > 0, "increase", "neutral")
+    )) |>
+    mutate(p_label = ifelse(effect < 0,
+      sprintf("P(Δi<0)=%.3f", Pl),
+      sprintf("P(Δi>0)=%.3f", Pg)
+    )) |> 
+    mutate(pg_label = ifelse(effect < 0,
+      sprintf("P(Δg<0)=%.3f", Pgl),
+      sprintf("P(Δg>0)=%.3f", Pgg)
+    )) 
+
+  xlims <- c(min(bc_sum$lower)*1.25, max(bc_sum$upper)*1.25)
+  xlims <- max(abs(xlims))
+  xlims <- c(-xlims, xlims)
+
+  g <-
+    effects_posteriors |>
+    filter(!is.na(effect)) |>
+    left_join(bc_sum |>
+                ## dplyr::select(contrast, Year, Pl, Pg, flag, p_label),
+      ## by = c("Year", "contrast")) |>
+                dplyr::select(contrast, Pl, Pg, flag, p_label),
+      by = c("contrast")) |>
+    mutate(flag = factor(flag, levels = c("decline", "neutral", "increase"))) |>
+    ggplot(aes(y = contrast, x = effect)) +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    ## stat_slab() +
+    stat_slab(aes(fill = flag),
+      normalize = "groups",
+      height = 1.1,
+      expand = TRUE,
+      trim = TRUE,
+      density = "bounded",
+      adjust = 1,
+      ## density = "histogram",
+      width = 0.95,
+      alpha = 0.6,
+      fill_type = "segments",
+      show.legend = c(fill = TRUE, width = FALSE)
+    ) +
+    stat_slabinterval(
+      position = position_dodge(width = 0.5, preserve = "total"),
+      height = 0,
+      fill = "white",
+      ## point_size = 0,
+      show.legend = c(size = FALSE)
+    ) +
+    geom_text(data = bc_sum, aes(label = p_label), nudge_y = 0.3, hjust = 0.5, size = 3) +
+    geom_text(data = bc_sum, aes(label = pg_label), nudge_y = 0.6, hjust = 0.5, size = 3) +
+    ggtitle(title_label) +
+    theme_bw() +
+    scale_color_manual("Trend",
+      values = c(
+        "decline" = reportcards::RC_reportCardColors[5],
+        "increase" = reportcards::RC_reportCardColors[1],
+        "neutral" = "grey"),
+      limits = c("decline", "neutral", "increase")) +
+    scale_fill_manual("Trend",
+      values = c(
+        "decline" = reportcards::RC_reportCardColors[5],
+        "increase" = reportcards::RC_reportCardColors[1],
+        "neutral" = "grey"),
+      limits = c("decline", "neutral", "increase")) +
+    scale_x_continuous("Change in index", limits =  xlims) +
+    scale_y_discrete("") 
+  ## parts <- parse_label_to_parts(label)
+  return(g)
 }
