@@ -140,6 +140,12 @@ RUN R -e "options(repos = \
   remotes::install_github('AIMS/reportcards'); \
 "
 
+## Project specific packages
+RUN R -e "options(repos = \
+  list(CRAN = 'https://packagemanager.posit.co/cran/2025-02-01/')); \
+  remotes::install_github('open-AIMS/status'); \
+"
+
 RUN apt-get clean
 
 RUN mkdir /home/project
