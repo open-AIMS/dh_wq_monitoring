@@ -19,6 +19,7 @@ if (options()$browser == "") options(browser = "chromium")
 unloadNamespace("status")
 #detach(package:status)
 library(status)
+library(reportcards)
 
 source("shiny/ui.R")
 source("shiny/server.R")

@@ -15,6 +15,9 @@ module_load_data <- function() {
   guidelines <- read_guidelines_data(params_path)
   saveRDS(guidelines, file = paste0(data_path, "primary/guidelines.rds"))
 
+  ## get the names of wq files
+  ## wq_files <- get_input_data_file_names(input_path)
+
   ## read in the raw data
   wq <- read_input_data(input_path)
   saveRDS(wq, file = paste0(data_path, "primary/wq.rds"))
@@ -37,7 +40,10 @@ module_load_data <- function() {
   spatial <- read_other_data(params_path, type = "spatial.csv")
   saveRDS(spatial, file = paste0(data_path, "primary/spatial.rds"))
 
-  data <- list(wq = wq, guidelines = guidelines,
+  data <- list(
+    ## wq_files = wq_files,
+    wq = wq,
+    guidelines = guidelines,
     overwrites = overwrites,
     weights_m = weights_m,
     weights_s = weights_s,
@@ -68,6 +74,20 @@ module_load_data <- function() {
   ## spatial_lookup <- make_spatial_lookup(spatial)
   ## saveRDS(spatial_lookup, file = paste0(data_path, "primary/spatial_lookup.RData"))
   ## saveRDS(spatial_lookup, file = paste0(data_path, "processed/spatial_lookup.RData"))
+
+  ## make filename lookup
+  filename_lookup <- tribble(
+    ~type, ~name, ~path,
+    "wq", names(wq), paste0(input_path, names(wq)),
+    "overwrites", "overwrites", paste0(input_path, "overwrites.csv"),
+    "guidelines", "guidelines", paste0(params_path, "water_quality_guidelines.csv"),
+    "weights_m", "weights_m", paste0(input_path, "weights_m.csv"),
+    "weights_s", "weights_s", paste0(input_path, "weights_s.csv"),
+    "hierarchy", "hierarchy", paste0(input_path, "hierarchy.csv"),
+    "spatial", "spatial", paste0(params_path, "spatial.csv"),
+    ) |>
+    unnest(c(name, path))
+  saveRDS(filename_lookup, file = paste0(data_path, "primary/filename_lookup.rds"))
 }
 
 ##' Read in guidelines (csv files) from the nominated input_path folder
@@ -96,6 +116,31 @@ read_guidelines_data <- function(params_path) {
   item_ = "read_guidelines_data"
   )
   return(guidelines)
+}
+
+##' Get the filenames of the wq data (csv files) from the nominated input_path folder
+##'
+##' Get the filenames of the wq data (csv files) from the nominated input_path folder
+##' sheets
+##' @title Get input data filenames
+##' @param input_path character representing the path from which to read the input data files
+##' @return a named vector of filenames
+##' @author Murray Logan
+##' @export
+get_input_data_file_names <- function(input_path) {
+  status::status_try_catch(
+  {
+    wq_files <- list.files(input_path,
+      pattern = "[0-9]*_wq.csv",
+      full.names = TRUE
+    )
+    wq_files <- setNames(wq_files, basename(wq_files))
+  },
+  stage_ = 2,
+  name_ = "Get input data",
+  item_ = "get_input_data"
+  )
+  return(wq_files)
 }
 
 ##' Read in data (csv files) from the nominated input_path folder

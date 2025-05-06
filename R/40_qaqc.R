@@ -30,6 +30,7 @@ module_qaqc <- function() {
 
   ## Generate boxplots in timeseries 
   qaqc_ts(data)
+
 }
 
 
@@ -57,6 +58,29 @@ qaqc_outliers_plots <- function(data) {
   )
   invisible(return(NULL))
 }
+
+##' QAQC Outliers Plots
+##'
+##' QAQC Outliers Plots
+##' @title QAQC Outliers Plots
+##' @param data a list containing an item called "wq_long" that contains
+##' a tibble representing the water quality data
+##' @return a side effect of looping through each year and calling a function that builds and saves a plot to the output directory
+##' @author Murray Logan
+##' @export
+qaqc_outliers_plot <- function(data, sample_type) {
+  spatial <- data$spatial
+  flname <- paste0("waterQAQC_", sample_type)
+
+  ## loop through each year and generate a plot
+  walk(
+    .x = data$wq_long$Year |> unique(),
+    .f = ~ {
+      qaqc_outliers_plot_(data = data, year = .x, sample_type = sample_type)
+    }
+  )
+}
+
 ##' QAQC Outliers Plot
 ##'
 ##' QAQC Outliers Plot
@@ -66,12 +90,13 @@ qaqc_outliers_plots <- function(data) {
 ##' @return a side effect of saving a plot to the output directory
 ##' @author Murray Logan
 ##' @export
-qaqc_outliers_plot <- function(data, sample_type) {
+qaqc_outliers_plot_ <- function(data, year, sample_type) {
     spatial <- data$spatial
-    flname <- paste0("waterQAQC_", sample_type)
+    flname <- paste0("waterQAQC_", sample_type, "_", year)
 
     dat <- data$wq_long |>
-      filter(Year == Focal_Year) |>
+      ## filter(Year == Focal_Year) |>
+      filter(Year == year) |>
       droplevels() |>
       mutate(Label = gsub("(.*)\\~(\\(.*\\))", "atop(\\1,\\2)", Label)) |>
       dplyr::select(-Zone) |> 
@@ -242,7 +267,7 @@ qaqc_boxplots <- function(data) {
     spatial <- data$spatial
 
     dat <- data$wq_long |>
-      filter(Year == Focal_Year) |>
+      ## filter(Year == Focal_Year) |>
       droplevels() |> 
       ## left_join(spatial |>
       ##             dplyr::select(Zone, HexColor),
@@ -253,7 +278,7 @@ qaqc_boxplots <- function(data) {
       mutate(Source = ifelse(Source == "Discrete", "Discrete", "CFM")) 
 
     dat_plots <- dat |>
-      nest(.by = Zone) |>
+      nest(.by = c(Zone, Year)) |>
       mutate(g = map(.x = data,
         .f =  ~ {
           guides <- .x |>
@@ -282,34 +307,55 @@ qaqc_boxplots <- function(data) {
               panel.background = element_rect(fill = NA, color = "black"))
         }
       ))
-    walk2(dat_plots$Zone, dat_plots$g,
+    ## walk2(dat_plots$Zone, dat_plots$g,
+    pwalk(list(dat_plots$Zone, dat_plots$Year, dat_plots$g),
       .f = ~ {
-        set_panel_size(p = .y, file = paste0(output_path, "figures/QAQC/wq_boxplot_Zone_", .x, ".png"),
+        zn <- ..1
+        yr <- ..2
+        g <- ..3
+        set_panel_size(p = g, file = paste0(output_path, "figures/QAQC/wq_boxplot_Zone_", zn, "_", yr, ".png"),
           width = unit(6, "cm"), height = unit(6, "cm")) |> 
           suppressMessages() |> suppressWarnings()
       })
 
     
-    p <-
-      dat |> 
-      ## data$wq_long |> 
+    dat_plots <-
+      dat |>
+      ## data$wq_long |>
       ## filter(Year == Focal_Year) |>
-      ## droplevels() |> 
-      mutate(Sources = ifelse(Source == "Discrete", "Discrete", "CFM")) |> 
-      mutate(Zone = factor(Zone)) |> 
-      ggplot(aes(y = Value, x = Zone)) +
-      geom_boxplot(aes(fill = Sources)) +
-      facet_wrap(~Subindicator+Label, scales = "free", labeller = label_parsed) +
-      theme_classic() +
-      theme(strip.background = element_rect(fill = NA, color = "#ffffff"),
-        ## axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        panel.background = element_rect(fill = NA, color = "black")) + 
-      scale_y_log10("")
+      ## droplevels() |>
+      mutate(Sources = ifelse(Source == "Discrete", "Discrete", "CFM")) |>
+      mutate(Zone = factor(Zone)) |>
+      nest(.by = c(Year)) |>
+      mutate(g = map(
+        .x = data,
+        .f = ~ {
+          .x |>
+            ggplot(aes(y = Value, x = Zone)) +
+            geom_boxplot(aes(fill = Sources)) +
+            facet_wrap(~ Subindicator + Label, scales = "free", labeller = label_parsed) +
+            theme_classic() +
+            theme(
+              strip.background = element_rect(fill = NA, color = "#ffffff"),
+              ## axis.title.x = element_blank(),
+              axis.title.y = element_blank(),
+              panel.background = element_rect(fill = NA, color = "black")
+            ) +
+            scale_y_log10("")
+        }
+      ))
 
-    set_panel_size(p = p, file = paste0(output_path, "figures/QAQC/wq_boxplot.png"),
-      width = unit(6, "cm"), height = unit(6, "cm")) |> 
-      suppressMessages() |> suppressWarnings()
+    pwalk(list(dat_plots$Year, dat_plots$g),
+      .f = ~ {
+        yr <- ..1
+        g <- ..2
+        set_panel_size(p = g, file = paste0(output_path, "figures/QAQC/wq_boxplot_", yr, ".png"),
+          width = unit(6, "cm"), height = unit(6, "cm")) |> 
+          suppressMessages() |> suppressWarnings()
+      })
+    ## set_panel_size(p = p, file = paste0(output_path, "figures/QAQC/wq_boxplot.png"),
+    ##   width = unit(6, "cm"), height = unit(6, "cm")) |> 
+    ##   suppressMessages() |> suppressWarnings()
   
   },
   stage_ = 6,

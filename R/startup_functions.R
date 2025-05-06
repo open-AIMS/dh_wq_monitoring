@@ -61,7 +61,7 @@ load_packages <- function() {
       "tidyverse", "testthat", "cli", "rlang", "crayon",
       "assertthat", "lubridate", "rmarkdown", "bookdown",
       "sf", "validate", "status", "plotly",
-      "patchwork", "future", "purrr", "promises", "ggdist"
+      "patchwork", "future", "purrr", "promises" ##, "ggdist"
     )
 
     for (p in pkgs) {
@@ -158,8 +158,8 @@ define_paths <- function() {
     add_setting(element = "docs_path", item = docs_path, name = "Documents path")
 
     ## location of the model_logs_file
-    assign("model_log_file", paste0(data_path, "modelled/log_models.log"), env = .GlobalEnv)
-    add_setting(element = "model_log_file", item = model_log_file, name = "Model Logs file")
+    ## assign("model_log_file", paste0(data_path, "modelled/log_models.log"), env = .GlobalEnv)
+    ## add_setting(element = "model_log_file", item = model_log_file, name = "Model Logs file")
     
   },
   stage_ = 1,
@@ -317,10 +317,10 @@ prepare_paths <- function() {
 
     if (!dir.exists(docs_path)) dir.create(docs_path)
 
-    if (file.exists(model_log_file)) {
-      unlink(model_log_file)
-    }
-    file.create(model_log_file)
+    ## if (file.exists(model_log_file)) {
+    ##   unlink(model_log_file)
+    ## }
+    ## file.create(model_log_file)
     },
   stage_ = 1,
   name_ = "Prepare paths",
