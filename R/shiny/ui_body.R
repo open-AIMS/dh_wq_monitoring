@@ -217,11 +217,13 @@ summary {
    color: #fff;
    border-color: #cf4d03;
 }
+
     '
 )) 
 body <- dashboardBody(
         tag_styles,
         # callout_style,
+
         tabItems(
                 ## ## settings_tab,
                 ## Settings tab

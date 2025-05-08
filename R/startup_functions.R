@@ -61,7 +61,7 @@ load_packages <- function() {
       "tidyverse", "testthat", "cli", "rlang", "crayon",
       "assertthat", "lubridate", "rmarkdown", "bookdown",
       "sf", "validate", "status", "plotly",
-      "patchwork", "future", "purrr", "promises" ##, "ggdist"
+      "patchwork", "future", "purrr", "promises", "bslib" ##, "ggdist"
     )
 
     for (p in pkgs) {
@@ -156,6 +156,10 @@ define_paths <- function() {
     ## location of folder containing generated documents
     assign("docs_path", "../docs/", env = .GlobalEnv)
     add_setting(element = "docs_path", item = docs_path, name = "Documents path")
+
+    ## location of folder containing generated documents
+    assign("progress_path", data_path, env = .GlobalEnv)
+    add_setting(element = "progress_path", item = progress_path, name = "Progress path")
 
     ## location of the model_logs_file
     ## assign("model_log_file", paste0(data_path, "modelled/log_models.log"), env = .GlobalEnv)

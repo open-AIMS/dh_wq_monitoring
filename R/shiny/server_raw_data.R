@@ -1,25 +1,41 @@
 source("10_load_data.R")
 
 uploaded_files <- reactiveVal(list())
-output$uploaded_files_table <- reactable::renderReactable(uploaded_files()$data)
-## Trigger to run 10_load_data.R
-observeEvent(input$runLoadCode, {
-  ## Run the load data module
-  ## - reads in the data
-  ## - validates the data
-  module_load_data()
-  
-  raw_data <- readRDS(file = paste0(data_path, "primary/data.rds"))
-  raw_data_validation <- readRDS(file = paste0(data_path, "primary/data_validation.RData"))
-  filename_lookup <- readRDS(file = paste0(data_path, "primary/filename_lookup.rds"))
-  ## uploaded_files(list(data = raw_data_to_reactable(raw_data, raw_data_validation)))
-  uploaded_files(list(data = raw_data_to_reactable(raw_data, raw_data_validation, filename_lookup)))
-
-  toggle_buttons(status_$status, stage =  1, bttn1 = "runLoadCode", bttn2 = "runProcessCode")
-  
-  shinyjs::enable(selector = "a[data-value='data']")
-  addCssClass(selector = "a[data-value='data']", class = "activeLink")
+output$uploaded_files_table <- reactable::renderReactable({
+  promise_load$result()$data
 })
+
+promise_load <- ExtendedTask$new(function() {
+  future_promise({
+    print(status_file)
+    print(log_file)
+    print(box_width)
+    print(project_name)
+    module_load_data()
+    raw_data <- readRDS(file = paste0(data_path, "primary/data.rds"))
+    raw_data_validation <- readRDS(file = paste0(data_path, "primary/data_validation.RData"))
+    filename_lookup <- readRDS(file = paste0(data_path, "primary/filename_lookup.rds"))
+    data <- raw_data_to_reactable(raw_data, raw_data_validation, filename_lookup)
+    list(
+      data = data,
+      raw_data = raw_data,
+      raw_data_validation = raw_data_validation,
+      filename_lookup = filename_lookup
+    )
+  }) |>
+    then(\(result) {
+      toggle_buttons(status_$status, stage = 1, bttn1 = "runLoadCode", bttn2 = "runProcessCode")
+      shinyjs::enable(selector = "a[data-value='data']")
+      addCssClass(selector = "a[data-value='data']", class = "activeLink")
+      result
+    })
+}) |>
+  bslib::bind_task_button("runLoadCode")
+
+observeEvent(input$runLoadCode, {
+  promise_load$invoke()
+})
+
 
 ## Make a trigger associated with clicking rows of the uploaded data table
 observeEvent(input[["rowClicked"]], {

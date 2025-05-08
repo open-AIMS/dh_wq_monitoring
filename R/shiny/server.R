@@ -19,4 +19,5 @@ server <- function(input, output, session) {
   ## source("shiny/server_analysis_overview.R", local = TRUE)
   ## source("shiny/server_analysis_diagnostics.R", local = TRUE)
   ## source("shiny/server_analysis_details.R", local = TRUE)
+  source("shiny/server_test.R", local = TRUE)
 }

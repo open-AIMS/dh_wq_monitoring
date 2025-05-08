@@ -59,6 +59,24 @@ qaqc_outliers_plots <- function(data) {
   invisible(return(NULL))
 }
 
+
+## library(progress)
+## file_progress_handler <- function(total, progress_file) {
+##   # Create a progress bar object
+##   ## pb <- progress_bar$new(
+##   ##   format = "[:bar] :current/:total (:percent)",
+##   ##   total = total,
+##   ##   clear = FALSE,
+##   ##   width = 60
+##   ## )
+  
+##   # Return a function that updates the progress bar and writes to the file
+##   function(i) {
+##    ## pb$tick()  # Update the progress bar in the console
+##     writeLines(as.character(i), progress_file)  # Write progress to the file
+##   }
+## }
+
 ##' QAQC Outliers Plots
 ##'
 ##' QAQC Outliers Plots
@@ -72,13 +90,24 @@ qaqc_outliers_plot <- function(data, sample_type) {
   spatial <- data$spatial
   flname <- paste0("waterQAQC_", sample_type)
 
+  ## ## progress_file <- paste0(tempdir(), "/progress.log")
+  progress_file <- paste0(data_path, "/progress.log")
+  ## print(progress_file)
+  if (file.exists(progress_file)) {
+    file.remove(progress_file)
+  }
   ## loop through each year and generate a plot
+  n_yr <- data$wq_long$Year |>
+    unique() |>
+    length()
   walk(
     .x = data$wq_long$Year |> unique(),
     .f = ~ {
       qaqc_outliers_plot_(data = data, year = .x, sample_type = sample_type)
-    }
-  )
+      i <- which(data$wq_long$Year |> unique() == .x)
+      cat(paste("QAQC outliers plots,", sample_type, " samples,", i, ",", n_yr, "\n"), file = progress_file, append = TRUE)
+    },
+    )
 }
 
 ##' QAQC Outliers Plot
@@ -266,6 +295,12 @@ qaqc_boxplots <- function(data) {
   {
     spatial <- data$spatial
 
+    progress_file <- paste0(data_path, "/progress.log")
+    ## print(progress_file)
+    if (file.exists(progress_file)) {
+      file.remove(progress_file)
+    }
+
     dat <- data$wq_long |>
       ## filter(Year == Focal_Year) |>
       droplevels() |> 
@@ -306,16 +341,24 @@ qaqc_boxplots <- function(data) {
               axis.title.y = element_blank(),
               panel.background = element_rect(fill = NA, color = "black"))
         }
-      ))
+      )) |>
+      mutate(i = 1:n(), total = max(i))
     ## walk2(dat_plots$Zone, dat_plots$g,
-    pwalk(list(dat_plots$Zone, dat_plots$Year, dat_plots$g),
+    pwalk(list(dat_plots$Zone, dat_plots$Year, dat_plots$g, dat_plots$i, dat_plots$total),
       .f = ~ {
         zn <- ..1
         yr <- ..2
         g <- ..3
+        i <- ..4
+        total <- ..5
         set_panel_size(p = g, file = paste0(output_path, "figures/QAQC/wq_boxplot_Zone_", zn, "_", yr, ".png"),
           width = unit(6, "cm"), height = unit(6, "cm")) |> 
           suppressMessages() |> suppressWarnings()
+
+        cat(paste("QAQC boxplots,", paste0("Zone ", zn, " ", yr), ", ", i, ",", total, "\n"),
+          file = progress_file,
+          append = TRUE
+        )
       })
 
     
@@ -343,15 +386,22 @@ qaqc_boxplots <- function(data) {
             ) +
             scale_y_log10("")
         }
-      ))
+      )) |> 
+      mutate(i = 1:n(), total = max(i))
 
-    pwalk(list(dat_plots$Year, dat_plots$g),
+    pwalk(list(dat_plots$Year, dat_plots$g, dat_plots$i, dat_plots$total),
       .f = ~ {
         yr <- ..1
         g <- ..2
+        i <- ..3
+        total <- ..4
         set_panel_size(p = g, file = paste0(output_path, "figures/QAQC/wq_boxplot_", yr, ".png"),
           width = unit(6, "cm"), height = unit(6, "cm")) |> 
           suppressMessages() |> suppressWarnings()
+        cat(paste("QAQC boxplots,", paste0(yr), ", ", i, ",", total, "\n"),
+          file = progress_file,
+          append = TRUE
+        )
       })
     ## set_panel_size(p = p, file = paste0(output_path, "figures/QAQC/wq_boxplot.png"),
     ##   width = unit(6, "cm"), height = unit(6, "cm")) |> 
