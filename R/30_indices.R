@@ -9,7 +9,8 @@
 module_indices <- function() {
   status::status_set_stage(stage = 5, title = "Calculate indices")
 
-  data <- readRDS(file = paste0(data_path, "processed/data.rds"))
+  ## data <- readRDS(file = paste0(data_path, "processed/data.rds"))
+  data <- indices_load_data(file = paste0(data_path, "processed/data.rds"))
 
   ## Calculate indices
   #######################################################################
@@ -22,8 +23,8 @@ module_indices <- function() {
   #######################################################################
   data_idx <- indices(data = data)
 
-  saveRDS(data_idx, file=paste0(data_path, "/processed/indices/data_idx.rds"))
-  write_csv(data_idx, file=paste0(data_path, "/processed/indices/data_idx.csv"))
+  saveRDS(data_idx, file = paste0(data_path, "/processed/indices/data_idx.rds"))
+  write_csv(data_idx, file = paste0(data_path, "/processed/indices/data_idx.csv"))
 
   ## Prepare for bootstrapping
   ##############################################################
@@ -35,6 +36,27 @@ module_indices <- function() {
 
   rm(list = ls(pattern = c("data", "data_idx", "data_boot_zone")))
   invisible(gc())
+}
+
+##' Load data for indices calculations
+##'
+##' Load data for indices calculations
+##' @title Load data for indices calculations
+##' @param file a filename (and path) for the R data file to load
+##' @return data a list containing an item called "wq_long" that contains
+##' a tibble representing the water quality data
+##' @author Murray Logan
+##' @export
+indices_load_data <- function(file = paste0(data_path, "processed/data.rds")) {
+  status::status_try_catch(
+  {
+    data <- readRDS(file)
+  },
+  stage_ = 5,
+  name_ = "Load data",
+  item_ = "indices_load_data",
+  )
+  return(data)
 }
 
 ##' Indices

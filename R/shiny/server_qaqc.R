@@ -1,49 +1,5 @@
 source("40_qaqc.R")
 
-progress_vals <- reactiveVal(list(count = 0, total = 10, label = ""))
-progress <- shiny::Progress$new()
-
-# Update the progress bar and text
-observe({
-  progress_log_reactive()
-  updateProgressBar(session,
-    id = "progress_bar", value = progress_vals()$count,
-    total = progress_vals()$total,
-    title = progress_vals()$label
-  )
-})
-
-progress_log_reactive <- reactivePoll(1000, session,
-  # This function returns the time that log_file was last modified
-  checkFunc = function() {
-    ## progress_file <- paste0(tempdir(), "/progress.log")
-    progress_file <- paste0(data_path, "/progress.log")
-    if (file.exists(progress_file))
-      file.info(progress_file)$mtime[1]
-    else
-      ""
-  },
-  # This function returns the content of the status terminal output
-  valueFunc = function() {
-    ## progress_file <- paste0(tempdir(), "/progress.log")
-    progress_file <- paste0(data_path, "/progress.log")
-    if (file.exists(progress_file)) {
-      rl <- readLines(progress_file, warn = FALSE)
-
-      progress_data <- strsplit(rl[length(rl)], ",")[[1]]
-      current <- as.numeric(progress_data[3])
-      total <- as.numeric(progress_data[4])
-      label <- paste0(progress_data[1], ":<br> ", progress_data[2])
-        progress_vals(list(count = current, total = total, label = label)) # Update progress as a percentage
-      rl[length(rl)]
-    } else {
-      progress_vals(list(count = 0, total = 10, label = ""))
-      ""
-    }
-  }
-)
-
-
 ## Observations
 output$qaqc_obs <- renderUI({
   data <- promise_qaqc$result()$data 
@@ -253,6 +209,7 @@ promise_qaqc <- ExtendedTask$new(function() {
       shinyjs::enable(selector = "a[data-value='qaqc']")
       addCssClass(selector = "a[data-value='qaqc']", class = "activeLink")
       shinyjs::toggle(id = paste0("overlay_div"))
+      ## progress_log_reactive(NULL)  # kill the reactive poll
       result
     })
 }) |>
@@ -264,6 +221,7 @@ observeEvent(input$runQAQCCode, {
     file.remove(progress_file)
   }
   shinyjs::toggle(id = paste0("overlay_div"))
+  removeCssClass(selector = "div[class='progress-group hidden']", class = "hidden")
   promise_qaqc$invoke()
 })
 

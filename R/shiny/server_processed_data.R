@@ -40,12 +40,15 @@ promise_process <- ExtendedTask$new(function() {
   }) |>
     then(\(result) {
       toggle_buttons(status_$status, stage =  3, bttn1 = "runProcessCode", bttn2 = "runIndicesCode")
+      shinyjs::toggle(id = paste0("overlay_div"))
       result
     })
 }) |>
   bslib::bind_task_button("runProcessCode")
 
 observeEvent(input$runProcessCode, {
+  shinyjs::toggle(id = paste0("overlay_div"))
+  addCssClass(selector = "div[class='progress-group']", class = "hidden")
   promise_process$invoke()
 })
 

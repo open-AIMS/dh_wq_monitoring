@@ -74,6 +74,10 @@ position:absolute;
 .progress-number {
  color:black;
 }
+
+.hidden {
+ display:none;
+}
     ")),
     menuItem("Landing", tabName = "landing", icon = icon("home")),
     menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
@@ -101,7 +105,8 @@ div(style = "position: relative;",
     class = "btn-disabled"),
   actionButton("runSummariesCode", "Run Stage 8",
     icon = icon("play"),
-    class = "btn-disabled"),
+    ## class = "btn-disabled"),
+    class = "btn-enabled"),
 
   ## actionButton("runEDACode", "Run Stage 4", icon = icon("play"), class = "btn-disabled"),
   ## actionButton("runAnalysisCode", "Run Stage 5", icon = icon("play"))
@@ -139,7 +144,7 @@ color: black;
       width = 12,
       solidHeader = TRUE,
       status = "info",
-      p("This is a relatively slow set of tasks.  The progress of each task will be illustrated below.", style = "color:black; text-wrap:auto; text-align:left;"),
+      p("Some tasks are relatively slow. This box will remain until the task is complete.  When relevant, a progress bar will track the progression of a task.", style = "color:black; text-wrap:auto; text-align:left;"),
       progressBar(id = "progress_bar", value = 0, total = 10),  # Progress bar
       #verbatimTextOutput("log_output")  ## note, this has a style defined in styles.R
     )

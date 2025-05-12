@@ -1,5 +1,6 @@
 source("10_load_data.R")
 
+
 uploaded_files <- reactiveVal(list())
 output$uploaded_files_table <- reactable::renderReactable({
   promise_load$result()$data
@@ -27,12 +28,16 @@ promise_load <- ExtendedTask$new(function() {
       toggle_buttons(status_$status, stage = 1, bttn1 = "runLoadCode", bttn2 = "runProcessCode")
       shinyjs::enable(selector = "a[data-value='data']")
       addCssClass(selector = "a[data-value='data']", class = "activeLink")
+      shinyjs::toggle(id = paste0("overlay_div"))
       result
     })
 }) |>
   bslib::bind_task_button("runLoadCode")
 
 observeEvent(input$runLoadCode, {
+  shinyjs::toggle(id = paste0("overlay_div"))
+  addCssClass(selector = "div[class='progress-group']", class = "hidden")
+  ## shinyjs::toggle(id = paste0("progress-group"))
   promise_load$invoke()
 })
 

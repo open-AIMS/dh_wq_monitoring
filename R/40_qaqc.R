@@ -10,14 +10,15 @@
 module_qaqc <- function() {
   status::status_set_stage(stage = 6, title = "QAQC")
 
-  data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
-  data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+  ## data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
+  ## data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
 
-  data$wq_long <- data$wq_long |>
-    mutate(Subindicator = gsub(" ", "~", Subindicator)) 
-  data_idx <- data_idx |>
-    mutate(Subindicator = gsub(" ", "~", Subindicator)) |>
-    dplyr::select(Subindicator)
+  ## data$wq_long <- data$wq_long |>
+  ##   mutate(Subindicator = gsub(" ", "~", Subindicator)) 
+  ## data_idx <- data_idx |>
+  ##   mutate(Subindicator = gsub(" ", "~", Subindicator)) |>
+  ##   dplyr::select(Subindicator)
+  data <- qaqc_load_data()
 
   ## Generate QAQC outlier plots
   qaqc_outliers_plots(data = data)
@@ -33,7 +34,31 @@ module_qaqc <- function() {
 
 }
 
+##' QAQC load data
+##'
+##' QAQC load data
+##' @title QAQC load data
+##' @return a list containing the data 
+##' @author Murray Logan
+##' @export
+qaqc_load_data <- function() {
+  status::status_try_catch(
+  {
+    data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
+    data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
 
+    data$wq_long <- data$wq_long |>
+      mutate(Subindicator = gsub(" ", "~", Subindicator)) 
+    data_idx <- data_idx |>
+      mutate(Subindicator = gsub(" ", "~", Subindicator)) |>
+      dplyr::select(Subindicator)
+  },
+  stage_ = 6,
+  name_ = "QAQC load data",
+  item_ = "qaqc_load_data",
+  )
+  return(data)
+}
 
 
 ##' QAQC Outliers Plots

@@ -8,7 +8,8 @@
 module_summaries <- function() {
   status::status_set_stage(stage = 8, title = "Summaries")
 
-  data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+  ## data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+  data <-  summaries_load_data(file = paste0(data_path, "/processed/data.rds"))
 
   ## Compile report card scores
   ## saved to data_path/summaries/report_card_scores.rds
@@ -31,6 +32,19 @@ module_summaries <- function() {
   (report_card_effects_plots$annual_effects_plots[[2]] +
   report_card_effects_plots$period_effects_plots[[2]])
   
+}
+
+
+summaries_load_data <- function(file = paste0(data_path, "processed/data.rds")) {
+  status::status_try_catch(
+  {
+    data <- readRDS(file)
+  },
+  stage_ = 8,
+  name_ = "Load data",
+  item_ = "summaries_load_data",
+  )
+  return(data)
 }
 
 generate_grades <- function(x) {
@@ -604,9 +618,13 @@ make_labels <- function(effects, data) {
 generate_trend_plots <- function(report_card_scores, data) {
   status::status_try_catch(
   {
+  progress_file <- paste0(data_path, "/progress.log")
+  if (file.exists(progress_file)) {
+    file.remove(progress_file)
+  }
   report_card_plots <-
     report_card_scores |>
-    make_labels(data) |> 
+    make_labels(data) |>
     mutate(file_str = paste0("trend___", file_str)) |>
     dplyr::select(-m_level, -s_level) |>
     group_by(across(c(-Year, -Lower, -Upper, -Boot.Mean))) |>
@@ -620,11 +638,15 @@ generate_trend_plots <- function(report_card_scores, data) {
         trend_plot(dat, file_str, ylabel = "Index", title_label)
       }
     )) |>
+    ungroup() |> 
+    mutate(count = 1:n(), total = max(count)) |> 
     mutate(trend_plot_files = pmap(
-      .l = list(trend_plot, file_str),
+      .l = list(trend_plot, file_str, count, total),
       .f = ~ {
         g <- ..1
         label <- ..2
+        i <- ..3
+        total <- ..4
         file_str <- paste0(output_path, "/figures/summaries/", label, ".png")
         ggsave(
           filename = file_str,
@@ -633,6 +655,7 @@ generate_trend_plots <- function(report_card_scores, data) {
           height = 8 / 1.6,
           dpi = 300
         )
+        cat(paste("Trend plots,", ",", i, ",", total, "\n"), file = progress_file, append = TRUE)
         return(file_str)
       }
     ))
@@ -647,11 +670,16 @@ generate_trend_plots <- function(report_card_scores, data) {
 calculate_effects <- function(scores_files) {
   status::status_try_catch(
   {
+    progress_file <- paste0(data_path, "/progress.log")
+    if (file.exists(progress_file)) {
+      file.remove(progress_file)
+    }
     effects <-
       scores_files |>
       dplyr::select(s_scale, m_scale, boot_file) |>
       ## create a new column (data) with the full posteriors of all
       ## within this s_scale and m_scale
+      mutate(count = 1:n(), total = max(count)) |> 
       mutate(data = map(boot_file, ~ readRDS(.x)$dist)) |>
       ## add a new nested column (data) with the posterior samples
       mutate(data = map(
@@ -669,10 +697,13 @@ calculate_effects <- function(scores_files) {
         }
       )) |>
       ## add annual_effects nested within data/
-      mutate(data = map(
-        data,
+      mutate(data = pmap(
+        list(data, count, total),
         ~ {
-          .x |>
+          i <- ..2
+          total <- ..3
+          eff <-
+            ..1 |>
             mutate(annual_effects = map(
               .x = data,
               .f = ~ {
@@ -700,13 +731,17 @@ calculate_effects <- function(scores_files) {
                 effects
               }
             ))
+          cat(paste("Calculate Effects,", "annual,", i, ",", total, "\n"), file = progress_file, append = TRUE)
+          eff
         }
       )) |>
       ## add annual_effects_sum nested within data/
-      mutate(data = map(
-        data,
+      mutate(data = pmap(
+        list(data, count, total),
         ~ {
-          .x |>
+          i <- ..2
+          total <- ..3
+          eff <- ..1 |>
             mutate(annual_effects_sum = map(annual_effects,
               .f = ~ {
                 .x |>
@@ -730,13 +765,17 @@ calculate_effects <- function(scores_files) {
                   ungroup()
               }
             ))
+          cat(paste("Calculate Effects,", "annual summaries,", i, ",", total, "\n"), file = progress_file, append = TRUE)
+          eff
         }
       )) |>
       ## add period_effects nested within data/
-      mutate(data = map(
-        data,
+      mutate(data = pmap(
+        list(data, count, total),
         ~ {
-          .x |>
+          i <- ..2
+          total <- ..3
+          eff <- ..1 |>
             mutate(period_effects = map(
               .x = data,
               .f = ~ {
@@ -764,13 +803,17 @@ calculate_effects <- function(scores_files) {
                 effects
               }
             ))
+          cat(paste("Calculate Effects,", "contrasts,", i, ",", total, "\n"), file = progress_file, append = TRUE)
+          eff
         }
       )) |>
       ## add period_effects_sum nested within data/
-      mutate(data = map(
-        data,
+      mutate(data = pmap(
+        list(data, count, total),
         ~ {
-          .x |>
+          i <- ..2
+          total <- ..3
+          eff <- ..1 |>
             mutate(period_effects_sum = map(period_effects,
               .f = ~ {
                 .x |>
@@ -790,6 +833,8 @@ calculate_effects <- function(scores_files) {
                   ungroup()
               }
             ))
+          cat(paste("Calculate Effects,", "contrast summaries,", i, ",", total, "\n"), file = progress_file, append = TRUE)
+          eff
         }
       ))
     
@@ -891,6 +936,7 @@ generate_effects_plots <- function(effects, data) {
       ## make the labels
       make_labels(data) |> 
       ## annual effects plots
+      mutate(count = 1:n(), total = max(count)) |>
       mutate(file_strg = paste0("annual_effects___", file_str)) |>
       mutate(annual_effects_plots = pmap(
         .l = list(annual_effects_sum, annual_effects, file_strg, title_label),
@@ -903,10 +949,12 @@ generate_effects_plots <- function(effects, data) {
         }
       )) |> 
       mutate(annual_effects_plots_files = pmap(
-        .l = list(annual_effects_plots, file_strg),
+        .l = list(annual_effects_plots, file_strg, count, total),
         ~ {
           g <- ..1
           file_str <- ..2
+          i <- ..3
+          total <- ..4
           file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
           ggsave(
             filename = file_str,
@@ -915,6 +963,7 @@ generate_effects_plots <- function(effects, data) {
             height = 6,
             dpi = 300
           )
+          cat(paste("Effects plot,", "annual,", i, ",", total, "\n"), file = progress_file, append = TRUE)
           return(file_str)
         }
       )) |> 
@@ -931,10 +980,12 @@ generate_effects_plots <- function(effects, data) {
         }
       )) |> 
       mutate(period_effects_plots_files = pmap(
-        .l = list(period_effects_plots, file_strg),
+        .l = list(period_effects_plots, file_strg, count, total),
         ~ {
           g <- ..1
           file_str <- ..2
+          i <- ..3
+          total <- ..4
           file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
           ggsave(
             filename = file_str,
@@ -944,6 +995,7 @@ generate_effects_plots <- function(effects, data) {
             dpi = 300
           )
           return(file_str)
+          cat(paste("Effects plot,", "contrasts,", i, ",", total, "\n"), file = progress_file, append = TRUE)
         }
       ))  
   },

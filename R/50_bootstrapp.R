@@ -25,8 +25,10 @@
 module_boot <- function() {
   status::status_set_stage(stage = 7, title = "Bootstrapping")
 
-  data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
-  data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+  ## data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
+  data_idx <-  boot_load_indices(file = paste0(data_path, "/processed/indices/data_idx.rds"))
+  ## data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+  data <-  boot_load_data(file = paste0(data_path, "/processed/data.rds"))
 
   data$overwrites <- process_overwrites(data$overwrites)
   data$weights_m <- process_weights(data$weights_m)
@@ -120,6 +122,109 @@ module_boot <- function() {
   figs <- bootstrap_figures(data_idx_wh_measure_boot, data,
     m_level = "Measure", s_level = "WH")
   
+}
+
+##' Bootstrap load data
+##'
+##' Bootstrap load data
+##' @title Bootstrap load data
+##' @param file a file name
+##' @return a data set
+##' @author Murray Logan
+boot_load_data <- function(file) {
+  status::status_try_catch(
+  {
+    data <-  readRDS(file)
+  },
+  stage_ = 7,
+  name_ = "Load data",
+  item_ = "boot_load_data",
+  )
+  return(data)
+}
+##' Bootstrap load indices
+##'
+##' Bootstrap load indices
+##' @title Bootstrap load indices
+##' @param file a file name
+##' @return a data set
+##' @author Murray Logan
+boot_load_indices <- function(file) {
+  status::status_try_catch(
+  {
+    data_idx <-  readRDS(file)
+  },
+  stage_ = 7,
+  name_ = "Load indices",
+  item_ = "boot_load_indices",
+  )
+  return(data_idx)
+}
+
+##' Process overwrites
+##'
+##' Process overwrites
+##' If you want something excluded at the Whole of Harbour level,
+##' then dont indicate a ZONE or Site - that means all ZONEs and Sites
+##' @title Process overwrites
+##' @param overwrites data frame of overwrites
+##' @return a data.frame/tibble containing the processed overwrites 
+##' @author Murray Logan
+##' @export
+process_overwrites <- function(overwrites) {
+  status::status_try_catch(
+  {
+    overwrites <-
+      overwrites |>
+      dplyr::select(everything(), Grade = overwrittenGrade) |>
+      dplyr::mutate(Source = as.character(Source)) |>
+      dplyr::select(Component, IndicatorGroup, Indicator, Subindicator,
+        Measure, Source, Region, Zone, Grade) |>
+      dplyr::mutate(Grade = ifelse(is.na(Grade),'-',as.character(Grade)),
+        Score = grades2scores(Grade))
+
+    if (nrow(overwrites)>0) overwrites[overwrites == ''] <- NA
+
+    overwrites <- overwrites |> dplyr::arrange(Component,
+      IndicatorGroup, Indicator, Subindicator, Measure, Source,
+      Grade, Score)
+    ## Remove IndicatorGroup since this does not apply to Darwin Harbour
+    overwrites <- overwrites |>
+      dplyr::select(-IndicatorGroup)
+    ## Make the Source consistent
+    overwrites <- overwrites |>
+      mutate(Source == ifelse(Source == "Discrete", "Discrete", "CFM"))
+    overwrites
+  },
+  stage_ = 7,
+  name_ = "Process overwrites",
+  item_ = "process_overwrites",
+  )
+  return(overwrites)
+}
+
+##' Process weights
+##'
+##' Process weights
+##' @title Process weights
+##' @param weights data frame of weights
+##' @return a data.frame/tibble containing the processed weights 
+##' @author Murray Logan
+##' @export
+process_weights <- function(weights) {
+  status::status_try_catch(
+  {
+    weights |>
+      dplyr::select(Component, IndicatorGroup,
+        Indicator, Subindicator, Measure, Region, Zone, Weight) |>
+      dplyr::arrange(Component, IndicatorGroup, Indicator,
+        Subindicator, Measure, Weight)
+  },
+  stage_ = 7,
+  name_ = "Process weights",
+  item_ = "process_weights",
+  )
+  return(weights)
 }
 
 ##' Bootstrap Zone/Measure/Source level
@@ -421,72 +526,6 @@ boot_wh_measure <- function(data_boot, data) {
   item_ = "boot_wh_measure",
   )
   return(boot)
-}
-
-##' Process overwrites
-##'
-##' Process overwrites
-##' If you want something excluded at the Whole of Harbour level,
-##' then dont indicate a ZONE or Site - that means all ZONEs and Sites
-##' @title Process overwrites
-##' @param overwrites data frame of overwrites
-##' @return a data.frame/tibble containing the processed overwrites 
-##' @author Murray Logan
-##' @export
-process_overwrites <- function(overwrites) {
-  status::status_try_catch(
-  {
-    overwrites <-
-      overwrites |>
-      dplyr::select(everything(), Grade = overwrittenGrade) |>
-      dplyr::mutate(Source = as.character(Source)) |>
-      dplyr::select(Component, IndicatorGroup, Indicator, Subindicator,
-        Measure, Source, Region, Zone, Grade) |>
-      dplyr::mutate(Grade = ifelse(is.na(Grade),'-',as.character(Grade)),
-        Score = grades2scores(Grade))
-
-    if (nrow(overwrites)>0) overwrites[overwrites == ''] <- NA
-
-    overwrites <- overwrites |> dplyr::arrange(Component,
-      IndicatorGroup, Indicator, Subindicator, Measure, Source,
-      Grade, Score)
-    ## Remove IndicatorGroup since this does not apply to Darwin Harbour
-    overwrites <- overwrites |>
-      dplyr::select(-IndicatorGroup)
-    ## Make the Source consistent
-    overwrites <- overwrites |>
-      mutate(Source == ifelse(Source == "Discrete", "Discrete", "CFM"))
-    overwrites
-  },
-  stage_ = 7,
-  name_ = "Process overwrites",
-  item_ = "process_overwrites",
-  )
-  return(overwrites)
-}
-
-##' Process weights
-##'
-##' Process weights
-##' @title Process weights
-##' @param weights data frame of weights
-##' @return a data.frame/tibble containing the processed weights 
-##' @author Murray Logan
-##' @export
-process_weights <- function(weights) {
-  status::status_try_catch(
-  {
-    weights |>
-      dplyr::select(Component, IndicatorGroup,
-        Indicator, Subindicator, Measure, Region, Zone, Weight) |>
-      dplyr::arrange(Component, IndicatorGroup, Indicator,
-        Subindicator, Measure, Weight)
-  },
-  stage_ = 7,
-  name_ = "Process weights",
-  item_ = "process_weights",
-  )
-  return(weights)
 }
 
 
