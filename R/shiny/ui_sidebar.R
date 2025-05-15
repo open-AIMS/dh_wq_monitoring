@@ -14,6 +14,9 @@ sidebar <- dashboardSidebar(
                            text-align:left !important;
                            width: 130px;
                            }
+.sidebar-menu {
+overflow: visible;
+}
 
 .overlay-disabled {
   display: none;
@@ -85,7 +88,7 @@ position:absolute;
     menuItem("Data", tabName = "data", icon = icon("file-excel")),
     menuItem("QAQC", tabName = "qaqc", icon = icon("chart-column")),
     ## menuItem("Exploratory Data Analysis", tabName = "eda", icon = icon("chart-column")),
-    menuItem("Analysis", tabName = "analysis", icon = icon("calculator")),
+    menuItem("Summaries", tabName = "summaries", icon = icon("calculator")),
     menuItem("Manual", tabName = "manual", icon=icon("mortar-board")),
 hr(),
 div(style = "position: relative;",
@@ -105,17 +108,17 @@ div(style = "position: relative;",
     class = "btn-disabled"),
   actionButton("runSummariesCode", "Run Stage 8",
     icon = icon("play"),
-    ## class = "btn-disabled"),
-    class = "btn-enabled"),
+    class = "btn-disabled"),
+    ## class = "btn-enabled"),
 
   ## actionButton("runEDACode", "Run Stage 4", icon = icon("play"), class = "btn-disabled"),
   ## actionButton("runAnalysisCode", "Run Stage 5", icon = icon("play"))
   ## actionButton("runAnalysisCode", "Run Stage 5", icon = icon("play"), class = "btn-disabled")
-  actionButton("runTestCode", "Run Test", icon = icon("play"), class = "btn-enabled"),
-  textOutput("current_time", inline=TRUE),
+  ## actionButton("runTestCode", "Run Test", icon = icon("play"), class = "btn-enabled"),
+  ## textOutput("current_time", inline=TRUE),
   ## progressBar(id = "progress_bar", value = 0, total = 10),  # Progress bar
   ## textOutput("progress_text"),  # Display progress as text
-  textOutput("sum"),
+  ## textOutput("sum"),
 
   div(id = "overlay_div", class = "overlay-disabled1",
     ## style = "margin-top: auto; margin-bottom:0px;",
@@ -125,7 +128,7 @@ color: black;
             top: 0;
             left: 0;
             width: 220px;
-            height: 250px;
+            height: 350px;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             display: none;  /* Initially hidden */

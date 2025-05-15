@@ -38,7 +38,7 @@ initialize <- function() {
   ## status::status_try_catch(
   ## {
      ## status::status_initialize(pkgs = "sedMod")
-     status::status_initialize(box_width = 100)
+     status::status_initialize(box_width = 100, project_name = "Water Quality Analysis Tool")
   ## },
   ## stage_ = 1,
   ## name_ = "Initialise status",

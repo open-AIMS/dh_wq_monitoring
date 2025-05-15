@@ -2,7 +2,7 @@ source("shiny/ui_body_landing.R")
 source("shiny/ui_body_dashboard.R")
 source("shiny/ui_body_data.R")
 source("shiny/ui_body_qaqc.R")
-## source("shiny/ui_body_analysis.R")
+source("shiny/ui_body_summaries.R")
 ## source("shiny/ui_body_manual.R")
 
 tag_styles <- tags$style(HTML(
@@ -223,7 +223,6 @@ summary {
 body <- dashboardBody(
         tag_styles,
         # callout_style,
-
         tabItems(
                 ## ## settings_tab,
                 ## Settings tab
@@ -233,10 +232,9 @@ body <- dashboardBody(
                 ## Data tab
                 data_tab,
                 ## QAQC tab
-                qaqc_tab
-                ## ## EDA
-                ## eda_tab,
-                ## analysis_tab,
+                qaqc_tab,
+                ## Summaries tab
+                summaries_tab
                 ## manual_tab
         )
 )

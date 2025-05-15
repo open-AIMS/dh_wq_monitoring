@@ -2,7 +2,15 @@ source("40_qaqc.R")
 
 ## Observations
 output$qaqc_obs <- renderUI({
-  data <- promise_qaqc$result()$data 
+  ## data <- promise_qaqc$result()$data 
+  ## yrs <- promise_qaqc$result()$data_obs |>
+  ##   pull(Year) |> unique() |> sort()
+  if (file.exists(paste0(data_path, "processed/qaqc_files_obs.rds"))) {
+    yrs <- readRDS(file = paste0(data_path, "processed/qaqc_files_obs.rds")) |>
+      pull(Year) |> unique() |> sort()
+  } else {
+    yrs <- promise_qaqc$result()$data_obs |> pull(Year) |> unique() |> sort()
+  }
   qaqctabs <- lapply(
     c("all", "CFM", "Discrete"),
     function(x) {
@@ -37,7 +45,8 @@ output$qaqc_obs <- renderUI({
       class = "vertical-tab-menu",
       style = "padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #ddd;",
       selectInput("year_selector", "Sampling year:",
-        choices = sort(unique(data$wq_long$Year)),
+        ## choices = sort(unique(data$wq_long$Year)),
+        choices = yrs,
         selected = status::get_setting("focal_year")),
       ),
     # Add the vertical tabset panel below the input box
@@ -77,8 +86,18 @@ space. temporal sampling design."
 
 ## boxplots
 output$qaqc_boxplots <- renderUI({
-  data <- promise_qaqc$result()$data
-  data_spatial <- promise_qaqc$result()$data_spatial
+  ## data <- promise_qaqc$result()$data
+  ## yrs <- promise_qaqc$result()$data_box |>
+  ##   pull(Year) |> unique() |> sort()
+  if (file.exists(paste0(data_path, "processed/qaqc_files_box.rds"))) {
+    yrs <- readRDS(file = paste0(data_path, "processed/qaqc_files_box.rds")) |>
+      pull(Year) |> unique() |> sort()
+    data_spatial <- readRDS(file = paste0(data_path, "primary/spatial.rds"))
+  } else {
+    yrs <- promise_qaqc$result()$data_box |> pull(Year) |> unique() |> sort()
+    data_spatial <- promise_qaqc$result()$data_spatial
+  }
+  #data <- data$wq_long
   boxplotstabs <- lapply(
     c("all", "timeseries", "zone"),
     function(x) {
@@ -144,7 +163,8 @@ output$qaqc_boxplots <- renderUI({
       class = "vertical-tab-menu",
       style = "padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #ddd;",
       selectInput("year_selector", "Sampling year:",
-        choices = sort(unique(data$wq_long$Year)),
+        ## choices = sort(unique(data$wq_long$Year)),
+        choices = yrs,
         selected = status::get_setting("focal_year")),
       ),
     # Add the vertical tabset panel below the input box
@@ -152,7 +172,16 @@ output$qaqc_boxplots <- renderUI({
   )
 })
 observe({
-  data_spatial <- promise_qaqc$result()$data_spatial
+  ## data_spatial <- promise_qaqc$result()$data_spatial
+  ## data <- readRDS(file = paste0(data_path, "/processed/data.rds"))
+  ## data_spatial <- data$spatial
+  ## yrs <- readRDS(file = paste0(data_path, "processed/qaqc_files_box.rds")) |>
+  ##   pull(Year) |> unique() |> sort()
+  if (file.exists(paste0(data_path, "primary/spatial.rds"))) {
+    data_spatial <- readRDS(file = paste0(data_path, "primary/spatial.rds"))
+  } else {
+    data_spatial <- promise_qaqc$result()$data_spatial
+  }
   if (!is.null(input$zone_selector) & !is.null(input$year_selector)) {
     lapply(c("all", "timeseries", "zone"), function(x) {
       ## alert(input$zone_selector)
@@ -200,9 +229,12 @@ promise_qaqc <- ExtendedTask$new(function() {
     print(project_name)
 
     module_qaqc()
-    data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
-    data_spatial <- data$spatial
-    list(data = data, data_spatial = data_spatial)
+    ## data <-  readRDS(file = paste0(data_path, "/processed/data.rds"))
+    data_obs <- readRDS(file = paste0(data_path, "processed/qaqc_files_obs.rds"))
+    data_spatial <- readRDS(file = paste0(data_path, "primary/spatial.rds"))
+    data_box <- readRDS(file = paste0(data_path, "processed/qaqc_files_box.rds"))
+    ## data_spatial <- data$spatial
+    list(data_obs = data_obs, data_box = data_box, data_spatial = data_spatial)
   }) |>
     then(\(result) {
       toggle_buttons(status_$status, stage =  6, bttn1 = "runQAQCCode", bttn2 = "runBootstrappCode")

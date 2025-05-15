@@ -46,3 +46,40 @@ observeEvent(input$runClearPreviousDataCode, {
   prepare_paths()                                                    ## prepare file structure
 }
 )
+
+## Triggered from the settings_run_in_sequence switch
+observeEvent(input$settings_run_in_sequence, {
+  if (input$settings_run_in_sequence) {
+    ## shinyjs::enable("runProcessCode")
+    ## shinyjs::enable("runIndicesCode")
+    ## shinyjs::enable("runQAQCCode")
+    for (id in c("data", "qaqc", "summaries")) {
+      shinyjs::disable(selector = paste0("a[data-value='", id, "']"))
+      removeCssClass(selector = paste0("a[data-value='", id, "']"), class = "activeLink")
+    }
+    for (id in c("runProcessCode", "runIndicesCode", "runQAQCCode",
+      "runBootstrappCode", "runSummariesCode")) {
+      shinyjs::disable(id)
+      shinyjs::removeClass(id = id, class = "btn-default")
+      shinyjs::addClass(id = id, class = "btn-disabled")
+    }
+  } else {
+    for (id in c("data", "qaqc", "summaries")) {
+      shinyjs::enable(selector = paste0("a[data-value='", id, "']"))
+      addCssClass(selector = paste0("a[data-value='", id, "']"), class = "activeLink")
+    }
+    ## shinyjs::enable(selector = "a[data-value='qaqc']")
+    ## addCssClass(selector = "a[data-value='qaqc']", class = "activeLink")
+    ## shinyjs::enable(selector = "a[data-value='summaries']")
+    ## addCssClass(selector = "a[data-value='summaries']", class = "activeLink")
+    ## shinyjs::disable("runProcessCode")
+    ## shinyjs::disable("runIndicesCode")
+    ## shinyjs::disable("runQAQCCode")
+    for (id in c("runProcessCode", "runIndicesCode", "runQAQCCode",
+      "runBootstrappCode", "runSummariesCode")) {
+      shinyjs::enable(id)
+      shinyjs::removeClass(id = id, class = "btn-disabled")
+      shinyjs::addClass(id = id, class = "btn-default")
+    }
+  }
+})

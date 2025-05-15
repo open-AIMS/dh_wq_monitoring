@@ -32,6 +32,9 @@ module_qaqc <- function() {
   ## Generate boxplots in timeseries 
   qaqc_ts(data)
 
+  qaqc_save_metadata(data)
+  
+
 }
 
 ##' QAQC load data
@@ -520,7 +523,45 @@ qaqc_ts <- function(data) {
   invisible(return(NULL))
 }
 
-
+qaqc_save_metadata <- function(data) {
+  status::status_try_catch(
+  {
+    qaqc_files_obs <- data$wq_long |>
+      dplyr::select(Year) |>
+      distinct() |>
+      crossing(
+        Source = c("all", "Discrete", "CFM")
+      ) |>
+      mutate(
+        Type = "Observations",
+        Obs_file = paste0("waterQAQC_", Source, "_", Year, ".png")
+      )
+    qaqc_files_box <- data$wq_long |>
+      dplyr::select(Year) |>
+      distinct() |>
+      crossing(
+        Source = c("all", "timeseries", "zone"),
+        Zone = unique(data$wq_long$Zone),
+        ) |>
+      mutate(Zone = ifelse(Source == "zone", Zone, NA)) |>
+      distinct() |> 
+      mutate(
+        Type = "Boxplots",
+        Box_file = case_when(
+          Source == "all" ~ paste0("wq_boxplot_", Year, ".png"),
+          Source == "timeseries" ~ paste0("wq_boxplot_timeseries.png"),
+          Source == "zone" ~ paste0("wq_boxplot_zone_", Zone, "_", Year, ".png")
+        )
+      )
+    saveRDS(qaqc_files_obs, file = paste0(data_path, "processed/qaqc_files_obs.rds"))
+    saveRDS(qaqc_files_box, file = paste0(data_path, "processed/qaqc_files_box.rds"))
+  },
+  stage_ = 6,
+  name_ = "QAQC metadata",
+  item_ = "qaqc_metadata",
+  )
+  invisible(return(NULL))
+}
 
 ##   data$wq_long <- data$wq_long |>
 ##     filter(!(is.na(Latitude) | is.na(Longitude))) |>

@@ -23,6 +23,7 @@
 ##' @author Murray Logan
 ##' @export
 module_boot <- function() {
+    
   status::status_set_stage(stage = 7, title = "Bootstrapping")
 
   ## data_idx <-  readRDS(file = paste0(data_path, "/processed/indices/data_idx.rds"))
@@ -693,7 +694,7 @@ bootstrap_figures <- function(boot, dat, m_level = "Measure", s_level = "Zone") 
           fields_to_extract = character(0))
       )
     )
-
+      
     # Retrieve the configuration based on m_level and s_level
     if (m_level %in% names(configurations) && s_level %in% names(configurations[[m_level]])) {
       config <- configurations[[m_level]][[s_level]]
@@ -721,7 +722,6 @@ bootstrap_figures <- function(boot, dat, m_level = "Measure", s_level = "Zone") 
       figs <-
         boot$dist 
     }
-
 
     figs <-
       figs |>
@@ -759,11 +759,11 @@ bootstrap_figures <- function(boot, dat, m_level = "Measure", s_level = "Zone") 
       ##   left_join(dat$spatial, by = join_by) |>
       ##   mutate(ZoneName = paste0("(", Zone, ")~", gsub(" ", "~", ZoneName))) |>
       ##   mutate(Group = paste0(ZoneName, "~", Label))
+      ##   ## nest(.by = c(Component, Indicator, Subindicator, Region, Zone, Measure)) |>
 
       figs <-
         figs |>
         nest(.by = !!nests) |>
-        ## nest(.by = c(Component, Indicator, Subindicator, Region, Zone, Measure)) |>
         mutate(p = map(data,
           .f = ~ {
             summs <- .x |>
@@ -820,7 +820,7 @@ bootstrap_figures <- function(boot, dat, m_level = "Measure", s_level = "Zone") 
         mutate(plot = nm) |>
         suppressWarnings() |>
         suppressMessages()
-    
+  
     walk2(.x = figs$nm, .y = figs$p,
       .f = ~ {
         ggsave(
@@ -830,7 +830,7 @@ bootstrap_figures <- function(boot, dat, m_level = "Measure", s_level = "Zone") 
         )
       }
       )
-      figs <- figs |> dplyr::select(-p)
+    figs <- figs |> dplyr::select(-p)
   },
   stage_ = 7,
   name_ = "Bootstrap figures",

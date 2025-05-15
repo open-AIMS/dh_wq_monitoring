@@ -78,7 +78,7 @@ data_tab <- tabItem(
           width = 6,
           solidHeader = TRUE,
           status = "info",
-          htmltools::includeMarkdown("../md/processed_data_instructions.md")
+          htmltools::includeMarkdown("../md/indices_data_instructions.md")
         ),
         )
     )

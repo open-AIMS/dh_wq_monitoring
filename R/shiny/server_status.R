@@ -54,7 +54,7 @@ output$status_output <- renderUI({
 
 ## Progress bar =======================================================================
 progress_vals <- reactiveVal(list(count = 0, total = 10, label = ""))
-progress <- shiny::Progress$new()
+## progress <- shiny::Progress$new()
 
 # Update the progress bar and text
 observe({

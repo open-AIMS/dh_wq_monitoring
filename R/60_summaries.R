@@ -20,17 +20,27 @@ module_summaries <- function() {
   
   ## Generate trend plots
   report_card_trend_plots <- generate_trend_plots(report_card_scores, data)
-
+  ## Save trend plot metadata
+  saveRDS(report_card_trend_plots |> dplyr::select(-trend_plot, -data),
+    file = paste0(data_path, "/summaries/report_card_trend_plots.rds")
+  )
+  
   ## Calculate effects 
   report_card_effects <- calculate_effects(scores_files)
 
   ## Generate effects plots
   report_card_effects_plots <- generate_effects_plots(report_card_effects, data)
+  saveRDS(report_card_effects_plots |>
+            dplyr::select(-annual_effects, -annual_effects_sum,
+              -period_effects, -period_effects_sum,
+              -annual_effects_plots, -period_effects_plots),
+    file = paste0(data_path, "/summaries/report_card_effects_plots.rds")
+  )
 
   ## Stack plots together
-  report_card_trend_plots$trend_plot[[2]] /
-  (report_card_effects_plots$annual_effects_plots[[2]] +
-  report_card_effects_plots$period_effects_plots[[2]])
+  ## report_card_trend_plots$trend_plot[[2]] /
+  ## (report_card_effects_plots$annual_effects_plots[[2]] +
+  ## report_card_effects_plots$period_effects_plots[[2]])
   
 }
 
@@ -176,6 +186,16 @@ collate_score_files <- function(report_card_scores, data) {
     )
   )
 
+  ## Region/Measure/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Region", m_scale = "Measure", extra = "",
+      file = tbl_region_measure(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_region_measure_boot.rds")
+    )
+  )
+
   ## Region/Subindicator/ level
   scores <- bind_rows(
     scores,
@@ -193,6 +213,16 @@ collate_score_files <- function(report_card_scores, data) {
       s_scale = "Region", m_scale = "Indicator", extra = "",
       file = tbl_region_indicator(report_card_scores, data),
       boot_file = paste0(data_path, "/boot/data_idx_region_indicator_boot.rds")
+    )
+  )
+
+  ## WH/Measure/ level
+  scores <- bind_rows(
+    scores,
+    data.frame(
+      s_scale = "Wh", m_scale = "Measure", extra = "",
+      file = tbl_wh_measure(report_card_scores, data),
+      boot_file = paste0(data_path, "/boot/data_idx_wh_measure_boot.rds")
     )
   )
 
@@ -386,6 +416,47 @@ tbl_zone_indicator <- function(report_card_scores, data) {
   return(file_path)
 }
 
+tbl_region_measure <- function(report_card_scores, data) {
+  status::status_try_catch(
+  {
+    scores <- 
+      report_card_scores |>
+      filter(m_level == "Measure", s_level == "Region") |>
+      mutate(
+        grade = generate_grades(Boot.Mean),
+        grade = ifelse(is.na(grade), " ", grade),
+        CI = sprintf("[%1.2f, %1.2f]", Lower, Upper)
+      ) |>
+      left_join(
+        data$spatial |>
+          dplyr::select(Region, RegionName) |> distinct(),
+        by = c("Region")
+      ) |>
+      mutate(
+        region_label = paste0(Region, ": ", RegionName)
+      ) |>
+      dplyr::select(-RegionName) |>
+      tidyr::pivot_longer(
+        cols = c(Lower, Upper, Boot.Mean, grade, CI),
+        names_to = "stat",
+        values_to = "values",
+        values_transform = as.character
+      ) |>
+      mutate(stat = factor(stat, levels = unique(stat))) |>
+      arrange(Component, Indicator, Subindicator, Measure, stat) |>
+      tidyr::unite("group", Subindicator, Measure, stat, sep = "__") |>
+      mutate(group = factor(group, levels = unique(group))) |>
+      tidyr::pivot_wider(names_from = group, values_from = values) 
+    file_path <- paste0(data_path, "/summaries/region_measure_scores.rds")
+    saveRDS(scores, file = file_path)
+  },
+  stage_ = 8,
+  name_ = "Region/Measure scores",
+  item_ = "summaries_region_measure",
+  )
+  return(file_path)
+}
+
 tbl_region_subindicator <- function(report_card_scores, data) {
   status::status_try_catch(
   {
@@ -464,6 +535,38 @@ tbl_region_indicator <- function(report_card_scores, data) {
   stage_ = 8,
   name_ = "Region/Indicator scores",
   item_ = "summaries_region_indicator",
+  )
+  return(file_path)
+}
+
+tbl_wh_measure <- function(report_card_scores, data) {
+  status::status_try_catch(
+  {
+    scores <- 
+      report_card_scores |>
+      filter(m_level == "Measure", s_level == "WH") |>
+      mutate(
+        grade = generate_grades(Boot.Mean),
+        grade = ifelse(is.na(grade), " ", grade),
+        CI = sprintf("[%1.2f, %1.2f]", Lower, Upper)
+      ) |>
+      tidyr::pivot_longer(
+        cols = c(Lower, Upper, Boot.Mean, grade, CI),
+        names_to = "stat",
+        values_to = "values",
+        values_transform = as.character
+      ) |>
+      mutate(stat = factor(stat, levels = unique(stat))) |>
+      arrange(Component, Indicator, Subindicator, Measure, stat) |>
+      tidyr::unite("group", Subindicator, Measure, stat, sep = "__") |>
+      mutate(group = factor(group, levels = unique(group))) |>
+      tidyr::pivot_wider(names_from = group, values_from = values) 
+    file_path <- paste0(data_path, "/summaries/wh_measure_scores.rds")
+    saveRDS(scores, file = file_path)
+  },
+  stage_ = 8,
+  name_ = "WH/Measure scores",
+  item_ = "summaries_wh_measure",
   )
   return(file_path)
 }
@@ -928,6 +1031,10 @@ make_contrast_matrix_year_span <- function(yrs, span = 5) {
 generate_effects_plots <- function(effects, data) {
   status::status_try_catch(
   {
+    progress_file <- paste0(data_path, "/progress.log")
+    if (file.exists(progress_file)) {
+      file.remove(progress_file)
+    }
     effects_plots <- 
       effects |>
       ungroup() |>
@@ -994,8 +1101,8 @@ generate_effects_plots <- function(effects, data) {
             height = 6,
             dpi = 300
           )
-          return(file_str)
           cat(paste("Effects plot,", "contrasts,", i, ",", total, "\n"), file = progress_file, append = TRUE)
+          return(file_str)
         }
       ))  
   },

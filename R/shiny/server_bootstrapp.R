@@ -51,7 +51,14 @@ promise_boot <- ExtendedTask$new(function() {
     print(log_file)
     print(box_width)
     print(project_name)
+    print(output_path)
     module_boot()
+  ## data <-  boot_load_data(file = paste0(data_path, "/processed/data.rds"))
+  ## data_idx_wh_measure_boot_sum <- readRDS(
+  ##   file = paste0(data_path, "/boot/data_idx_wh_measure_boot_sum.rds")
+  ## )
+  ## return(data_idx_wh_measure_boot_sum)
+    return(1)
   }) |>
     then(\(result) {
       toggle_buttons(status_$status, stage = 6, bttn1 = "runBootstrappCode", bttn2 = "runSummariesCode")

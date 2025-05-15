@@ -128,6 +128,16 @@ settings_box <-
           )
         ),
         width = "400px"),
+      div(
+        tags$span(
+               "Run in sequence: ",
+               popify(icon("info-circle"),
+                      title = "Run in sequence",
+                      content = "This indicates whether you wish to run the stages in sequence or not.  If you select Yes, then the Run buttons and side tab menus will only become active after the proceding stage has successfully completed.  If you select No, then all Run buttons and side tab menus will always be active and you are free to run stages out of sequence (however this is only recommended when you know that the stages have all ready been run and you are simply wishing to review all outputs in a returning session."
+                      ),
+               switchInput(inputId = "settings_run_in_sequence", value = TRUE, onLabel = "Yes", offLabel = "No"),
+               ),
+        ),
       ## radioButtons(
       ##   "lor_input",
       ##   label = tags$span(
