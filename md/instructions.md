@@ -1,5 +1,5 @@
 This [Shiny](https://shiny.posit.co/) application is designed to
-ingest very specifically structured excel spreadsheets containing
+ingest very specifically structured water quality datasets containing
 Darwin Harbour Water Quality monitoring data and produce various analyses
 and visualisations. The application is served from a
 [docker](https://www.docker.com/) container to the localhost and the
