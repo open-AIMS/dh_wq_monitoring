@@ -13,7 +13,7 @@ R_container:
 
 ## Deploying
 deploy:
-	./deploy.sh
+	./deploy_wq.sh
 
 docs_local:
 	$(MAKE) -f docs/Makefile
