@@ -1,0 +1,91 @@
+name: Render and publish the manual
+
+on:
+  workflow_dispatch:
+#  pull_request:
+#  push:
+#    branches: ['release']
+
+jobs:
+  render-manual:
+    runs-on: ubuntu-latest
+
+    name: ${{ matrix.config.r }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - { r: '4.3.2' }
+
+    steps:
+      - name: Install Google Fonts
+        run: |
+          # wget -O architects_daughter.zip https://fonts.google.com/download?family=Architects%20Daughter
+          # unzip -d architects_daughter/ architects_daughter.zip
+          # mv architects_daughter /usr/share/fonts/
+          wget -O ArchitectsDaughter-Regular.ttf https://github.com/google/fonts/raw/main/ofl/architectsdaughter/ArchitectsDaughter-Regular.ttf
+          mkdir -p /usr/share/fonts/architects_daughter
+          mv ArchitectsDaughter-Regular.ttf /usr/share/fonts/architects_daughter/
+          fc-cache -fv
+          fc-list
+          fc-list -v | grep -i archi
+          
+      - name: Install MS core fonts
+        run: |
+          sudo apt update
+          sudo apt install ttf-mscorefonts-installer
+          fc-cache -fv
+          fc-match Arial
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      # install R
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.R }}
+      # - name: Install R
+      #   run: sudo apt-get install r-base pandoc make
+
+      - name: install R packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          packages: |
+            any::rmarkdown
+            any::magick
+            any::pdftools
+
+
+      - name: install tinytex
+        uses: r-lib/actions/setup-tinytex@v2
+      - run: tlmgr --version
+
+      - name: Install additional LaTeX packages
+        run: |
+          tlmgr update --self
+          tlmgr install titlesec
+          tlmgr list --only-installed
+
+      # install quarto
+      - name: Install quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # install quarto extension (fontawsome) 
+      - name: Install fontawsome quarto extension
+        run: |
+          cd docs
+          quarto add --no-prompt quarto-ext/fontawesome
+          cd ..
+          
+      # render manual
+      - name: Make manual
+        run: make -i docs_local
+
+      # Deploy site to gh-pages branch
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs
