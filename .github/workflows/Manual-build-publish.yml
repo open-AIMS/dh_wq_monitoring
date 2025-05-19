@@ -56,6 +56,7 @@ jobs:
             any::rmarkdown
             any::magick
             any::pdftools
+            any::kableExtra
             any::tidyverse
 
 
