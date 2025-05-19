@@ -904,6 +904,10 @@ p.logistic <- ggplot(newdata, aes(y=index3, x=x)) +
 #| echo: false
 #| cache: true
 #| results: 'hide'
+if (!dir.exists('manual_files/figure-pdf')) {
+    dir.create('manual_files/figure-pdf', recursive = TRUE)
+    dir.create('manual_files/figure-html', recursive = TRUE)
+}
 gl <- lapply(list(p.binary,p.wcs, p.amp, p.mamp, p.cmamp, p.qmamp, p.smamp,p.mamps, p.logistic,p.ssamp), ggplotGrob)
 library(grid)
 widths <- do.call(unit.pmax, lapply(gl, "[[", "widths"))
