@@ -1,0 +1,146 @@
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes,arrows,shadows,positioning,mindmap,backgrounds,decorations, calc,fit, decorations.pathreplacing,decorations.pathmorphing, shadings,shapes.geometric, shapes.multipart,patterns} 
+
+\pgfdeclarelayer{report}
+\pgfdeclarelayer{level}
+\pgfsetlayers{level,report,main}
+
+\tikzstyle{Messy} = [decorate,decoration={random steps,segment length=3pt, amplitude=0.3pt}]
+\tikzstyle{NodeFont} = [font={\fontspec[Scale=1.5]{xkcd}}]
+\tikzstyle{HandTitle} = [font={\fontspec[Scale=1.5]{Sketch Block}}]
+\tikzstyle{TableFont} = [font={\fontspec[Scale=1]{FGAmura}}]
+
+\begin{tikzpicture}[decoration={random steps,segment length=1mm,amplitude=0.2pt}]
+\tikzstyle{every node}=[font=\small]
+\pgfplotsset{every axis/.append style={line width=1pt, axis line style=-}}
+
+\begin{axis}[%
+height=5cm,width=6cm,
+ybar,xmin=-0.1,xmax=1.1,
+axis x line=middle, axis y line=none,
+ytick=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1},
+%decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%decorate,
+every x tick/.style={thick,black,decorate},
+every axis/.append style={axis line style=-},
+name=hist1
+]
+\addplot[fill=white!50] coordinates {
+(0, 1) (0.1,0.7) (0.3,0.5) (0.5,0.2) (0.6, 0.2)
+};
+
+\node at (axis cs:1.1,1) [anchor=north east]{\begin{minipage}[h]{2.5cm}
+$\mu = 0.169\\\sigma^2 =0.040\\[0.3em]CI=[0.089,0.250]$
+\end{minipage}};
+
+\end{axis}
+
+\draw node[below of = hist1, node distance=3cm,anchor=north,fill=black!20,draw,Messy] (Random) {\bfseries\fontspec[Scale=1]{xkcd}Items considered Random}; 
+
+\begin{axis}[%
+height=5cm,width=6cm,
+ybar,xmin=-0.1,xmax=1.1,
+axis x line=middle, axis y line=none,
+ytick=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1},
+%decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%decorate,
+every x tick/.style={thick,black,decorate},
+every axis/.append style={axis line style=-},
+name=hist2,
+at={($(hist1.south east) +(1cm,0)$)}
+]
+
+\addplot[fill=black!50] coordinates {
+(1, 1) (0.9,0.8) (0.6,0.5) (0.5, 0.2) (0.4,0.1)
+};
+
+\node at (axis cs:0,1) [anchor=north west]{\begin{minipage}[h]{2.5cm}
+$\mu = 0.831\\\sigma^2 =0.040\\[0.3em]CI=[0.750,0.911]$
+\end{minipage}};
+
+\end{axis}
+
+
+
+\begin{axis}[%
+height=5cm,width=6cm,
+ybar,xmin=-0.1,xmax=1.1,
+axis x line=middle, axis y line=none,
+ytick=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1},
+%decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%decorate,
+every x tick/.style={thick,black,decorate},
+every axis/.append style={axis line style=-},
+name=hist3,
+at={($(hist2.south east) +(1cm,0)$)}
+]
+
+\addplot[fill=black!90] coordinates {
+(0.2,0.4) (0.3, 1) (0.4,0.6) (0.5,0.5) (0.6,0.1)
+};
+
+\node at (axis cs:1.1,1) [anchor=north east]{\begin{minipage}[h]{2.5cm}
+$\mu = 0.357\\\sigma^2 =0.012\\[0.3em]CI=[0.313,0.402]$
+\end{minipage}};
+
+\end{axis}
+
+\begin{axis}[%
+height=5cm,width=8cm,
+ybar stacked=plus,
+xmin=-0.1,xmax=1.1,
+ymin=0, ymax=1.5,
+axis x line=middle, axis y line=none,
+ytick=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1},
+%decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%decorate,
+every x tick/.style={thick,black,decorate},
+every axis/.append style={axis line style=-},
+name=hist4,
+at={($($(hist1.south) !0.5! (hist2.south)$) +(0cm,-2cm)$)}, anchor={north}
+]
+
+\addplot[fill=white!50] coordinates {
+(0, 1) (0.1,0.7) (0.2,0)  (0.3,0.5) (0.4,0) (0.5,0.2) (0.6, 0.2) (0.7,0) (0.8,0) (0.9,0) (1,0)
+};
+
+\addplot[fill=black!50] coordinates {
+(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,0.1) (0.5,0.2) (0.6,0.5) (0.7,0) (0.8,0) (0.9,0.8) (1,1)
+};
+
+\addplot[fill=black!90] coordinates {
+(0,0) (0.1,0) (0.2,0.4) (0.3,1) (0.4,0.6) (0.5,0.5) (0.6,0.1) (0.7,0.0) (0.8,0) (0.9,0) (1,0)
+};
+
+%\\node at (axis cs:1,1) [anchor=north east]{\\begin{minipage}[h]{2cm}Mean=0.5\\\\Var=0.151\\end{minipage}}; 
+\end{axis}
+
+\draw[-,thick,Messy] ($(hist1.south) +(0,-0.5cm)$) to[out=-90,in=90,looseness=0.5] ($(hist4.north)+(0cm,0.5cm)$);
+\draw[-,thick,Messy] ($(hist2.south) +(0,-0.5cm)$) to[out=-90,in=90,looseness=0.5] ($(hist4.north)+(0cm,0.5cm)$);
+\draw[-,thick,Messy] ($(hist3.south) +(0,-0.5cm)$) to[out=-90,in=90,distance=1cm,looseness=0.5] ($(hist4.north)+(0cm,0.5cm)$);
+\draw[->,thick,Messy] ($(hist4.north)+(0cm,0.5cm)$) to[out=-90,in=90,looseness=0.5] ($(hist4.north)$);
+
+\node [draw, fill=black!20,Messy] at ($(hist4.east)+(4cm,1cm)$) (SS) {\begin{minipage}{3.3cm}
+\textbf{Summary Statistics}\\[1em]
+$
+\hspace{1em}\mu = 0.453\\
+~\hspace{1em}\sigma^2 =0.108\\[0.3em]
+~\hspace{1em}CI = [0.378,0.527]
+$
+\end{minipage}
+};
+
+\draw[->,thick,Messy] ($(hist4.east)+(0cm,0cm)$) to[out=0,in=180,looseness=0.5] ($(SS.west)$);
+
+\node[] at ($(hist4.east)+(4cm,-1cm)$) (AA) {Additional aggregations};
+\draw[->,thick,Messy] ($(hist4.east)+(0cm,0cm)$) to[out=0,in=180,looseness=0.5] ($(AA.west)$);
+ 
+\end{tikzpicture}

@@ -1,0 +1,39 @@
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes,arrows,shadows,positioning,mindmap,backgrounds,decorations, calc,fit, decorations.pathreplacing,decorations.pathmorphing, shadings,shapes.geometric, shapes.multipart,patterns} 
+\pgfdeclarelayer{report}
+\pgfdeclarelayer{level}
+\pgfsetlayers{level,report,main}
+
+\tikzstyle{Messy} = [decorate,decoration={random steps,segment length=3pt, amplitude=0.3pt}]
+\tikzstyle{NodeFont} = [font={\fontspec[Scale=1.5]{xkcd}}]
+\tikzstyle{HandTitle} = [font={\fontspec[Scale=1.5]{Sketch Block}}]
+
+\begin{tikzpicture}
+\draw [anchor=west] (0,0) node[NodeFont, draw,Messy,fill=white!20,thick] (Measure_Zone) {Measure};
+\draw [anchor=west,very thick] ($(Measure_Zone.east) +(0.5cm,0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (Subindicator_Zone) {Sub-indicator};
+\draw [anchor=west,very thick] ($(Subindicator_Zone.east) +(0.5cm,0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (Indicator_Zone) {Indicator};
+
+\draw [anchor=south west] ($(Measure_Zone.north west) + (0cm,2cm)$) node[NodeFont, draw,Messy,fill=white!20,very thick] (Zone) {Zone};
+\draw [anchor=west,very thick] ($(Zone.east) +(0.5cm,0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (Region) {Region};
+\draw [anchor=west,very thick] ($(Region.east) +(0.5cm,0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (WH) {Whole of Harbour};
+
+\draw [->,Messy,very thick] (Measure_Zone) -- (Subindicator_Zone);
+\draw [->,Messy,very thick] (Subindicator_Zone) -- (Indicator_Zone);
+
+\draw [->,Messy,very thick] (Zone) -- (Region);
+\draw [->,Messy,very thick] (Region) -- (WH);
+
+\node [anchor=west,HandTitle](MeasureTitle) at ($(Measure_Zone.north west) +(0cm,0.5cm)$) {Measure hierarchy};
+\node [anchor=west,HandTitle](ZoneTitle) at ($(Zone.north west) +(0cm,0.5cm)$) {Spatial hierarchy};
+
+\begin{pgfonlayer}{level}
+\path[draw,Messy,very thick,fill=red!10] ($(Measure_Zone.west |- MeasureTitle.north) +(-0.2cm,0.15cm)$) node (MH) {} rectangle  ($(Indicator_Zone.south east) +(0.2cm,-0.2cm)$);
+\path[draw,Messy,thick,fill=red!10] ($(Zone.west |- ZoneTitle.north) +(-0.2cm,0.15cm)$) rectangle  ($(WH.south east) +(0.2cm,-0.2cm)$) node (SH) {};
+\end{pgfonlayer}
+
+\node at ($(Measure_Zone.south west) +(-0.2cm,-0.2cm)$) (MH_left){};
+\node at ($(Zone.south west) +(-0.2cm,-0.2cm)$) (SH_left){};
+
+\draw [<->,Messy,very thick] ($(SH_left) !0.5! (SH)$) node (A) {} -- (A |- MH);
+
+\end{tikzpicture}

@@ -1,0 +1,487 @@
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes,arrows,shadows,positioning,mindmap,backgrounds,decorations, calc,fit, decorations.pathreplacing,decorations.pathmorphing, shadings,shapes.geometric, shapes.multipart,patterns} 
+
+\pgfdeclarelayer{report}
+\pgfdeclarelayer{level}
+\pgfsetlayers{level,report,main}
+
+\tikzstyle{Messy} = [decorate,decoration={random steps,segment length=3pt, amplitude=0.3pt}]
+\tikzstyle{NodeFont} = [font={\fontspec[Scale=1.5]{xkcd}}]
+\tikzstyle{HandTitle} = [font={\fontspec[Scale=1.5]{Sketch Block}}]
+\tikzstyle{TableFont} = [font={\fontspec[Scale=1]{FGAmura}}]
+
+\setmainfont[]{xkcd}
+
+\begin{tikzpicture}[decoration={random steps,segment length=1mm,amplitude=0.2pt}]
+%% \tikzstyle{every node}=[font=\small]
+\pgfplotsset{every axis/.append style={line width=1pt, axis line style=-}}
+
+\node [] (IndexLabel){
+\begin{minipage}[h]{4cm}
+A.2: 
+\tiny Generate indices as an expression of the degree of deviation from Guidelines via scaled modified amplitude
+\end{minipage}
+};
+
+%A.2
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=10,
+axis equal image,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=Observations,
+xlabel=Measure,
+ytick=\empty,
+xtick=\empty,
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+every axis/.append style={axis line style=-},
+scatter/classes={S1={fill=blue!30},S2={fill=red!30}},
+name=Index,anchor=north,at={($(IndexLabel) +(0.2cm,-0.3cm)$)}
+]
+
+\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+%\\addplot [draw=black!50,Messy,dotted] coordinates {(0,1.5) (10,1.5)};
+
+\coordinate (GL) at (axis cs:5,5) {};
+
+\draw [fill=red!20,draw=black!20] (axis cs:5.2,1.1) circle (4) node (S1a) {};
+\draw [fill=red!20,draw=black!20] (axis cs:5.3,0.8) circle (4) node (S1b) {};
+\draw [fill=red!20,draw=black!20] (axis cs:5.0,2.3) circle (4) node (S1c) {};
+\draw [fill=red!20,draw=black!20] (axis cs:4.5,1.5) circle (4) node (S1d) {};
+\draw [fill=red!20,draw=black!20] (axis cs:4.7,0.7) circle (4) node (S1e) {};
+\draw[->,Messy,draw=black!20] (S1a |- GL)--(S1a);\draw[->,Messy,draw=black!20] (S1b |- GL)--(S1b);\draw[->,Messy,draw=black!20] (S1c |- GL)--(S1c);\draw[->,Messy,draw=black!20] (S1d |- GL)--(S1d);\draw[->,Messy,draw=black!20] (S1e |- GL)--(S1e);
+
+\draw [fill=red!20] (axis cs:5,1) circle (4) node (S1) {};
+
+\draw [fill=blue!20] (axis cs:7,8) circle (4) node (S2) {};
+\draw [fill=green!20] (axis cs:9,3.9) circle (4) node (S3) {};
+%\\draw [fill=yellow!60] (axis cs:9.5,2) circle (4) node (S4) {};
+%\\coordinate (S1) at (axis cs:0.3,1) {};
+
+\draw[->,Messy] (S1 |- GL)--(S1);
+\draw[->,Messy] (S2 |- GL)--(S2);
+\\draw[->,Messy] (S3 |- GL)--(S3);
+%\\draw[->,Messy] (S4 |- GL)--(S4);
+\draw[font=\scriptsize,color=black!50] (axis cs:2.5,5.5) node (GLTitle) {Guideline};
+%\\draw[font=\\scriptsize,color=black!50] (axis cs:8,1) node (GLTitle) {LOD value};
+\draw[font=\tiny,color=black!50,anchor=north] (axis cs:0.1,8) node[rotate=90] (Above) {\begin{minipage}{2cm}
+\centering
+Above\\ Guideline
+\end{minipage}};
+\draw[font=\tiny,color=black!50,anchor=north] (axis cs:0.1,3) node[rotate=90] (Below) {\begin{minipage}{2cm}
+\centering
+Below\\ Guideline
+\end{minipage}};
+\draw[font=\tiny,color=black!50,anchor=west] (axis cs:5.4,2.5) node[rotate=0] (Note) {\begin{minipage}{2cm}
+Individual\\ measurements
+\end{minipage}};
+\end{axis}
+
+%A.3
+\node [anchor=west] at (IndexLabel.east) (LODLabel) {
+\begin{minipage}[h]{4cm}
+A.3: 
+\tiny Apply expert opinion interventions where\\ appropriate and update each distribution
+\end{minipage}
+};
+
+% M1
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=40,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=M1,anchor=north,at={($(LODLabel) +(-4cm,-1cm)$)}
+]
+
+%set.seed(1)
+%x<-rnorm(100,0.2,0.1)
+\addplot[Messy, fill=red!20] coordinates {(0,10) (0.1,35) (0.2,39) (0.3,13) (0.4,2) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+
+\end{axis}
+\end{scope}
+
+%M.2
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=M2,anchor=north,at={($(LODLabel) +(-0cm,-1cm)$)}
+]
+
+\addplot[Messy, fill=blue!20] coordinates {(0.8,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+
+%M3
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=M3,anchor=north,at={($(LODLabel) +(4cm,-1cm)$)}
+]
+
+\addplot[Messy, fill=green!20] coordinates {(0.4,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+%L1 -expert opinion intervention
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=40,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L1,anchor=north,at={($(M1) +(0cm,-7cm)$)}
+]
+
+\addplot[Messy, fill=red!20] coordinates {(0,10) (0.1,35) (0.2,39) (0.3,13) (0.4,2) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+%\addplot[Messy, fill=red!20] coordinates {(0.5,9) (0.1,9) (0.3,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+%L2
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L2,anchor=north,at={($(M2) +(0cm,-7cm)$)}
+]
+
+\addplot[Messy, fill=blue!20] coordinates {(0.6,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+%L3
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L3,anchor=north,at={($(M3) +(0cm,-7cm)$)}
+]
+
+\addplot[Messy, fill=green!20] coordinates {(0.4,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+
+\path [draw,Messy,->] ($(M1) + (0,-0.8cm)$)  -- (L1);
+\path [draw,Messy,->] ($(M2) + (0,-0.8cm)$) -- (L2);
+\path [draw,Messy,->] ($(M3) + (0,-0.8cm)$) -- (L3);
+
+\draw [anchor=center] ($(M2.south) !0.5! (L2.north)$) node [Messy,fill=black!20,draw=black] (LOD) {\scriptsize Expert opinion interventions};
+
+\draw [Messy,thin] (IndexLabel.north west) rectangle ($(Index.south east) + (0.2cm,-0.7cm)$);
+\draw [Messy,thin] (LODLabel.north west) rectangle ($(LODLabel.north east |- Index.south east) + (0.2cm,-0.7cm)$);
+
+
+%A.4--------------------------------------------------------------------------------------
+\node [anchor=north] at ($(IndexLabel.south) +(0,-4.1cm)$) (AggLabel) {
+\begin{minipage}[h]{4cm}
+A.4: 
+\tiny Aggregate Site level Measure Indices into Site level Sub-indicator Indices - bootstrap and combine 
+\end{minipage}
+};
+
+%L1a
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=40,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L1a,anchor=north,at={($(AggLabel) +(-4cm,-1cm)$)}
+]
+
+\addplot[Messy, fill=red!20] coordinates {(0,10) (0.1,35) (0.2,39) (0.3,13) (0.4,2) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+%\addplot[Messy, fill=red!20] coordinates {(0.5,9) (0.1,9) (0.3,9)};
+%\addplot[Messy, fill=red!20] coordinates {(0.4,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+%L2a
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L2a,anchor=north,at={($(AggLabel) +(0cm,-1cm)$)}
+]
+
+\addplot[Messy, fill=blue!20] coordinates {(0.6,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+%L3a
+\begin{scope}[scale=0.3]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar, bar width=10,
+name=L3a,anchor=north,at={($(AggLabel) +(4cm,-1cm)$)}
+]
+
+\addplot[Messy, fill=green!20] coordinates {(0.4,9)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+
+%L3a
+\begin{scope}[scale=0.4]
+\begin{axis}[%
+height=5cm,width=5cm,
+xmin=0,xmax=1,
+axis x line=bottom, 
+axis y line=left,
+ymin=0, ymax=10,
+ylabel=\empty,
+xlabel=Index,
+%ytick=\empty,
+yticklabels=\empty,
+xtick={0,0.2,0.4,0.6,0.8,1},
+xticklabels={0,0.2,0.4,0.6,0.8,1.0},
+compat=1.3, %adjusts axis label spacing to new standard
+decoration={random steps,segment length=5pt,amplitude=0.3pt},
+%major tick length=\MajorTickLength,
+every tick/.style={thick,black,decorate}, 
+xticklabel style = {font=\small,yshift=0.25ex},
+xlabel style={yshift=0.5ex},
+major tick length=0cm,
+every axis/.append style={very thick,axis line style=-},
+ybar stacked=plus, bar width=10,
+name=D1,anchor=north,at={($(L2a) +(-3cm,-5cm)$)}
+]
+
+\addplot[Messy, fill=blue!20] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,0) (0.5,0) (0.6,9) (0.7,0) (0.8,0) (0.9,0)};
+%\addplot[Messy, fill=red!20] coordinates {(0,0) (0.1,9) (0.3,9) (0.4,9) (0.5,9) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+\addplot[Messy, fill=red!20] coordinates {(0,1.0) (0.1,3.5) (0.2,3.9) (0.3,1.3) (0.4,0.2) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+\addplot[Messy, fill=green!20] coordinates {(0,0) (0.1,0) (0.2,0) (0.3,0) (0.4,9.2) (0.5,0) (0.6,0) (0.7,0) (0.8,0) (0.9,0)};
+%\addplot [draw=black!50,Messy,dashed] coordinates {(0,5) (10,5)};
+\end{axis}
+\end{scope}
+
+\coordinate (P1) at ($(L2a.south) +(0.0cm,-0.9cm)$);
+%\coordinate (P1) ($(L1a.south) +(0,-0.2cm)$);
+\path [draw,Messy] ($(L1a.south) +(0,-0.3cm)$) -- (P1);
+\path [draw,Messy] ($(L2a.south) +(0,-0.3cm)$) -- (P1);
+\path [draw,Messy] ($(L3a.south) +(0,-0.3cm)$) -- (P1);
+\path [draw,Messy,->] (P1) -- (D1);
+
+\draw [Messy,thin] (AggLabel.north west) rectangle ($(AggLabel.north east |- D1.south east) + (0.0cm,-0.7cm)$);
+
+\node [draw,Messy] at ($(D1.east) + (0.3cm,0cm)$) [anchor=west] (Sum) {\begin{minipage}[h]{1.8cm}\small Score=0.405\\CI=0.349, 0.466\\Var=0.027\\Grade=D\end{minipage}}; 
+
+\node [draw,Messy,fill=black!20] at (P1) [anchor=center]{\begin{minipage}[h]{2.3cm}\centering\tiny Weighted Bootstrap, combine, bootrap\end{minipage}}; 
+
+\path [draw,Messy,->] ($(D1.east) + (-0.1cm,0.1cm)$) -- (Sum);
+
+
+%A.5
+\node [anchor=north] at ($(LODLabel.south) +(0,-4.1cm)$) (Agg1Label) {
+\begin{minipage}[h]{4cm}
+A.5 - B,C: 
+\tiny Traverse the aggregation schedule - Bootstrap, combine, bootstrap 
+\end{minipage}
+};
+
+\node[color=black!40] at ($(Agg1Label.south) + (-1.4cm,-1.5cm)$) (MZ) {\tiny Zone}[grow=0]
+	child[level distance=1.5cm,Messy,->,color=black] {node (SIZ) {\tiny Zone}
+		child[level distance=1.5cm,Messy,->] {node (IZ) {\tiny Zone}
+    }
+  };
+  
+\node[color=black!40] at ($(Agg1Label.south) + (-1.4cm,-2.5cm)$) (MR) {\tiny Region}[grow=0]
+	child[level distance=1.5cm,Messy,color=black,draw=white] {node (SIR) {\tiny Region}
+		child[level distance=1.5cm,Messy,->,draw=black] {node (IR) {\tiny Region}
+    }
+  };
+  
+\node[color=black!40] at ($(Agg1Label.south) + (-1.4cm,-3.5cm)$) (MWH) {\tiny Harbour}[grow=0]
+	child[level distance=1.5cm,Messy,color=black,draw=white] {node (SIWH) {\tiny Harbour}
+		child[level distance=1.5cm,Messy,->,draw=black] {node (IWH) {\tiny Harbour}
+    }
+  };  
+  
+
+\path [draw,Messy,->,color=black] (SIZ) -- (SIR);
+\path [draw,Messy,->,color=black] (SIR) -- (SIWH); 
+\path [draw,Messy,->,color=black!40] (MZ) -- (MR); 
+\path [draw,Messy,->,color=black!40] (MR) -- (MWH); 
+  
+\node [draw,Messy,thin,fill=black!20] at ($(MZ.north) +(0,0.5cm)$) (Measure) {\tiny{\begin{minipage}{1.1cm}\centering Measure\\ level\end{minipage}}};
+\node [draw,Messy,thin,fill=black!20] at ($(SIZ.north) +(0,0.5cm)$) (Subindicator) {\tiny{\begin{minipage}{1.1cm}\centering Sub-indicator\\ level\end{minipage}}};
+\node [draw,Messy,thin,fill=black!20] at ($(IZ.north) +(0,0.5cm)$) (Indicator) {\tiny{\begin{minipage}{1.1cm}\centering Indicator\\ level\end{minipage}}};
+
+\path [draw,Messy,thin,dashed]  ($(Measure.west |- MZ) !0.5! (Measure.west |- MR)$) -- ($(Indicator.east |- IZ) !0.5! (Indicator.east |- IR)$);
+\path [draw,Messy,thin,dashed]  ($(Measure.west |- MR) !0.5! (Measure.west |- MWH)$) -- ($(Indicator.east |- IR) !0.5! (Indicator.east |- IWH)$);
+
+\draw [Messy,thin] (Agg1Label.north west) rectangle ($(LODLabel.north east |- D1.south east) + (0.2cm,-0.7cm)$);  
+
+\end{tikzpicture}
