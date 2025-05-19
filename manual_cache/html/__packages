@@ -1,2 +1,5 @@
 ggplot2
 scales
+knitr
+kableExtra
+dplyr
