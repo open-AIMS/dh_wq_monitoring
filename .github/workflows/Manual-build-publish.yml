@@ -30,10 +30,20 @@ jobs:
           wget https://github.com/ipython/xkcd-font/raw/master/xkcd-script/font/xkcd-script.ttf
           mkdir -p /usr/share/fonts/xkcd
           mv xkcd-script.ttf /usr/share/fonts/xkcd/xkcd-script.ttf
+          # Install Sketch Block font
+          wget https://www.dafontfree.io/wp-content/fonts/basic/Sketch-Block.ttf
+          mkdir -p /usr/share/fonts/sketchblock
+          mv Sketch-Block.ttf /usr/share/sketchblock/
+          # Install FGAmura font
+          wget https://www.fontspace.com/download/fg-amura/12345
+          mkdir -p /usr/share/fgamura
+          mv FGAmura.ttf /usr/share/fgamura/
           fc-cache -fv
           fc-list
           fc-list -v | grep -i archi
           fc-list -v | grep -i xkcd
+          fc-list -v | grep -i sketch
+          fc-list -v | grep -i fgamura
           
       - name: Install MS core fonts
         run: |
