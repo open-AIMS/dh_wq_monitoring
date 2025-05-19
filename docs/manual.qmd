@@ -165,7 +165,7 @@ by user.
 ```{r}
 #| label: fig-diagram
 #| engine: tikz
-#| cache: false
+#| cache: true
 #| fig-cap: Diagram illustrating the relationship between the code produced by the developer and the shiny docker container utilised by user with a Github cloud conduit.  The developed codebase includes a Shiny R application with R backend, `Dockerfile` (instructions used to assemble a full operating environment) and github workflow file (instructions for building and packaging the docker image on github via `actions`).
 #| file: resources/diagram.tikz 
 #| echo: false
@@ -342,7 +342,7 @@ running of this app.
 #| file: resources/diagram2.tikz 
 #| echo: false
 #| eval: true
-#| cache: false
+#| cache: true
 #| engine-opts:
 #|   template: "resources/tikz-standalone.tex"
 ```
@@ -500,7 +500,7 @@ are not available.
 
 ```{r}
 #| label: index_method_functions
-#| cache: false
+#| cache: true
 #| echo: false
 MMP_binary<- function(value,Benchmark, DirectionOfFailure='H') {
     e <- NULL
@@ -568,7 +568,7 @@ MMP_mamp <- function(value,Benchmark, WSC, DirectionOfFailure='H',fold=2, scale=
 #| label: binary
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(0,100, l=100)
@@ -591,7 +591,7 @@ p.binary <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: WCS
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 WCS <- 80
@@ -616,7 +616,7 @@ p.wcs <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: amp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(0,100, l=100)
@@ -647,7 +647,7 @@ p.amp <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: mamp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(1,1/0.001, l=1000)
@@ -673,7 +673,7 @@ p.mamp <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: cmamp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(1,1/0.001, l=1000)
@@ -702,7 +702,7 @@ p.cmamp <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: qmamp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 xx <- c(15,50,170)
@@ -733,7 +733,7 @@ p.qmamp <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: smamp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 xx <- c(15,50,170)
@@ -766,7 +766,7 @@ p.smamp <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: ssmamp
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(1,1/0.001, l=1000)
@@ -828,7 +828,7 @@ p.ssamp <- ggplot(newdata, aes(y = index1, x = x)) +
 #| label: mamps
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 # x to range from 4 fold difference in Benchmark
@@ -861,7 +861,7 @@ p.mamps <- ggplot(newdata, aes(y = index, x = x)) +
 #| label: logistic
 #| fig-width: 1.5
 #| fig-height: 1.5
-#| cache: false
+#| cache: true
 #| echo: false
 bench <- 50
 x <- seq(0.0011,1/0.001, l=1000)
@@ -902,7 +902,7 @@ p.logistic <- ggplot(newdata, aes(y=index3, x=x)) +
 ```{r}
 #| label: figs
 #| echo: false
-#| cache: false
+#| cache: true
 #| results: 'hide'
 gl <- lapply(list(p.binary,p.wcs, p.amp, p.mamp, p.cmamp, p.qmamp, p.smamp,p.mamps, p.logistic,p.ssamp), ggplotGrob)
 library(grid)
@@ -979,7 +979,7 @@ dev.off()
 #| results: markup
 #| eval: true
 #| echo: false
-#| cache: false
+#| cache: true
 #| tbl-cap: "Formulations and example response curves for a variety of indicator scoring methods that compare observed values ($x_i$) to associated benchmark, guidelines or references values ($benchmark_i$ and dashed line). The Scaled Modified Amplitude Method can be viewed as three Steps: I. Initial Score generation, II. Score capping (two alternatives are provided) and III. Scaling to the range [0,1]. The first of the alternative capping formulations simply caps the Scores to set values (on a $log_2$ scale), whereas the second formulation (Quantile based, where $Q1$ and $Q2$ are quantiles) allows guideline quantiles to be used for capping purposes.  Dotted lines represent capping boundaries. In the Logistic Scaled Amplitude method, $T$ is a tuning parameter that controls the logistic rate (steepness at the inflection point). For the purpose of example, the benchmark was set to 50."
 library(knitr)
 library(kableExtra)
@@ -1158,7 +1158,7 @@ within Regions which are nested within Whole of Harbour (see
 #| file: resources/hierachyDiagram.tikz 
 #| echo: false
 #| eval: true
-#| cache: false
+#| cache: true
 #| engine-opts:
 #|   template: "resources/tikz-standalone.tex"
 ```
@@ -1196,7 +1196,7 @@ different Whole of Harbour Component Scores:
 #| results: markup
 #| eval: true
 #| echo: false
-#| cache: false
+#| cache: true
 #| tbl-cap: Fabricated illustration of the discrepancies between total means (i.e. Whole of Harbour Indicator Score) generated from row means (Region Sub-indicator Scores) and column means (Whole of Harbour Sub-indicator Scores).
 library(dplyr)
 library(knitr)
@@ -1227,7 +1227,7 @@ of _Indicator_.
 ```{r}
 #| label: fig-hier
 #| engine: tikz
-#| cache: false
+#| cache: true
 #| fig-cap: Schematic illustrating the combination of Spatial (Zone, Region and Whole of Harbour) and Measure (Measure, Sub-indicator, Indicator) nodes of the double hierarchical aggregation schedule associated with the Darwin Harbour Report Card. Aggregation directions between nodes are signified by arrows and the main aggregation pathway through the schedule is illustrated by the green polygon. Tabular summaries are produced at each node, and Water Quality Status discs (comprising Sub-indicators around a central Indicator Grade indicate where in the hierarchy they are generated.
 #| file: resources/hierDiagram.tikz 
 #| echo: false
@@ -1321,7 +1321,7 @@ _Zone_.
 ```{r}
 #| label: fig-bootstrap
 #| engine: tikz
-#| cache: false
+#| cache: true
 #| fig-cap: Illustration of Bootstrapped aggregation of three distributions.  Simple summary statistics (mean, variance and 95% confidence interval presented for each distribution.
 #| file: resources/bootstrap.tikz 
 #| echo: false
