@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  19 MAY 2025 22:42
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  19 MAY 2025 23:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz25fa1f17ac9b.tex
-(./tikz25fa1f17ac9b.tex
+**tikz25514dcfdb9a.tex
+(./tikz25514dcfdb9a.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (/home/runner/.TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -497,8 +497,8 @@ Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/runner/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (./tikz25fa1f17ac9b.aux (./preview.aux))
-\openout1 = `tikz25fa1f17ac9b.aux'.
+) (./tikz25514dcfdb9a.aux (./preview.aux))
+\openout1 = `tikz25514dcfdb9a.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -616,48 +616,63 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \openout2 = `preview.aux'.
 
 No file preview.tex.
-(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.markings.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.markings.code.tex))
-\pgf@layerbox@level1=\box90
-\pgf@layerboxsaved@level1=\box91
-\pgf@layerbox@level2=\box92
-\pgf@layerboxsaved@level2=\box93
-Missing character: There is no ( ("28) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no u ("75) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no - ("2D) in font nullfont!
-Missing character: There is no b ("62) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no c ("63) in font nullfont!
-Missing character: There is no h ("68) in font nullfont!
-Missing character: There is no - ("2D) in font nullfont!
-Missing character: There is no f ("66) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no m ("6D) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no ) ("29) in font nullfont!
-Missing character: There is no ; ("3B) in font nullfont!
+(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.text.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.text.code.tex
+\pgf@lib@dec@text@box=\box90
+)
+\tikz@lib@dec@te@box=\box91
+)
+\pgf@layerbox@report=\box92
+\pgf@layerboxsaved@report=\box93
+\pgf@layerbox@level=\box94
+\pgf@layerboxsaved@level=\box95
 
-Overfull \hbox (232.72842pt too wide) in paragraph at lines 487--488
-[][] 
- []
+! Package fontspec Error: 
+(fontspec)                The font "xkcd" cannot be found; this may be but
+(fontspec)                usually is not a fontspec bug. Either there is a
+(fontspec)                typo in the font name/file, the font is not
+(fontspec)                installed (correctly), or there is a bug in the
+(fontspec)                underlying font loading engine (XeTeX/luaotfload).
 
-Preview: Tightpage -32891 -32891 32891 32891
-[1] (./tikz25fa1f17ac9b.aux (./preview.aux))
- ***********
-LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2025-04-29>
- ***********
- ) 
+For immediate help type H <return>.
+ ...                                              
+                                                  
+l.28 ...essy,fill=white!20,thick] (Measure_Zone) {
+                                                  Measure};
+
+A font might not be found for many reasons.
+ Check the spelling, where the font is installed etc. etc.
+
+ When in doubt, ask someone for help!
+
+
+ 
 Here is how much of TeX's memory you used:
- 29382 strings out of 472247
- 815726 string characters out of 5529522
- 1422916 words of memory out of 5000000
- 55445 multiletter control sequences out of 15000+600000
- 629381 words of font info for 56 fonts, out of 8000000 for 9000
+ 28527 strings out of 472247
+ 790094 string characters out of 5529522
+ 1292895 words of memory out of 5000000
+ 54611 multiletter control sequences out of 15000+600000
+ 626841 words of font info for 42 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,8n,107p,910b,996s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,3n,107p,910b,963s stack positions out of 10000i,1000n,20000p,200000b,200000s
+No pages of output.
 
-Output written on tikz25fa1f17ac9b.pdf (1 page).
+
+! kpathsea: Running mktextfm xkcd
+! /home/runner/.TinyTeX/texmf-dist/web2c/mktexnam: Could not map source abbreviation  for xkcd.
+! /home/runner/.TinyTeX/texmf-dist/web2c/mktexnam: Need to update ?
+! mktextfm: Running mf-nowin -progname=mf \mode:=ljfour; mag:=1; ; nonstopmode; input xkcd
+! This is METAFONT, Version 2.71828182 (TeX Live 2025) (preloaded base=mf)
+
+! kpathsea: Running mktexmf xkcd
+
+! ! I can't find file `xkcd'.
+! <*> ...:=ljfour; mag:=1; ; nonstopmode; input xkcd
+                                                  
+! Please type another input file name
+! ! Emergency stop.
+! <*> ...:=ljfour; mag:=1; ; nonstopmode; input xkcd
+                                                  
+! Transcript written on mfput.log.
+! grep: xkcd.log: No such file or directory
+! mktextfm: `mf-nowin -progname=mf \mode:=ljfour; mag:=1; ; nonstopmode; input xkcd' failed to make xkcd.tfm.
+! kpathsea: Appending font creation commands to missfont.log.
