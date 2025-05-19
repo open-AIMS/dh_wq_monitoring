@@ -28,6 +28,7 @@ jobs:
           mkdir -p /usr/share/fonts/architects_daughter
           mv ArchitectsDaughter-Regular.ttf /usr/share/fonts/architects_daughter/
           wget https://github.com/ipython/xkcd-font/raw/master/xkcd-script/font/xkcd-script.ttf
+          mkdir -p /usr/share/fonts/xkcd
           mv xkcd-script.ttf /usr/share/fonts/xkcd/
           fc-cache -fv
           fc-list
