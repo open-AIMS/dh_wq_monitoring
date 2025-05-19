@@ -42,6 +42,23 @@ jobs:
           fc-cache -fv
           fc-match Arial
 
+      - name: Install fonttools
+        run: |
+          pip install fonttools
+
+      - name: Rename PostScript name to "xkcd"
+        run: |
+          ttx -o /usr/share/fonts/xkcd/xkcd-script.ttx /usr/share/fonts/xkcd/xkcd-script.ttf
+          sed -i 's/xkcdScript/xkcd/g' /usr/share/fonts/xkcd/xkcd-script.ttx
+          ttx -o /usr/share/fonts/xkcd/xkcd-script.ttf /usr/share/fonts/xkcd/xkcd-script.ttx
+          rm /usr/share/fonts/xkcd/xkcd-script.ttx
+
+      - name: Update font cache
+        run: |
+          fc-cache -fv
+          fc-list | grep -i xkcd
+
+
       - name: Checkout repository
         uses: actions/checkout@v4
         
