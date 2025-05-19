@@ -27,9 +27,12 @@ jobs:
           wget -O ArchitectsDaughter-Regular.ttf https://github.com/google/fonts/raw/main/ofl/architectsdaughter/ArchitectsDaughter-Regular.ttf
           mkdir -p /usr/share/fonts/architects_daughter
           mv ArchitectsDaughter-Regular.ttf /usr/share/fonts/architects_daughter/
+          wget https://github.com/ipython/xkcd-font/raw/master/xkcd-script/font/xkcd-script.ttf
+          mv xkcd-script.ttf /usr/share/fonts/xkcd/
           fc-cache -fv
           fc-list
           fc-list -v | grep -i archi
+          fc-list -v | grep -i xkcd
           
       - name: Install MS core fonts
         run: |
@@ -58,8 +61,7 @@ jobs:
             any::pdftools
             any::kableExtra
             any::tidyverse
-
-
+            
       - name: install tinytex
         uses: r-lib/actions/setup-tinytex@v2
       - run: tlmgr --version
