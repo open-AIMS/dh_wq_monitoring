@@ -1,0 +1,90 @@
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{shapes,arrows,shadows,positioning,mindmap,backgrounds,decorations, calc,fit, decorations.pathreplacing,decorations.pathmorphing, shadings,shapes.geometric, shapes.multipart,patterns} 
+\pgfdeclarelayer{report}
+\pgfdeclarelayer{level}
+\pgfsetlayers{level,report,main}
+
+\tikzstyle{Messy} = [decorate,decoration={random steps,segment length=3pt, amplitude=0.3pt}]
+\tikzstyle{NodeFont} = [font={\fontspec[Scale=1.5]{xkcd}}]
+\tikzstyle{HandTitle} = [font={\fontspec[Scale=1.5]{Sketch Block}}]
+\tikzstyle{TableFont} = [font={\fontspec[Scale=1]{FGAmura}}]
+
+\newcommand{\disc}[1]{
+\scalebox{#1}{
+\begin{tikzpicture}[anchor=center]
+	\draw (0cm,0cm) node[fill=blue!20,draw,circle,Messy,thick,font={\fontspec[Scale=2.5]{Sketch Block}}] (Score) {WQ};
+\draw[Messy,fill=black!20]  (180:1cm)-- (180:1.5cm) arc[radius=1.5, start angle=180, end angle=0] -- (0:1cm) arc[radius=1, start angle=0, end angle=180] (180:1cm);
+\path[HandTitle,postaction={decorate, decoration={text along path, text align={center},reverse path=false,text={|\bfseries\fontspec[Scale=0.9]{xkcd}|Nutrients}}}] (180:1.2cm)  arc[radius=1.2, start angle=180, end angle=0] (0:1.2cm);
+\draw[Messy,fill=black!20]  (180:1cm)-- (180:1.5cm) arc[radius=1.5, start angle=-180, end angle=0] -- (-0:1cm) arc[radius=1, start angle=0, end angle=-180] (180:1cm);
+\path[HandTitle,postaction={decorate, decoration={text along path, text align={center},reverse path=false,text={|\bfseries\fontspec[Scale=0.9]{xkcd}|Physico-chem}}}] (0:1.2cm)  arc[radius=1.2, start angle=0, end angle=-180] (-180:1.2cm);
+\end{tikzpicture}
+}
+}
+
+
+
+\begin{tikzpicture}
+\draw [anchor=west,thick] (0,0) node[NodeFont, draw,Messy,fill=white!20,thick] (Measure_Zone) {Measure};
+\draw [anchor=west,thick] ($(Measure_Zone.east) +(0.5cm,0cm)$) node[NodeFont, draw,Messy,fill=black!20,thick] (Subindicator_Zone) {Sub-indicator};
+\draw [anchor=west,thick] ($(Subindicator_Zone.east) +(3cm,0cm)$) node[NodeFont, draw,Messy,fill=blue!20,thick] (Indicator_Zone) {Indicator};
+
+\draw [anchor=north,thick] ($(Indicator_Zone.south) +(0cm,-4cm)$) node[NodeFont, draw,Messy,fill=blue!20,thick] (Indicator_Region) {Indicator};
+\draw [anchor=east,thick] ($(Indicator_Region.west) +(-3cm,-0cm)$) node[NodeFont, draw,Messy,fill=black!20,thick] (Subindicator_Region) {Sub-indicator};
+\draw [anchor=east,thick] ($(Subindicator_Region.west) +(-0.5cm,-0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (Measure_Region) {Measure};
+
+\draw [anchor=north,fill=blue!20,thick] ($(Indicator_Region.south) +(0cm,-4cm)$) node[NodeFont, draw,Messy,fill=blue!20,thick] (Indicator_WH) {Indicator};
+\draw [anchor=east,fill=black!20,thick] ($(Indicator_WH.west) +(-3cm,-0cm)$) node[NodeFont, draw,Messy,fill=black!20,thick] (Subindicator_WH) {Sub-indicator};
+\draw [anchor=east,fill=black!20,thick] ($(Subindicator_WH.west) +(-0.5cm,-0cm)$) node[NodeFont, draw,Messy,fill=white!20,thick] (Measure_WH) {Measure};
+
+\begin{pgfonlayer}{report}
+\path[draw,Messy,thick, fill=green!40, fill opacity=0.8] ($(Measure_Zone.north west) +(-0.3cm,0.3cm)$) --  ($(Indicator_Zone.north east) +(0.3cm,0.3cm)$) -- ($(Indicator_Zone.south east) +(0.3cm,-0.3cm)$) -- ($(Subindicator_Zone.south east) +(0.3cm,-0.3cm)$) -- ($(Subindicator_Region.north east) +(0.3cm,0.3cm)$) -- ($(Indicator_Region.north east) +(0.3cm,0.3cm)$) -- ($(Indicator_Region.south east) +(0.3cm,-0.3cm)$) -- ($(Subindicator_Region.south east) +(0.3cm,-0.3cm)$) -- ($(Subindicator_WH.north east) +(0.3cm,0.3cm)$) -- ($(Indicator_WH.north east) +(0.3cm,0.3cm)$) -- ($(Indicator_WH.south east) +(0.3cm,-0.3cm)$)  -- ($(Subindicator_WH.south west) +(-0.3cm,-0.3cm)$)  -- ($(Subindicator_Zone.south west) +(-0.3cm,-0.3cm)$)  -- ($(Measure_Zone.south west) +(-0.3cm,-0.3cm)$) -- ($(Measure_Zone.north west) +(-0.3cm,0.3cm)$);
+\end{pgfonlayer}
+
+\draw [->,Messy,very thick] (Measure_Zone) -- (Subindicator_Zone);
+\draw [->,Messy,very thick] (Subindicator_Zone) -- (Indicator_Zone);
+
+\draw [->,Messy,very thick] (Measure_Zone) -- (Measure_Region);
+\draw [->,Messy,very thick] (Subindicator_Zone) -- (Subindicator_Region);
+\draw [->,Messy,very thick] (Subindicator_Region) -- (Subindicator_WH);
+
+\draw [->,Messy,very thick] (Measure_Region) -- (Measure_WH);
+
+\draw [->,Messy,very thick] (Subindicator_Region) -- (Indicator_Region);
+\draw [->,Messy,very thick] (Subindicator_WH) -- (Indicator_WH);
+
+\node [anchor=east,HandTitle](ZoneTitle) at ($(Indicator_Zone.north east) +(0cm,0.7cm)$) {Zone};
+\node [anchor=east,HandTitle](RegionTitle) at ($(Indicator_Region.north east) +(0cm,0.7cm)$) {Region};
+\node [anchor=east,HandTitle](WH_Title) at ($(Indicator_WH.north east) +(0cm,0.7cm)$) {Whole Harbour};
+
+\node [draw,Messy,anchor=east] at ($(Indicator_WH.south east) +(0.4cm,-1.8cm)$) (IndicatorDiscs_WH){
+\disc{0.7}\\
+};
+\draw [->,Messy,thick] (Subindicator_WH) -- (IndicatorDiscs_WH);
+\draw [->,Messy,thick] (Indicator_WH) -- (IndicatorDiscs_WH);
+
+\begin{pgfonlayer}{level}
+\path[draw,Messy,thick,fill=red!05] ($(Measure_Zone.west |- ZoneTitle.north) +(-0.4cm,0.3cm)$) rectangle  ($(Indicator_Zone.south east) +(0.4cm,-0.4cm)$);
+\path[draw,Messy,thick,fill=red!10] ($(Measure_Region.west |- RegionTitle.north) +(-0.4cm,0.3cm)$) rectangle  ($(Indicator_Region.south east) +(0.4cm,-0.4cm)$);
+\path[draw,Messy,thick,fill=red!15] ($(Measure_WH.west |- WH_Title.north) +(-0.4cm,0.3cm)$) rectangle  ($(Indicator_WH.south east) +(0.4cm,-0.4cm)$);
+\end{pgfonlayer}
+
+\node [draw,Messy,anchor=east] at ($(Indicator_Zone.south east) +(0.4cm,-1.5cm)$) (IndicatorDiscs_Zone){
+\begin{tabular}{p{4cm}}
+\disc{0.25}\disc{0.25}\disc{0.25}\disc{0.25}\disc{0.25}\disc{0.25}\disc{0.25}\\
+\end{tabular}
+};
+
+\node [draw,Messy,anchor=east] at ($(Indicator_Region.south east) +(0.4cm,-1.5cm)$) (IndicatorDiscs_Region){
+\begin{tabular}{p{4cm}}
+\disc{0.35}\disc{0.35}\disc{0.35}\\
+\end{tabular}
+};
+
+\draw [->,Messy,thick] (Indicator_Zone) -- (IndicatorDiscs_Zone);
+\draw [->,Messy,thick] (Subindicator_Zone) -- (IndicatorDiscs_Zone);
+\draw [->,Messy,thick] (Indicator_Region) -- (IndicatorDiscs_Region);
+\draw [->,Messy,thick] (Subindicator_Region) -- (IndicatorDiscs_Region);
+
+
+
+\end{tikzpicture}
