@@ -67,6 +67,10 @@ jobs:
           sed -i 's/xkcdScript/xkcd/g' /usr/share/fonts/xkcd/xkcd-script.ttx
           ttx -o /usr/share/fonts/xkcd/xkcd-script.ttf /usr/share/fonts/xkcd/xkcd-script.ttx
           rm /usr/share/fonts/xkcd/xkcd-script.ttx
+          #ttx -o /usr/share/fonts/sketchblock/sketch-block.ttx /usr/share/fonts/sketchblock/sketch-block.ttf
+          #sed -i 's/freeversionSketchBlock-Bold/Sketch Block/g' /usr/share/fonts/sketchblock/sketch-block.ttx
+          #ttx -o /usr/share/fonts/sketchblock/sketch-block.ttf /usr/share/fonts/sketchblock/sketch-block.ttx
+          #rm /usr/share/fonts/sketchblock/sketch-block.ttx
 
       - name: Update font cache
         run: |

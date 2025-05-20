@@ -1936,5 +1936,105 @@ appropriate aggregation phase.
 
 ### Series of aggregations
 
+There will then be a series of tasks that perform each of the
+hierarchical bootstrapp aggregations outlined in @fig-hier.
 
 ## Stage 8 - Summaries
+
+This stage will generate a series of summary plots in the form of
+temporal trend plots and effects plots. At the end of this stage, the
+_Summaries_ page will be enabled for review.
+
+### Load the data
+
+This task will load the processed data.
+
+### Compile the scores
+
+During the hierarchical boostrapp aggregation process, each
+Measure/Space combination is stored as its own data artifact. The
+current task will read each of these in an compile them together into
+a single object.
+
+### Series of trend plots
+
+For each of the Measure/Space combinations, a temporal trend figure
+will be produced.
+
+### Calculate effects
+
+This task will loop through each Measure/Space combination and
+calculate the annual and quinquennial (half-decadal) changes.
+
+## Effects plots
+
+This task will generate effects plots for each Measure/Space/Change
+combination.
+
+
+# Application pages
+
+## Landing page {#sec-landing}
+
+{{< include ../md/settings.md >}}
+
+## Dashboard {#sec-dashboard}
+
+{{< include ../md/dashboard.md >}}
+
+## Data {#sec-data}
+
+The Data page comprises two panels or subpages accessable by tabs
+named "Raw data" and "Processed data" at the top of the page.
+
+::: {.callout-note}
+The contents of the Processed data subpage will not be revealed until
+the completion of Stage 3.
+:::
+
+### Raw data panel
+
+{{< include ../md/data_raw_instructions.md >}}
+
+### Processed data panel
+
+The Processed data panel displays the first 10 rows of the complete,
+compiled and processed data set. Descriptions of each field of these
+data are provided in the table below.
+
+::: {.callout-note}
+This panel will not become active until the completion of Stage 3.
+:::
+
+{{< include ../md/processed_data_instructions.md >}}
+
+Under the column (field) headings in the Processed data panel table,
+there are input boxes that act as filters. The data presented in the
+table will be refined to just those cases that match the input string
+as it is being typed. It is possible to engage with any or all of
+these filters to help refine the search.
+
+Under the table there is a **Download as csv** button. Via this
+button, you can download a comma separated text file version of the
+data in the table for further review in a spreadsheet of your choice.
+Once you click this button, you will be prompted to navigate to a
+suitable location to store the file.
+
+
+## QAQC
+
+The QAQC page comprises two panels or subpages accessable by tabs at
+the top of the page and named "Observations" and "Boxplots".
+
+### Observations
+
+{{< include ../md/qaqc_observations.md >}}
+
+### Boxplots
+
+{{< include ../md/qaqc_boxplots.md >}}
+
+## Summaries
+
+{{< include ../md/summaries.md >}}
+
