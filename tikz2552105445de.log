@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  19 MAY 2025 23:50
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  20 MAY 2025 00:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz269a2a36e800.tex
-(./tikz269a2a36e800.tex
+**tikz2552105445de.tex
+(./tikz2552105445de.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (/home/runner/.TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -497,8 +497,8 @@ Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/runner/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (./tikz269a2a36e800.aux (./preview.aux))
-\openout1 = `tikz269a2a36e800.aux'.
+) (./tikz2552105445de.aux (./preview.aux))
+\openout1 = `tikz2552105445de.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -616,48 +616,127 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \openout2 = `preview.aux'.
 
 No file preview.tex.
-(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.markings.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.markings.code.tex))
-\pgf@layerbox@level1=\box90
-\pgf@layerboxsaved@level1=\box91
-\pgf@layerbox@level2=\box92
-\pgf@layerboxsaved@level2=\box93
-Missing character: There is no ( ("28) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no u ("75) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no - ("2D) in font nullfont!
-Missing character: There is no b ("62) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no c ("63) in font nullfont!
-Missing character: There is no h ("68) in font nullfont!
-Missing character: There is no - ("2D) in font nullfont!
+(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.text.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.text.code.tex
+\pgf@lib@dec@text@box=\box90
+)
+\tikz@lib@dec@te@box=\box91
+)
+\pgf@layerbox@report=\box92
+\pgf@layerboxsaved@report=\box93
+\pgf@layerbox@level=\box94
+\pgf@layerboxsaved@level=\box95
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
+\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
+ []
+
+
+Package fontspec Info: 
+(fontspec)             xkcd scale = 1.
+
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "xkcd/BI" (it probably doesn't
+(fontspec)             exist).
+
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "xkcd/B" (it probably doesn't
+(fontspec)             exist).
+
+
+Package fontspec Info: 
+(fontspec)             Could not resolve font "xkcd/I" (it probably doesn't
+(fontspec)             exist).
+
+
+Package fontspec Info: 
+(fontspec)             xkcd scale = 1.
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'xkcd(0)' created for font 'xkcd' with
+(fontspec)             options [Scale=1].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[1]"xkcd/OT:language=dflt;"
+
+
+LaTeX Font Warning: Font shape `TU/xkcd(0)/bx/n' undefined
+(Font)              using `TU/xkcd(0)/m/n' instead on input line 56.
+
+LaTeX Font Info:    Font shape `TU/xkcd(0)/m/n' will be
+(Font)              scaled to size 9.0pt on input line 56.
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
+\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--108
+\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
+ []
+
+Missing character: There is no / ("2F) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no g ("67) in font nullfont!
 Missing character: There is no f ("66) in font nullfont!
-Missing character: There is no r ("72) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no / ("2F) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
 Missing character: There is no m ("6D) in font nullfont!
 Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no m ("6D) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no y ("79) in font nullfont!
+Missing character: There is no = ("3D) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no ( ("28) in font nullfont!
+Missing character: There is no x ("78) in font nullfont!
 Missing character: There is no ) ("29) in font nullfont!
-Missing character: There is no ; ("3B) in font nullfont!
+Missing character: There is no , ("2C) in font nullfont!
 
-Overfull \hbox (232.72842pt too wide) in paragraph at lines 487--488
+Overfull \hbox (16.79597pt too wide) in paragraph at lines 162--163
 [][] 
  []
 
 Preview: Tightpage -32891 -32891 32891 32891
-[1] (./tikz269a2a36e800.aux (./preview.aux))
+[1] (./tikz2552105445de.aux (./preview.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
  ) 
 Here is how much of TeX's memory you used:
- 29382 strings out of 472247
- 815726 string characters out of 5529522
- 1422916 words of memory out of 5000000
- 55445 multiletter control sequences out of 15000+600000
- 629381 words of font info for 56 fonts, out of 8000000 for 9000
+ 29564 strings out of 472247
+ 815580 string characters out of 5529522
+ 1394896 words of memory out of 5000000
+ 55617 multiletter control sequences out of 15000+600000
+ 629415 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,8n,107p,910b,996s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,11n,107p,910b,2397s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on tikz269a2a36e800.pdf (1 page).
+Output written on tikz2552105445de.pdf (1 page).
