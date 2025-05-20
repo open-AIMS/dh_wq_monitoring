@@ -41,7 +41,7 @@ jobs:
           wget https://www.wfonts.com/download/data/2016/06/30/fg-amura/fg-amura.zip
           mkdir -p /usr/share/fgamura
           unzip fg-amura.zip -d fg-amura
-          find fg-amura -name "*.ttf" -exec mv {} /usr/share/fonts/fg-amura/ \;
+          find fg-amura -name "*.ttf" -exec mv {} /usr/share/fonts/fgamura/ \;
           #mv gf-amura.ttf /usr/share/fgamura/
           fc-cache -fv
           fc-list
