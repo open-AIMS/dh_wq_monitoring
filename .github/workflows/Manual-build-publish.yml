@@ -38,9 +38,9 @@ jobs:
           find sketch-block -name "*.ttf" -exec mv {} /usr/share/fonts/sketchblock/ \;
           # mv Sketch-Block.ttf /usr/share/fonts/sketchblock/
           # Install FGAmura font
-          wget https://www.fontspace.com/download/fg-amura/12345
+          wget https://www.fontsaddict.com/font/download/fg-amura.ttf
           mkdir -p /usr/share/fgamura
-          mv FGAmura.ttf /usr/share/fgamura/
+          mv gf-amura.ttf /usr/share/fgamura/
           fc-cache -fv
           fc-list
           fc-list -v | grep -i archi
