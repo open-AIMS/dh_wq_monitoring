@@ -360,11 +360,11 @@ following files:
     most recent sampling year. Furthermore, many of the QAQC
     diagnostics pertain specifically to this focal year alone.
   - `method=`: indicates the index method to employ (see
-    @sec-index-methods for more information).
+    @sec-index-computation for more information).
   - `foldcap=`: indicates the value (on the fractional/fold scale) to
-    cap indices (see @sec-index-foldcap for more information)
+    cap indices (see @sec-index-computation for more information)
   - `tuning=`: indicates the tuning value used in specific index
-    calculations (see @sec-index-tuning for more information)
+    calculations (see @sec-index-computation for more information)
   - `size=`: indicates the number of bootstrapp aggregations to use
   - `seed`: indicates the random seed to use during any stoichastic
     process
@@ -401,7 +401,7 @@ is necessary to outline the major conceptual phases of the analyses.
 
 Water Quality indices (which are standardized measures of condition)
 are typically expressed relative to a guideline (see Appendix
-@sec:guidelines on page @sec:guidelines) or benchmark. Of the numerous
+@sec-guidelines) or benchmark. Of the numerous
 calculation methods available, those that take into account the
 distance from the guideline (i.e. incorporate
 _difference-to-reference_) rather than simply an indication of whether
@@ -488,15 +488,15 @@ over another is to take some representative longitudinal data and
 calculate indices based on the actual data as well as data that
 introduces progressively more noise.
 
-In the absence of longitudinal data, it is possible to compare final
-outcomes based on each indexing formulation. Appendix
-\ref{sec:indexMethods} on \pageref{sec:indexMethods} provides
-comparisons of three index formulations (Binary, fsMAMP: Fixed cap
-Scaled Modified Amplitude and lMAMP: Logistic Modified Amplitude) for
-a range of spatial and Measurement hierarchical levels. It is not
-possible to offer quantile based scaling for the Modified Amplitude
-methods as long-term quantiles associated with the guideline values
-are not available.
+<!-- In the absence of longitudinal data, it is possible to compare final -->
+<!-- outcomes based on each indexing formulation. Appendix -->
+<!-- \ref{sec:indexMethods} on \pageref{sec:indexMethods} provides -->
+<!-- comparisons of three index formulations (Binary, fsMAMP: Fixed cap -->
+<!-- Scaled Modified Amplitude and lMAMP: Logistic Modified Amplitude) for -->
+<!-- a range of spatial and Measurement hierarchical levels. It is not -->
+<!-- possible to offer quantile based scaling for the Modified Amplitude -->
+<!-- methods as long-term quantiles associated with the guideline values -->
+<!-- are not available. -->
 
 ```{r}
 #| label: index_method_functions
@@ -1077,6 +1077,8 @@ kable(tab, escape = TRUE)
 
 ```
 
+</div>
+
 ## Bootstrapping
 
 Bootstrapping is a statistical resampling method that involves
@@ -1460,7 +1462,7 @@ _Score_ distributions for each Measure-level/Spatial-level
 combination. The location and scale of each distribution can thus be
 described by its mean and variance. Mean _Score_ are then converted
 into a simple five-point alphanumeric _Grade_ scale (and associated
-colors) using a control chart (see Table @tab-control).
+colors) using a control chart (see Table @tbl-control).
 
 
 <div class="table-minimal">
@@ -1473,13 +1475,13 @@ colors) using a control chart (see Table @tab-control).
 | $\ge 0.25, <0.5$  | D     | Poor         |
 | $<0.25$           | E     | Very poor    |
 
-: Darwin Harbour Report Card Grade scale control chart.
+: Darwin Harbour Report Card Grade scale control chart {#tbl-control}
 
 </div>
 
 
 The control chart grade boundaries adopted for the current report
-(presented in @tab-control) are consistent with the Gladstone Healthy
+(presented in @tbl-control) are consistent with the Gladstone Healthy
 Harbour Partnership Report Card. Broadly, they represent two levels
 (Poor and Very Poor) under the Guideline values and three above
 (Satisfactory, Good and Very Good). The grade boundaries are usually
@@ -2038,3 +2040,20 @@ the top of the page and named "Observations" and "Boxplots".
 
 {{< include ../md/summaries.md >}}
 
+
+# Appendix
+
+## Guideline values {#sec-guidelines}
+
+```{r}
+#| label: guidelines
+#| results: markup
+#| eval: true
+#| echo: false
+#| cache: false
+library(tidyverse)
+library(knitr)
+
+gl <- read_csv("../parameters/water_quality_guidelines.csv")
+kable(gl)
+```
