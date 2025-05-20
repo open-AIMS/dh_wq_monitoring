@@ -1879,5 +1879,369 @@ appropriate aggregation phase.
 
 ### Series of aggregations
 
+There will then be a series of tasks that perform each of the
+hierarchical bootstrapp aggregations outlined in @fig-hier.
 
 ## Stage 8 - Summaries
+
+This stage will generate a series of summary plots in the form of
+temporal trend plots and effects plots. At the end of this stage, the
+_Summaries_ page will be enabled for review.
+
+### Load the data
+
+This task will load the processed data.
+
+### Compile the scores
+
+During the hierarchical boostrapp aggregation process, each
+Measure/Space combination is stored as its own data artifact. The
+current task will read each of these in an compile them together into
+a single object.
+
+### Series of trend plots
+
+For each of the Measure/Space combinations, a temporal trend figure
+will be produced.
+
+### Calculate effects
+
+This task will loop through each Measure/Space combination and
+calculate the annual and quinquennial (half-decadal) changes.
+
+## Effects plots
+
+This task will generate effects plots for each Measure/Space/Change
+combination.
+
+
+# Application pages
+
+## Landing page {#sec-landing}
+
+To run this tool, please adhere to the following steps:
+
+1. review the _Path Settings_ (specifically checking the **"Data input dir"**)
+   and ensuring that there is at least one data file listed in the box
+   under this setting
+2. review the _Run Settings_. In particular,
+   - consider whether you need to **Clear the previous data** -
+     clicking the button to do so. Clearing the previous data deletes
+     all cache and ensure that the analyses are performed fresh.
+     **This is recommended whenever the input data changes**. Not
+     clearing the previous data allows the user to skip directly to
+     later run stages if earlier stages have already been run.
+3. navigate the _Dashboard_ via the menu on the left sidebar
+
+In the _Run settings_ panel, there is a **Run in sequence** toggle. By
+default, this toggle is set to "Yes" which ensures that all stages
+must be run in sequence and the various pages will become active once
+the appropriate stages have been complete. Toggling this switch to
+"NO" will instantly make all side menus, pages and run buttons become
+available. The purpose of this is to allow the user to re-visit the
+outcomes of analyses without the need to completely re-run the entire
+analysis. This is particularly useful if the user is returning to the
+analyses at a later date.
+
+<div class="callout call-info"><h4>Note</h4> 
+Toggling the **Run in
+sequence** switch to "No" assumes that numerous artifacts (data saved throughtout the analysis process) are available and thus should only be considered after the analyses
+have been run through completely at some time.  Never toggle this switch straight after
+clicking the "Clear previous data" button. 
+</div>
+
+
+
+## Dashboard {#sec-dashboard}
+
+The analysis pipeline comprises numerous **Stages**, each of which is
+made up of several more specific **Tasks**. The individual Tasks
+represent an action performed in furtherance of the analysis and of
+which there are reportable diagnostics. For example, once the
+application loads, the first Stage of the pipeline is to prepare the
+environment. The first Task in this Stage is to load the necessary R
+packages used by the codebase. Whilst technically, this action
+consists of numerous R calls (one for each package that needs to be
+loaded), the block of actions are evaluated as a set.
+
+Initially, all upcoming tasks are reported as "pending" (<span
+class="fas fa-clock"></span>). As the pipeline progresses, each Task
+is evaluated and a status is returned as either "success" (<span
+class="fas fa-circle-check"></span>) or "failure" (<span class="fas
+fa-circle-xmark"></span>).
+
+The Stage that is currently (or most recently) being run will be
+expanded, whereas all other Stages will be collapsed (unless they
+contain errors). It is also possible to expand/collapse a Stage by
+double clicking on its title (or the small arrow symbol at the left
+side of the tree).
+
+As the pipeline progresses, Task logs are written to a log file and
+echoed to the **Logs** panel. Each row represents the returned status
+of a specific Task and are formatted as:
+
+- the time/date that the Task was evaluated
+- the Task status, which can be one of:
+  - `SUCCESS` the task succeeded
+  - `FAILURE` the task failed and should be investigated
+  - `WARNING` the task contained a warning - typically these can be
+    ignored as they are usually passed on from underlying routines and
+    are more targetted to developers than users.
+- the Stage followed by the Task name
+- in the case of errors and warnings, there will also be the error or
+  warning message passed on from the underlying routines. These can be
+  useful for helping to diagnose the source and cause of issues.
+  
+The Logs in the Log panel are presented in chronological order and
+will autoscroll such that the most recent log is at the bottom of the
+display. If the number of Log lines exceeds 10, a scroll bar will
+appear on the right side of the panel to help reviewing earlier Logs.
+
+<div class="callout call-info"><h4>Note</h4> 
+The Status and Logs are
+completely refreshed each time the application is restarted. 
+</div>
+
+The Progress panel also has a tab (called **Terminal-like**) which provides
+an alternative representation of the status and progress of the
+pipeline.
+
+<!-- Under the **Logs** panel, there is a **Model Logs** panel. This panel -->
+<!-- provides additional status and progress about the fitting and -->
+<!-- processing of individual statistical models. -->
+
+
+## Data {#sec-data}
+
+The Data page comprises two panels or subpages accessable by tabs
+named "Raw data" and "Processed data" at the top of the page.
+
+::: {.callout-note}
+The contents of the Processed data subpage will not be revealed until
+the completion of Stage 3.
+:::
+
+### Raw data panel
+
+The **Raw data** panel displays the input data and associated
+validation summaries (once the data have been loaded - that is, once
+Stage 2 has been complete). The table (main metadata table) above
+initially has a row for each of the input files.
+
+The title of each input file name is displayed in the first column
+(**File**). The size and file creation time in the next two columns
+(fields). The **Status** field indicates whether the data in the
+various files are considered valid (<span class="fas
+fa-circle-check"></span>) or not (<span class="fas
+fa-circle-xmark"></span>).
+
+Clicking anywhere in a row containing will select the row and once a
+row is selected, information in both the _Data_ and _Validation
+issues_ tabs will be populated.
+
+Initially, the _Instructions_ tab will be active and visible
+(providing these instructions).  The other two tabs are:
+
+- **Data**: provides a view of the data beyind the selected row in the
+  main metadata table and a mechanism to download those data. Only the
+  first 10 rows are displayed in the table, the others being
+  accessable via the controls under the table.
+
+  Note, all numerical values are displayed only to three decimal
+  places, yet the actual underlying data is full resolution.
+
+- **Validation issues**: highlights and displays a description any
+  validation issues associated with the selected row in the main
+  metadata table.
+
+  If there were no validation issues, this table will be empty.
+  Otherwise, the description field will indicate the nature of the
+  violation and in the case of issues with an individual record, the
+  offending row will be presented across the remaining cells in the
+  row. For more information about the validation tests, please refer
+  to the **Data requirements** box (to the right of this box in the
+  app).
+
+Underneath both the Data and Validation tables, there is a **Download
+as csv** button. Via this button, you can download a comma separated
+text file version of the data in the table for further review in a
+spreadsheet of your choice. Once you click this button, you will be
+prompted to navigate to a suitable location to store the file.
+
+
+
+### Processed data panel
+
+The Processed data panel displays the first 10 rows of the complete,
+compiled and processed data set. Descriptions of each field of these
+data are provided in the table below.
+
+::: {.callout-note}
+This panel will not become active until the completion of Stage 3.
+:::
+
+The **Processed data** panel displays the processed data. As part of
+the processing, the following new fields will be created:
+
+
+<div class="table-minimal">
+
+| Field              | Description                                                        |
+|--------------------|--------------------------------------------------------------------|
+| Source             | Source of samples (CFM or Discrete)                                |
+| Date               | Sample data                                                        |
+| Latidude           | Latitude of sample                                                 |
+| Longitude          | Longitude of sample                                                |
+| Focal_Year         | Year in which analyses are logged (typically the most recent year) |
+| Year               | Year of sample                                                     |
+| Measure            | Name of the Measure                                                |
+| Value              | Observed measure value                                             |
+| OldZone            | Old Zone name                                                      |
+| Region             | Darwin Harbour Region number                                       |
+| Zone               | Darwin Harbour Zone number                                         |
+| ZoneName           | Name of the Darwin Harbour Zone                                    |
+| HydstraName        | Name of the measure in hydstra                                     |
+| Conversion         | Unit conversion factor                                             |
+| UnitsLabel         | Name of the Measure including units                                |
+| Label              | Name of the Measure including units (in LaTeX format)              |
+| DirectionOfFailure | Direction of failure relative to guideline value                   |
+| GL                 | Water quality guideline value                                      |
+| RangeFrom          | Water quality guideline lower limit of range (for DO)              |
+| RangeTo            | Water quality guideline upper limit of range range (for DO)        |
+| DetectionLimit     | Limit of detection value                                           |
+| Flag               | Limit of detection flag (when limit of detection applied)          |
+| Component          | Highest level of measure hierarchy (always Environmental)          |
+| IndicatorGroup     | Next measure level (always Water Quality)                          |
+| Indicator          | Next measure level (always Water Quality)                          |
+| Subindicator       | Either Nutrients or Physico-chem                                   |
+
+: {tbl-colwidths="[20,80]"} 
+   
+</div>
+
+
+Under the column (field) headings in the Processed data panel table,
+there are input boxes that act as filters. The data presented in the
+table will be refined to just those cases that match the input string
+as it is being typed. It is possible to engage with any or all of
+these filters to help refine the search.
+
+Under the table there is a **Download as csv** button. Via this
+button, you can download a comma separated text file version of the
+data in the table for further review in a spreadsheet of your choice.
+Once you click this button, you will be prompted to navigate to a
+suitable location to store the file.
+
+
+## QAQC
+
+The QAQC page comprises two panels or subpages accessable by tabs at
+the top of the page and named "Observations" and "Boxplots".
+
+### Observations
+
+This page displays multi-panel figures depicting the observed data for
+a selected year conditional on Measures (columns) and Zones (rows).
+These figures at organised according to three _Source_ types (all, CFM
+and Discrete) and these are activated via three large tab buttons down
+the left side of the panel. The sampling year is selected via a
+dropdown box in a panel above the figures.
+
+The individual figures depict the observed Measures (columns) of all
+Water Quality data from each of eleven Zones (rows). The red vertical
+line indicates associated Water Quality Guideline value. The
+transparent red band indicates a range of values represented by half
+and twice the guideline value (equivalent to the Scaled Modified
+Amplitude index capping domain). The blue band represents the
+Guideline range for Dissolved Oxygen. Note, the y-axis only represents
+jittered and unordered space. temporal sampling design.
+
+
+### Boxplots
+
+This page displays multi-panel figures depicting boxplots for the observed data for
+a selected year conditional on Measures (columns) and Zones (x-axes).
+
+These figures at organised according to three types (all, timeseries
+and zones) and these are activated via three large tab buttons down
+the left side of the panel. The sampling year is selected via a
+dropdown box in a panel above the figures.
+
+- all: the figure depicts the boxplots of the observed Measures
+  (panels) of Water Quality data from each of eleven Zones (x-axes)
+  for each source. The horizontal dashed lines indicate the associated
+  Water Quality Guideline values.
+- timeseries: the figure depicts the boxplots of the
+  observed Measures (panels) of Water Quality data from each of the
+  eleven Zones (x-axes) across all sampling years. The horizontal dashed
+  lines indicate the associated Water Quality Guideline values.
+- zones: the figure depicts the boxplots of the observed Measures
+  (panels) of Water Quality data from selected zones for the selected
+  sampling year. The dropdown is used to select the zones. The
+  horizontal dashed lines indicate the associated Water Quality
+  Guideline values.
+
+
+## Summaries
+
+The Summaries page comprises a horizontal selector panel along with
+three three panels or subpages accessable by tabs at the tabs and
+named "Trends", "Annual effects" and "Contrast effects".
+
+Within the selector panel, there are a series of dropdown selection
+boxes for choosing between a set of candidates for each of the
+following:
+
+- Subindicator
+- Measure
+- Region
+- Zone
+- Source
+
+In each case, in addition to candidates created from the unique values
+observed in the data, there is also an "All" candidate. The All
+candidate represents the aggregation of the other candidates. For
+example, the All _Region_ candidate allows for the selection of the
+Whole of Harbour.  Similarly, the All candidate in
+the _Measures_ selector when the _Subindicator_ selector has the
+"Physico-chem" candidate selected indicates the aggregate of all
+Measures across Physico-chem.
+
+The selectors are linked such that selecting a candidate from one
+dropdown (e.g. _Region_) will determine what candidates are available
+in other selector dropdowns (e.g. _Zones_ and _Source_). By default,
+the All candidate is selected for all selectors. This equates to the
+Whole of Harbour Indicator scores (i.e. the highest level of
+aggregation).
+
+### Trends
+
+The trend plots display the temporal trend in indicator scores.
+Uncertainty (95% confidence intervals) in the scores are depicted by
+vertical whiskers and the open symbols are coloured according to the
+grade associated with the mean score. Dashed horizontal lines indicate
+the grade boundaries.
+
+### Annual effects
+
+The distribution of comparisons (absolute change in indicator score)
+of each sampling year to the previous sampling year are depicted by
+density plots with point and whiskers (mean and 95% confidence
+intervals) below. Exceedance probabilitys for increase ($P(\Delta>0)$)
+and decrease ($P(\Delta<0)$) are overlayed onto the density plots.
+Density distributions are coloured according to whether there is
+strong evidence for an increase (green) or decrease (red) or no
+evidence of change (gray).
+
+### Contrast effects
+
+The distribution of comparisons (absolute change in indicator score)
+of each half-decade to the previous half-decade are depicted by
+density plots with point and whiskers (mean and 95% confidence
+intervals) below. Exceedance probabilitys for increase ($P(\Delta>0)$)
+and decrease ($P(\Delta<0)$) are overlayed onto the density plots.
+Density distributions are coloured according to whether there is
+strong evidence for an increase (green) or decrease (red) or no
+evidence of change (gray).
+
+

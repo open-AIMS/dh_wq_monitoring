@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  20 MAY 2025 00:23
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  20 MAY 2025 02:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz2a6c46810738.tex
-(./tikz2a6c46810738.tex
+**tikz257d2ca29964.tex
+(./tikz257d2ca29964.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (/home/runner/.TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -497,8 +497,8 @@ Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/runner/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (./tikz2a6c46810738.aux (./preview.aux))
-\openout1 = `tikz2a6c46810738.aux'.
+) (./tikz257d2ca29964.aux (./preview.aux))
+\openout1 = `tikz257d2ca29964.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -627,10 +627,6 @@ No file preview.tex.
 \pgf@layerboxsaved@level=\box95
 
 Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
 (fontspec)             Could not resolve font "xkcd/BI" (it probably doesn't
 (fontspec)             exist).
 
@@ -646,100 +642,98 @@ Package fontspec Info:
 
 
 Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
 (fontspec)             Font family 'xkcd(0)' created for font 'xkcd' with
-(fontspec)             options [Scale=1.5].
+(fontspec)             options [Ligatures=TeX].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
 (fontspec)              
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->s*[1.5]"xkcd/OT:language=dflt;"
+(fontspec)             <->"xkcd/OT:language=dflt;mapping=tex-text;"
 
-LaTeX Font Info:    Font shape `TU/xkcd(0)/m/n' will be
-(Font)              scaled to size 15.0pt on input line 28.
+Missing character: There is no d ("64) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no w ("77) in font nullfont!
+Missing character: There is no [ ("5B) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no > ("3E) in font nullfont!
+Missing character: There is no , ("2C) in font nullfont!
+Missing character: There is no M ("4D) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no y ("79) in font nullfont!
+Missing character: There is no ] ("5D) in font nullfont!
+Missing character: There is no ( ("28) in font nullfont!
+Missing character: There is no S ("53) in font nullfont!
+Missing character: There is no 3 ("33) in font nullfont!
+Missing character: There is no | ("7C) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no G ("47) in font nullfont!
+Missing character: There is no L ("4C) in font nullfont!
+Missing character: There is no ) ("29) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no ( ("28) in font nullfont!
+Missing character: There is no S ("53) in font nullfont!
+Missing character: There is no 3 ("33) in font nullfont!
+Missing character: There is no ) ("29) in font nullfont!
+Missing character: There is no ; ("3B) in font nullfont!
+Missing character: There is no / ("2F) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no g ("67) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no / ("2F) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no m ("6D) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no m ("6D) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no y ("79) in font nullfont!
+Missing character: There is no = ("3D) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no ( ("28) in font nullfont!
+Missing character: There is no x ("78) in font nullfont!
+Missing character: There is no ) ("29) in font nullfont!
+Missing character: There is no , ("2C) in font nullfont!
 
-Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-
-Package fontspec Info: 
-(fontspec)             xkcd scale = 1.5.
-
-Missing character: There is no   (U+0020) in font [free version] Sketch Block Bold!
-Missing character: There is no   (U+0020) in font [free version] Sketch Block Bold/OT!
-
-Package fontspec Info: 
-(fontspec)             Sketch Block scale = 1.5.
-
-Missing character: There is no   (U+0020) in font [free version] Sketch Block Bold/OT:language=dflt;!
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "Sketch Block/BI" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "Sketch Block/B" (it probably
-(fontspec)             doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "Sketch Block/I" (it probably
-(fontspec)             doesn't exist).
-
-Missing character: There is no   (U+0020) in font [free version] Sketch Block Bold/OT:language=dflt;!
-
-Package fontspec Info: 
-(fontspec)             Sketch Block scale = 1.5.
-
-
-Package fontspec Info: 
-(fontspec)             Font family 'SketchBlock(0)' created for font 'Sketch
-(fontspec)             Block' with options [Scale=1.5].
-(fontspec)              
-(fontspec)              This font family consists of the following NFSS
-(fontspec)             series/shapes:
-(fontspec)              
-(fontspec)             - 'normal' (m/n) with NFSS spec.: <->s*[1.5]"Sketch
-(fontspec)             Block/OT:language=dflt;"
-
-LaTeX Font Info:    Font shape `TU/SketchBlock(0)/m/n' will be
-(Font)              scaled to size 15.0pt on input line 42.
-Missing character: There is no   (U+0020) in font [free version] Sketch Block Bold/OT:language=dflt;!
-
-Package fontspec Info: 
-(fontspec)             Sketch Block scale = 1.5.
+Underfull \hbox (badness 10000) in paragraph at lines 455--455
+\TU/xkcd(0)/m/n/9 CI=0.349,
+ []
 
 Preview: Tightpage -32891 -32891 32891 32891
-[1] (./tikz2a6c46810738.aux (./preview.aux))
+[1] (./tikz257d2ca29964.aux (./preview.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 28778 strings out of 472247
- 795904 string characters out of 5529522
- 1371094 words of memory out of 5000000
- 54837 multiletter control sequences out of 15000+600000
- 626921 words of font info for 52 fonts, out of 8000000 for 9000
+ 29474 strings out of 472247
+ 812737 string characters out of 5529522
+ 1675944 words of memory out of 5000000
+ 55534 multiletter control sequences out of 15000+600000
+ 627375 words of font info for 54 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,6n,107p,910b,1351s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,9n,107p,910b,3402s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on tikz2a6c46810738.pdf (1 page).
+Output written on tikz257d2ca29964.pdf (1 page).

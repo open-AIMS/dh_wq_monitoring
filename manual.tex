@@ -395,7 +395,7 @@ Windows.
       |- Middle_Harbour_Upper.*
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, breakable, bottomrule=.15mm, opacitybacktitle=0.6, arc=.35mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomtitle=1mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, titlerule=0mm, leftrule=.75mm, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, leftrule=.75mm, bottomrule=.15mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, arc=.35mm, colback=white, breakable, opacitybacktitle=0.6, coltitle=black, colframe=quarto-callout-note-color-frame, titlerule=0mm, toprule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, rightrule=.15mm]
 
 In the above illustration, there are two example water quality datasets
 (\texttt{16\_wq.csv} and \texttt{17\_wq.csv}). To ensure that the
@@ -453,7 +453,7 @@ project folder. Navigate to and select the project folder before
 clicking the ``OK'' button. Shortly thereafter, the application will
 appear in a browser tab.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, breakable, bottomrule=.15mm, opacitybacktitle=0.6, arc=.35mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{More specific information about the \texttt{deploy\_wq.bat} script}, bottomtitle=1mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, titlerule=0mm, leftrule=.75mm, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, leftrule=.75mm, bottomrule=.15mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, arc=.35mm, colback=white, breakable, opacitybacktitle=0.6, coltitle=black, colframe=quarto-callout-note-color-frame, titlerule=0mm, toprule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{More specific information about the \texttt{deploy\_wq.bat} script}, rightrule=.15mm]
 
 The \texttt{deploy\_wq.bat} script performs the following:
 
@@ -908,7 +908,7 @@ running of this app.}
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, breakable, bottomrule=.15mm, opacitybacktitle=0.6, arc=.35mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Prior to starting the application}, bottomtitle=1mm, toprule=.15mm, rightrule=.15mm, colframe=quarto-callout-note-color-frame, coltitle=black, titlerule=0mm, leftrule=.75mm, left=2mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, leftrule=.75mm, bottomrule=.15mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, arc=.35mm, colback=white, breakable, opacitybacktitle=0.6, coltitle=black, colframe=quarto-callout-note-color-frame, titlerule=0mm, toprule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Prior to starting the application}, rightrule=.15mm]
 
 Before starting the application, it is important that you review the
 following files:
@@ -2365,7 +2365,414 @@ these weights during the appropriate aggregation phase.
 
 \subsubsection{Series of aggregations}\label{series-of-aggregations}
 
+There will then be a series of tasks that perform each of the
+hierarchical bootstrapp aggregations outlined in Figure~\ref{fig-hier}.
+
 \subsection{Stage 8 - Summaries}\label{stage-8---summaries}
+
+This stage will generate a series of summary plots in the form of
+temporal trend plots and effects plots. At the end of this stage, the
+\emph{Summaries} page will be enabled for review.
+
+\subsubsection{Load the data}\label{load-the-data-1}
+
+This task will load the processed data.
+
+\subsubsection{Compile the scores}\label{compile-the-scores}
+
+During the hierarchical boostrapp aggregation process, each
+Measure/Space combination is stored as its own data artifact. The
+current task will read each of these in an compile them together into a
+single object.
+
+\subsubsection{Series of trend plots}\label{series-of-trend-plots}
+
+For each of the Measure/Space combinations, a temporal trend figure will
+be produced.
+
+\subsubsection{Calculate effects}\label{calculate-effects}
+
+This task will loop through each Measure/Space combination and calculate
+the annual and quinquennial (half-decadal) changes.
+
+\subsection{Effects plots}\label{effects-plots}
+
+This task will generate effects plots for each Measure/Space/Change
+combination.
+
+\section{Application pages}\label{application-pages}
+
+\subsection{Landing page}\label{sec-landing}
+
+To run this tool, please adhere to the following steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  review the \emph{Path Settings} (specifically checking the
+  \textbf{``Data input dir''}) and ensuring that there is at least one
+  data file listed in the box under this setting
+\item
+  review the \emph{Run Settings}. In particular,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    consider whether you need to \textbf{Clear the previous data} -
+    clicking the button to do so. Clearing the previous data deletes all
+    cache and ensure that the analyses are performed fresh. \textbf{This
+    is recommended whenever the input data changes}. Not clearing the
+    previous data allows the user to skip directly to later run stages
+    if earlier stages have already been run.
+  \end{itemize}
+\item
+  navigate the \emph{Dashboard} via the menu on the left sidebar
+\end{enumerate}
+
+In the \emph{Run settings} panel, there is a \textbf{Run in sequence}
+toggle. By default, this toggle is set to ``Yes'' which ensures that all
+stages must be run in sequence and the various pages will become active
+once the appropriate stages have been complete. Toggling this switch to
+``NO'' will instantly make all side menus, pages and run buttons become
+available. The purpose of this is to allow the user to re-visit the
+outcomes of analyses without the need to completely re-run the entire
+analysis. This is particularly useful if the user is returning to the
+analyses at a later date.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, colback=white, leftrule=.75mm, breakable, colframe=quarto-callout-color-frame, arc=.35mm, toprule=.15mm, opacityback=0, rightrule=.15mm, bottomrule=.15mm]
+
+Note
+
+Toggling the \textbf{Run in sequence} switch to ``No'' assumes that
+numerous artifacts (data saved throughtout the analysis process) are
+available and thus should only be considered after the analyses have
+been run through completely at some time. Never toggle this switch
+straight after clicking the ``Clear previous data'' button.
+
+\end{tcolorbox}
+
+\subsection{Dashboard}\label{sec-dashboard}
+
+The analysis pipeline comprises numerous \textbf{Stages}, each of which
+is made up of several more specific \textbf{Tasks}. The individual Tasks
+represent an action performed in furtherance of the analysis and of
+which there are reportable diagnostics. For example, once the
+application loads, the first Stage of the pipeline is to prepare the
+environment. The first Task in this Stage is to load the necessary R
+packages used by the codebase. Whilst technically, this action consists
+of numerous R calls (one for each package that needs to be loaded), the
+block of actions are evaluated as a set.
+
+Initially, all upcoming tasks are reported as ``pending'' ({}). As the
+pipeline progresses, each Task is evaluated and a status is returned as
+either ``success'' ({}) or ``failure'' ({}).
+
+The Stage that is currently (or most recently) being run will be
+expanded, whereas all other Stages will be collapsed (unless they
+contain errors). It is also possible to expand/collapse a Stage by
+double clicking on its title (or the small arrow symbol at the left side
+of the tree).
+
+As the pipeline progresses, Task logs are written to a log file and
+echoed to the \textbf{Logs} panel. Each row represents the returned
+status of a specific Task and are formatted as:
+
+\begin{itemize}
+\tightlist
+\item
+  the time/date that the Task was evaluated
+\item
+  the Task status, which can be one of:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{SUCCESS} the task succeeded
+  \item
+    \texttt{FAILURE} the task failed and should be investigated
+  \item
+    \texttt{WARNING} the task contained a warning - typically these can
+    be ignored as they are usually passed on from underlying routines
+    and are more targetted to developers than users.
+  \end{itemize}
+\item
+  the Stage followed by the Task name
+\item
+  in the case of errors and warnings, there will also be the error or
+  warning message passed on from the underlying routines. These can be
+  useful for helping to diagnose the source and cause of issues.
+\end{itemize}
+
+The Logs in the Log panel are presented in chronological order and will
+autoscroll such that the most recent log is at the bottom of the
+display. If the number of Log lines exceeds 10, a scroll bar will appear
+on the right side of the panel to help reviewing earlier Logs.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, colback=white, leftrule=.75mm, breakable, colframe=quarto-callout-color-frame, arc=.35mm, toprule=.15mm, opacityback=0, rightrule=.15mm, bottomrule=.15mm]
+
+Note
+
+The Status and Logs are completely refreshed each time the application
+is restarted.
+
+\end{tcolorbox}
+
+The Progress panel also has a tab (called \textbf{Terminal-like}) which
+provides an alternative representation of the status and progress of the
+pipeline.
+
+\subsection{Data}\label{sec-data}
+
+The Data page comprises two panels or subpages accessable by tabs named
+``Raw data'' and ``Processed data'' at the top of the page.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, leftrule=.75mm, bottomrule=.15mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, arc=.35mm, colback=white, breakable, opacitybacktitle=0.6, coltitle=black, colframe=quarto-callout-note-color-frame, titlerule=0mm, toprule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, rightrule=.15mm]
+
+The contents of the Processed data subpage will not be revealed until
+the completion of Stage 3.
+
+\end{tcolorbox}
+
+\subsubsection{Raw data panel}\label{raw-data-panel}
+
+The \textbf{Raw data} panel displays the input data and associated
+validation summaries (once the data have been loaded - that is, once
+Stage 2 has been complete). The table (main metadata table) above
+initially has a row for each of the input files.
+
+The title of each input file name is displayed in the first column
+(\textbf{File}). The size and file creation time in the next two columns
+(fields). The \textbf{Status} field indicates whether the data in the
+various files are considered valid ({}) or not ({}).
+
+Clicking anywhere in a row containing will select the row and once a row
+is selected, information in both the \emph{Data} and \emph{Validation
+issues} tabs will be populated.
+
+Initially, the \emph{Instructions} tab will be active and visible
+(providing these instructions). The other two tabs are:
+
+\begin{itemize}
+\item
+  \textbf{Data}: provides a view of the data beyind the selected row in
+  the main metadata table and a mechanism to download those data. Only
+  the first 10 rows are displayed in the table, the others being
+  accessable via the controls under the table.
+
+  Note, all numerical values are displayed only to three decimal places,
+  yet the actual underlying data is full resolution.
+\item
+  \textbf{Validation issues}: highlights and displays a description any
+  validation issues associated with the selected row in the main
+  metadata table.
+
+  If there were no validation issues, this table will be empty.
+  Otherwise, the description field will indicate the nature of the
+  violation and in the case of issues with an individual record, the
+  offending row will be presented across the remaining cells in the row.
+  For more information about the validation tests, please refer to the
+  \textbf{Data requirements} box (to the right of this box in the app).
+\end{itemize}
+
+Underneath both the Data and Validation tables, there is a
+\textbf{Download as csv} button. Via this button, you can download a
+comma separated text file version of the data in the table for further
+review in a spreadsheet of your choice. Once you click this button, you
+will be prompted to navigate to a suitable location to store the file.
+
+\subsubsection{Processed data panel}\label{processed-data-panel}
+
+The Processed data panel displays the first 10 rows of the complete,
+compiled and processed data set. Descriptions of each field of these
+data are provided in the table below.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, leftrule=.75mm, bottomrule=.15mm, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, arc=.35mm, colback=white, breakable, opacitybacktitle=0.6, coltitle=black, colframe=quarto-callout-note-color-frame, titlerule=0mm, toprule=.15mm, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, rightrule=.15mm]
+
+This panel will not become active until the completion of Stage 3.
+
+\end{tcolorbox}
+
+The \textbf{Processed data} panel displays the processed data. As part
+of the processing, the following new fields will be created:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Field
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Source & Source of samples (CFM or Discrete) \\
+Date & Sample data \\
+Latidude & Latitude of sample \\
+Longitude & Longitude of sample \\
+Focal\_Year & Year in which analyses are logged (typically the most
+recent year) \\
+Year & Year of sample \\
+Measure & Name of the Measure \\
+Value & Observed measure value \\
+OldZone & Old Zone name \\
+Region & Darwin Harbour Region number \\
+Zone & Darwin Harbour Zone number \\
+ZoneName & Name of the Darwin Harbour Zone \\
+HydstraName & Name of the measure in hydstra \\
+Conversion & Unit conversion factor \\
+UnitsLabel & Name of the Measure including units \\
+Label & Name of the Measure including units (in LaTeX format) \\
+DirectionOfFailure & Direction of failure relative to guideline value \\
+GL & Water quality guideline value \\
+RangeFrom & Water quality guideline lower limit of range (for DO) \\
+RangeTo & Water quality guideline upper limit of range range (for DO) \\
+DetectionLimit & Limit of detection value \\
+Flag & Limit of detection flag (when limit of detection applied) \\
+Component & Highest level of measure hierarchy (always Environmental) \\
+IndicatorGroup & Next measure level (always Water Quality) \\
+Indicator & Next measure level (always Water Quality) \\
+Subindicator & Either Nutrients or Physico-chem \\
+\end{longtable}
+
+Under the column (field) headings in the Processed data panel table,
+there are input boxes that act as filters. The data presented in the
+table will be refined to just those cases that match the input string as
+it is being typed. It is possible to engage with any or all of these
+filters to help refine the search.
+
+Under the table there is a \textbf{Download as csv} button. Via this
+button, you can download a comma separated text file version of the data
+in the table for further review in a spreadsheet of your choice. Once
+you click this button, you will be prompted to navigate to a suitable
+location to store the file.
+
+\subsection{QAQC}\label{qaqc}
+
+The QAQC page comprises two panels or subpages accessable by tabs at the
+top of the page and named ``Observations'' and ``Boxplots''.
+
+\subsubsection{Observations}\label{observations}
+
+This page displays multi-panel figures depicting the observed data for a
+selected year conditional on Measures (columns) and Zones (rows). These
+figures at organised according to three \emph{Source} types (all, CFM
+and Discrete) and these are activated via three large tab buttons down
+the left side of the panel. The sampling year is selected via a dropdown
+box in a panel above the figures.
+
+The individual figures depict the observed Measures (columns) of all
+Water Quality data from each of eleven Zones (rows). The red vertical
+line indicates associated Water Quality Guideline value. The transparent
+red band indicates a range of values represented by half and twice the
+guideline value (equivalent to the Scaled Modified Amplitude index
+capping domain). The blue band represents the Guideline range for
+Dissolved Oxygen. Note, the y-axis only represents jittered and
+unordered space. temporal sampling design.
+
+\subsubsection{Boxplots}\label{boxplots}
+
+This page displays multi-panel figures depicting boxplots for the
+observed data for a selected year conditional on Measures (columns) and
+Zones (x-axes).
+
+These figures at organised according to three types (all, timeseries and
+zones) and these are activated via three large tab buttons down the left
+side of the panel. The sampling year is selected via a dropdown box in a
+panel above the figures.
+
+\begin{itemize}
+\tightlist
+\item
+  all: the figure depicts the boxplots of the observed Measures (panels)
+  of Water Quality data from each of eleven Zones (x-axes) for each
+  source. The horizontal dashed lines indicate the associated Water
+  Quality Guideline values.
+\item
+  timeseries: the figure depicts the boxplots of the observed Measures
+  (panels) of Water Quality data from each of the eleven Zones (x-axes)
+  across all sampling years. The horizontal dashed lines indicate the
+  associated Water Quality Guideline values.
+\item
+  zones: the figure depicts the boxplots of the observed Measures
+  (panels) of Water Quality data from selected zones for the selected
+  sampling year. The dropdown is used to select the zones. The
+  horizontal dashed lines indicate the associated Water Quality
+  Guideline values.
+\end{itemize}
+
+\subsection{Summaries}\label{summaries}
+
+The Summaries page comprises a horizontal selector panel along with
+three three panels or subpages accessable by tabs at the tabs and named
+``Trends'', ``Annual effects'' and ``Contrast effects''.
+
+Within the selector panel, there are a series of dropdown selection
+boxes for choosing between a set of candidates for each of the
+following:
+
+\begin{itemize}
+\tightlist
+\item
+  Subindicator
+\item
+  Measure
+\item
+  Region
+\item
+  Zone
+\item
+  Source
+\end{itemize}
+
+In each case, in addition to candidates created from the unique values
+observed in the data, there is also an ``All'' candidate. The All
+candidate represents the aggregation of the other candidates. For
+example, the All \emph{Region} candidate allows for the selection of the
+Whole of Harbour. Similarly, the All candidate in the \emph{Measures}
+selector when the \emph{Subindicator} selector has the ``Physico-chem''
+candidate selected indicates the aggregate of all Measures across
+Physico-chem.
+
+The selectors are linked such that selecting a candidate from one
+dropdown (e.g.~\emph{Region}) will determine what candidates are
+available in other selector dropdowns (e.g.~\emph{Zones} and
+\emph{Source}). By default, the All candidate is selected for all
+selectors. This equates to the Whole of Harbour Indicator scores
+(i.e.~the highest level of aggregation).
+
+\subsubsection{Trends}\label{trends}
+
+The trend plots display the temporal trend in indicator scores.
+Uncertainty (95\% confidence intervals) in the scores are depicted by
+vertical whiskers and the open symbols are coloured according to the
+grade associated with the mean score. Dashed horizontal lines indicate
+the grade boundaries.
+
+\subsubsection{Annual effects}\label{annual-effects}
+
+The distribution of comparisons (absolute change in indicator score) of
+each sampling year to the previous sampling year are depicted by density
+plots with point and whiskers (mean and 95\% confidence intervals)
+below. Exceedance probabilitys for increase (\(P(\Delta>0)\)) and
+decrease (\(P(\Delta<0)\)) are overlayed onto the density plots. Density
+distributions are coloured according to whether there is strong evidence
+for an increase (green) or decrease (red) or no evidence of change
+(gray).
+
+\subsubsection{Contrast effects}\label{contrast-effects}
+
+The distribution of comparisons (absolute change in indicator score) of
+each half-decade to the previous half-decade are depicted by density
+plots with point and whiskers (mean and 95\% confidence intervals)
+below. Exceedance probabilitys for increase (\(P(\Delta>0)\)) and
+decrease (\(P(\Delta<0)\)) are overlayed onto the density plots. Density
+distributions are coloured according to whether there is strong evidence
+for an increase (green) or decrease (red) or no evidence of change
+(gray).
 
 
 
