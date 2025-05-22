@@ -1,0 +1,67 @@
+ZoneName,HydstraName,Conversion,Measure,UnitsLabel,Label,DirectionOfFailure,GL,RangeFrom,RangeTo,DetectionLimit
+Blackmore River,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+Blackmore River,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Blackmore River,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Blackmore River,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Blackmore River,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Blackmore River,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+East Arm,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+East Arm,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+East Arm,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+East Arm,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+East Arm,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+East Arm,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Elizabeth River,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+Elizabeth River,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Elizabeth River,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Elizabeth River,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Elizabeth River,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Elizabeth River,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+West Arm,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+West Arm,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+West Arm,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+West Arm,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+West Arm,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+West Arm,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Buffalo Creek,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+Buffalo Creek,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Buffalo Creek,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Buffalo Creek,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Buffalo Creek,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Buffalo Creek,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Myrmidon Creek,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+Myrmidon Creek,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Myrmidon Creek,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Myrmidon Creek,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Myrmidon Creek,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Myrmidon Creek,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Outer Harbour,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,1,NA,NA,0.1
+Outer Harbour,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Outer Harbour,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Outer Harbour,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Outer Harbour,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Outer Harbour,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,10,NA,NA,1
+Shoal Bay,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,1,NA,NA,0.1
+Shoal Bay,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Shoal Bay,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Shoal Bay,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Shoal Bay,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Shoal Bay,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,10,NA,NA,1
+Shoal Bay Upper,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,4,NA,NA,0.1
+Shoal Bay Upper,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Shoal Bay Upper,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Shoal Bay Upper,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Shoal Bay Upper,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,10,NA,NA,1
+Shoal Bay Upper,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Middle Harbour,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,2,NA,NA,0.1
+Middle Harbour,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Middle Harbour,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Middle Harbour,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Middle Harbour,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,5,NA,NA,1
+Middle Harbour,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
+Middle Harbour Upper,Chlorophyll-a (ug/L),1,Chla_mug_PER_L,Chlorophyll-a (µg/L),Chlorophyll-a~(mu*g/L),H,2,NA,NA,0.1
+Middle Harbour Upper,turbidity (NTU),1,Turbidity_NTU,Turbidity (NTU),Turbidity~(NTU),H,5,NA,NA,1
+Middle Harbour Upper,dissolved oxygen (%),1,DO_PERCENT_saturation,Dissolved Oxygen (% Saturation),Dissolved~Oxygen~('%'~Saturation),B,NA,80,100,0.1
+Middle Harbour Upper,Ammonia as N (mg/L),1000,NH3_mug_PER_L,Ammonia (µg/L),Ammonia~as~N~(mu*g/L),H,20,NA,NA,1
+Middle Harbour Upper,Reactive Phosphate (mg/L),1000,PO4_mug_PER_L,Filterable Reactive Phosphorus (µg/L),Filterable~Reactive~Phosphorus~(mu*g/L),H,5,NA,NA,1
+Middle Harbour Upper,NOx (mg/L),1000,Nox_mug_PER_L,NOx as N (µg/L),NOx~as~N~(mu*g/L),H,20,NA,NA,1
