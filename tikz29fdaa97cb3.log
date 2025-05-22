@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  20 MAY 2025 03:43
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.22)  22 MAY 2025 05:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz26083b6dbca2.tex
-(./tikz26083b6dbca2.tex
+**tikz29fdaa97cb3.tex
+(./tikz29fdaa97cb3.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (/home/runner/.TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -497,8 +497,8 @@ Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/runner/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (./tikz26083b6dbca2.aux (./preview.aux))
-\openout1 = `tikz26083b6dbca2.aux'.
+) (./tikz29fdaa97cb3.aux (./preview.aux))
+\openout1 = `tikz29fdaa97cb3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -616,133 +616,48 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \openout2 = `preview.aux'.
 
 No file preview.tex.
-(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.text.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.text.code.tex
-\pgf@lib@dec@text@box=\box90
-)
-\tikz@lib@dec@te@box=\box91
-) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryquotes.code.tex
-File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
+(/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.markings.code.tex (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.markings.code.tex))
+\pgf@layerbox@level1=\box90
+\pgf@layerboxsaved@level1=\box91
+\pgf@layerbox@level2=\box92
+\pgf@layerboxsaved@level2=\box93
+Missing character: There is no ( ("28) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no u ("75) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no b ("62) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no h ("68) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no f ("66) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no m ("6D) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no ) ("29) in font nullfont!
+Missing character: There is no ; ("3B) in font nullfont!
 
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/BI"
-(fontspec)             (it probably doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/B"
-(fontspec)             (it probably doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/I"
-(fontspec)             (it probably doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             Font family 'ArchitectsDaughter-Regular(0)' created for
-(fontspec)             font 'ArchitectsDaughter-Regular' with options
-(fontspec)             [Scale=1].
-(fontspec)              
-(fontspec)              This font family consists of the following NFSS
-(fontspec)             series/shapes:
-(fontspec)              
-(fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->s*[1]"ArchitectsDaughter-Regular/OT:language=dflt;"
-
-LaTeX Font Info:    Font shape `TU/ArchitectsDaughter-Regular(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 36.
-File: resources/R.png Graphic file (type bmp)
-<resources/R.png>
-File: resources/Shiny.png Graphic file (type bmp)
-<resources/Shiny.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/computer_9654401.png Graphic file (type bmp)
-<resources/computer_9654401.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/Docker-Symbol1.png Graphic file (type bmp)
-<resources/Docker-Symbol1.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/Packages-Symbol.png Graphic file (type bmp)
-<resources/Packages-Symbol.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/Actions-Symbol.png Graphic file (type bmp)
-<resources/Actions-Symbol.png>
-File: resources/Repo.png Graphic file (type bmp)
-<resources/Repo.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/Git_icon.svg.png Graphic file (type bmp)
-<resources/Git_icon.svg.png>
-File: resources/GitHub-Symbol.png Graphic file (type bmp)
-<resources/GitHub-Symbol.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-File: resources/computer_9654401.png Graphic file (type bmp)
-<resources/computer_9654401.png>
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             ArchitectsDaughter-Regular scale = 1.
-
-
-Overfull \hbox (160.445pt too wide) in paragraph at lines 225--226
+Overfull \hbox (232.72842pt too wide) in paragraph at lines 487--488
 [][] 
  []
 
 Preview: Tightpage -32891 -32891 32891 32891
-[1] (./tikz26083b6dbca2.aux (./preview.aux))
+[1] (./tikz29fdaa97cb3.aux (./preview.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 29487 strings out of 472247
- 812259 string characters out of 5529522
- 1485742 words of memory out of 5000000
- 55542 multiletter control sequences out of 15000+600000
- 626881 words of font info for 47 fonts, out of 8000000 for 9000
+ 29382 strings out of 472247
+ 815714 string characters out of 5529522
+ 1422913 words of memory out of 5000000
+ 55445 multiletter control sequences out of 15000+600000
+ 629381 words of font info for 56 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,15n,107p,910b,2607s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,8n,107p,909b,996s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on tikz26083b6dbca2.pdf (1 page).
+Output written on tikz29fdaa97cb3.pdf (1 page).

@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.19)  20 MAY 2025 03:43
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.5.22)  22 MAY 2025 05:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz26085ece25b7.tex
-(./tikz26085ece25b7.tex
+**tikz29fd6bbd1fc7.tex
+(./tikz29fd6bbd1fc7.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (/home/runner/.TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -497,8 +497,8 @@ Package: fontspec-xetex 2024/05/11 v2.9e Font selection for XeLaTeX and LuaLaTeX
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/runner/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (./tikz26085ece25b7.aux (./preview.aux))
-\openout1 = `tikz26085ece25b7.aux'.
+) (./tikz29fd6bbd1fc7.aux (./preview.aux))
+\openout1 = `tikz29fd6bbd1fc7.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -620,123 +620,129 @@ No file preview.tex.
 \pgf@lib@dec@text@box=\box90
 )
 \tikz@lib@dec@te@box=\box91
+) (/home/runner/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\pgf@layerbox@report=\box92
-\pgf@layerboxsaved@report=\box93
-\pgf@layerbox@level=\box94
-\pgf@layerboxsaved@level=\box95
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--54
-\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
- []
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
 
 
 Package fontspec Info: 
-(fontspec)             xkcd scale = 1.
+(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/BI"
+(fontspec)             (it probably doesn't exist).
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "xkcd/BI" (it probably doesn't
-(fontspec)             exist).
+(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/B"
+(fontspec)             (it probably doesn't exist).
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "xkcd/B" (it probably doesn't
-(fontspec)             exist).
+(fontspec)             Could not resolve font "ArchitectsDaughter-Regular/I"
+(fontspec)             (it probably doesn't exist).
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "xkcd/I" (it probably doesn't
-(fontspec)             exist).
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
 
 
 Package fontspec Info: 
-(fontspec)             xkcd scale = 1.
-
-
-Package fontspec Info: 
-(fontspec)             Font family 'xkcd(0)' created for font 'xkcd' with
-(fontspec)             options [Scale=1].
+(fontspec)             Font family 'ArchitectsDaughter-Regular(0)' created for
+(fontspec)             font 'ArchitectsDaughter-Regular' with options
+(fontspec)             [Scale=1].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
 (fontspec)              
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
-(fontspec)             <->s*[1]"xkcd/OT:language=dflt;"
+(fontspec)             <->s*[1]"ArchitectsDaughter-Regular/OT:language=dflt;"
+
+LaTeX Font Info:    Font shape `TU/ArchitectsDaughter-Regular(0)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 36.
+File: resources/R.png Graphic file (type bmp)
+<resources/R.png>
+File: resources/Shiny.png Graphic file (type bmp)
+<resources/Shiny.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
 
 
-LaTeX Font Warning: Font shape `TU/xkcd(0)/bx/n' undefined
-(Font)              using `TU/xkcd(0)/m/n' instead on input line 56.
-
-LaTeX Font Info:    Font shape `TU/xkcd(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 56.
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
-\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
- []
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--108
-\OML/cmm/m/it/9 CI \OT1/cmr/m/n/9 =
- []
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
 
-Missing character: There is no / ("2F) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no g ("67) in font nullfont!
-Missing character: There is no f ("66) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no l ("6C) in font nullfont!
-Missing character: There is no o ("6F) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no s ("73) in font nullfont!
-Missing character: There is no / ("2F) in font nullfont!
-Missing character: There is no s ("73) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no o ("6F) in font nullfont!
-Missing character: There is no i ("69) in font nullfont!
-Missing character: There is no n ("6E) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no m ("6D) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no a ("61) in font nullfont!
-Missing character: There is no i ("69) in font nullfont!
-Missing character: There is no f ("66) in font nullfont!
-Missing character: There is no e ("65) in font nullfont!
-Missing character: There is no m ("6D) in font nullfont!
-Missing character: There is no p ("70) in font nullfont!
-Missing character: There is no t ("74) in font nullfont!
-Missing character: There is no y ("79) in font nullfont!
-Missing character: There is no = ("3D) in font nullfont!
-Missing character: There is no f ("66) in font nullfont!
-Missing character: There is no ( ("28) in font nullfont!
-Missing character: There is no x ("78) in font nullfont!
-Missing character: There is no ) ("29) in font nullfont!
-Missing character: There is no , ("2C) in font nullfont!
+File: resources/computer_9654401.png Graphic file (type bmp)
+<resources/computer_9654401.png>
 
-Overfull \hbox (16.79597pt too wide) in paragraph at lines 162--163
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+File: resources/Docker-Symbol1.png Graphic file (type bmp)
+<resources/Docker-Symbol1.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+File: resources/Packages-Symbol.png Graphic file (type bmp)
+<resources/Packages-Symbol.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+File: resources/Actions-Symbol.png Graphic file (type bmp)
+<resources/Actions-Symbol.png>
+File: resources/Repo.png Graphic file (type bmp)
+<resources/Repo.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+File: resources/Git_icon.svg.png Graphic file (type bmp)
+<resources/Git_icon.svg.png>
+File: resources/GitHub-Symbol.png Graphic file (type bmp)
+<resources/GitHub-Symbol.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+File: resources/computer_9654401.png Graphic file (type bmp)
+<resources/computer_9654401.png>
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+
+Package fontspec Info: 
+(fontspec)             ArchitectsDaughter-Regular scale = 1.
+
+
+Overfull \hbox (160.445pt too wide) in paragraph at lines 225--226
 [][] 
  []
 
 Preview: Tightpage -32891 -32891 32891 32891
-[1] (./tikz26085ece25b7.aux (./preview.aux))
+[1] (./tikz29fd6bbd1fc7.aux (./preview.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
  ***********
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
  ) 
 Here is how much of TeX's memory you used:
- 29565 strings out of 472247
- 815601 string characters out of 5529522
- 1394907 words of memory out of 5000000
- 55618 multiletter control sequences out of 15000+600000
- 629415 words of font info for 60 fonts, out of 8000000 for 9000
+ 29488 strings out of 472247
+ 812287 string characters out of 5529522
+ 1486750 words of memory out of 5000000
+ 55543 multiletter control sequences out of 15000+600000
+ 626881 words of font info for 47 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,11n,107p,910b,2397s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,15n,107p,910b,2607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on tikz26085ece25b7.pdf (1 page).
+Output written on tikz29fd6bbd1fc7.pdf (1 page).
