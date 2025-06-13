@@ -22,6 +22,16 @@ module_load_data <- function() {
   wq <- read_input_data(input_path)
   saveRDS(wq, file = paste0(data_path, "primary/wq.rds"))
 
+  ## The config.ini file should like the focal_year
+  ## Ideally, this should be equal to the most recent year in the wq data
+  ## If it is not, overrite the focal_year setting and redo the paths
+  if (status::get_setting("focal_year") != as.character(max(sapply(wq, function(x) max(year(x$Date)))))) {
+     status::update_setting("focal_year", as.character(max(sapply(wq, function(x) max(year(x$Date)))))) 
+     define_paths()                                                       ## define the location of paths/files
+     invisible(prepare_paths())                                           ## prepare file structure
+  }
+
+  
   ## read in the overwrites data
   overwrites <- read_other_data(input_path, type = "overwrites.csv")
   saveRDS(overwrites, file = paste0(data_path, "primary/overwrites.rds"))
@@ -198,7 +208,7 @@ read_other_data <- function(input_path, type) {
     if (file.exists(input_file)) {
       data <- readr::read_csv(input_file, col_types = col_types)
     } else {
-      stop("No other input data found")
+      stop(paste(input_file, "not found"))
     }
   },
   stage_ = 2,

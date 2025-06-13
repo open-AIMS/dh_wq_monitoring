@@ -813,6 +813,9 @@ calculate_effects <- function(scores_files) {
                 yrs <- .x |>
                   pull(Year) |>
                   unique()
+                if (length(yrs) < 2) {
+                  return(NULL)
+                }
                 xmat <- make_contrast_matrix_annual(yrs)
                 effects <- .x |>
                   ungroup() |>
@@ -847,6 +850,9 @@ calculate_effects <- function(scores_files) {
           eff <- ..1 |>
             mutate(annual_effects_sum = map(annual_effects,
               .f = ~ {
+                if (is.null(.x)) {
+                  return(NULL)
+                }
                 .x |>
                   group_by(Year, contrast) |>
                   summarise(
@@ -885,6 +891,9 @@ calculate_effects <- function(scores_files) {
                 yrs <- .x |>
                   pull(Year) |>
                   unique()
+                if (length(yrs) < 6) {
+                  return(NULL)
+                }
                 xmat <- make_contrast_matrix_year_span(yrs, span = 5)
                 xmat_1 <- xmat_2 <- xmat
                 xmat_2[xmat_2 > 0] <- 0
@@ -919,6 +928,9 @@ calculate_effects <- function(scores_files) {
           eff <- ..1 |>
             mutate(period_effects_sum = map(period_effects,
               .f = ~ {
+                if (is.null(.x)) {
+                  return(NULL)
+                }
                 .x |>
                   group_by(contrast) |>
                   summarise(
@@ -1052,6 +1064,9 @@ generate_effects_plots <- function(effects, data) {
           effects_posteriors <- ..2
           file_str <- ..3
           title_label <- ..4
+          if (is.null(effects_sum)) {
+            return(NULL)
+          }
           effects_plot(effects_sum, effects_posteriors, file_str, title_label)
         }
       )) |> 
@@ -1062,6 +1077,9 @@ generate_effects_plots <- function(effects, data) {
           file_str <- ..2
           i <- ..3
           total <- ..4
+          if (is.null(g)) {
+            return(NULL)
+          }
           file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
           ggsave(
             filename = file_str,
@@ -1083,6 +1101,9 @@ generate_effects_plots <- function(effects, data) {
           effects_posteriors <- ..2
           file_str <- ..3
           title_label <- ..4
+          if (is.null(effects_sum)) {
+            return(NULL)
+          }
           effects_plot(effects_sum, effects_posteriors, file_str, title_label)
         }
       )) |> 
@@ -1094,6 +1115,9 @@ generate_effects_plots <- function(effects, data) {
           i <- ..3
           total <- ..4
           file_str <- paste0(output_path, "/figures/summaries/", file_str, ".png") 
+          if (is.null(g)) {
+            return(NULL)
+          }
           ggsave(
             filename = file_str,
             plot = g,
